@@ -1,2 +1,4 @@
 # Capstone
-Testing if git is working
+Todo
+- [ ] Generate Database
+- [ ] Check Database
