@@ -161,14 +161,13 @@
               </div>
 
               <div class="editform-modal-body">
-                <!-- This is the form contained inside the edit client modal -->
-              
                 
+              
               </div>
               
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary submitBtn" onclick="submitEditClientForm()">Submit</button>
+                <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#editClientModel" onclick="submitEditClientForm()">Submit</button>
               </div>
             </div>
           </div>

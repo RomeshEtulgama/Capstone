@@ -31,7 +31,6 @@ function submitAddClientForm(){
         sub_defaultproduct: defaultproduct,
         sub_remarks: remarks
       });
-      //$('#editClientModel').modal('toggle');
     }
 }
 
