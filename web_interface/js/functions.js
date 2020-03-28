@@ -31,6 +31,45 @@ function submitAddClientForm(){
         sub_defaultproduct: defaultproduct,
         sub_remarks: remarks
       });
+      //$('#editClientModel').modal('toggle');
+    }
+}
+
+function submitEditClientForm(){
+  var id = $('#edit_InputID').val();
+  var index = $('#edit_InputINDEX').val();
+  var name = $('#edit_InputNAME').val();
+  var address = $('#edit_InputADDRESS').val();
+  var nickname = $('#edit_InputNICKNAME').val();
+  var code = $('#edit_InputCODE').val();
+  var contact1 = $('#edit_InputCONTACT1').val();
+  var contact2 = $('#edit_InputCONTACT2').val();
+  var defaultproduct = $('#edit_InputPRODUCT').val();
+  var remarks = $('#edit_InputREMARKS').val();
+
+  if(name.trim() == '' ){
+        alert('Please enter client name.');
+        $('#edit_InputNAME').focus();
+        return false;
+    }else if(address.trim() == '' ){
+        alert('Please enter client address.');
+        $('#edit_InputADDRESS').focus();
+        return false;
+    } else {
+      
+      $.post("./functions.php", {
+        sub:"edit_client_form",
+        sub_id: id,
+        sub_index: index,
+        sub_name: name,
+        sub_address: address,
+        sub_nickname: nickname,
+        sub_code: code,
+        sub_contact1: contact1,
+        sub_contact2: contact2,
+        sub_defaultproduct: defaultproduct,
+        sub_remarks: remarks
+      });
       
     }
 }
@@ -83,7 +122,7 @@ $(document).ready(function(){
       //contentType: "text/plain",
       success: function(response) { //we got the response
           //alert('Successfully called');
-          $('.modal-body').html(response);
+          $('.editform-modal-body').html(response);
       },
       error: function(jqxhr, status, exception) {
           alert('Exception:', exception);

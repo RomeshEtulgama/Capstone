@@ -21,10 +21,10 @@
 	}
 
 	function test_input($data) {
-	$data = trim($data);
-	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
-	return $data;
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
 	}
 
 	function execute_sql($sql_query){
@@ -171,16 +171,29 @@
 		disconnect($conn);
 	}
 
-	function select_products(){
+	function select_products($full_mode = false){
 		$conn = connect();
 		// sql to select table
 		$sql = "SELECT id, Name FROM clients ORDER BY id ASC;";
 
 		$result = $conn->query($sql);
 
-		return $result;
+		if($full_mode == false){
+			return $result;
+		} else {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$option = "<option value=";
+				$option .= $row["id"]." ";
+				$option .= ">";
+				$option .= $row["Name"];
+				$option .= "</option>";
+				echo $option;
+			}
+		}
 
 		disconnect($conn);
+	
 	}
 
 
@@ -188,25 +201,6 @@
 		if(strlen($c_name) >= 5 ){
 			$sql = "call add_client('$c_index', '$c_name', '$c_address', '$c_nickname', '$c_code','$c_contact1', '$c_contact2', '$c_defaultproduct', '$c_remarks');";
 			execute_sql($sql);
-		}
-	}
-	
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		if(isset($_POST["sub"])){
-			if ($_POST["sub"] == "add_client_form") {
-				$index = $name = $address = $nickname = $code = $contact1 = $contact2 = $defaultproduct = $remarks = NULL;
-				$index = $_POST["sub_index"];
-				$name = $_POST["sub_name"];
-				$address = $_POST["sub_address"];
-				$nickname = $_POST["sub_nickname"];
-				$code = $_POST["sub_code"];
-				$contact1 = $_POST["sub_contact1"];
-				$contact2 = $_POST["sub_contact2"];
-				$defaultproduct = $_POST["sub_defaultproduct"];
-				$remarks = $_POST["sub_remarks"];
-				
-				add_client($index, $name, $address, $nickname, $code, $contact1, $contact2, $defaultproduct, $remarks);
-			}
 		}
 	}
 
@@ -230,10 +224,49 @@
 		execute_sql("call enable_client('" . $id . "');");
 	}
 
-	function edit_client($id){
+	function edit_client($c_id, $c_index, $c_name, $c_address, $c_nickname, $c_code, $c_contact1, $c_contact2, $c_defaultproduct, $c_remarks){
+		if(strlen($c_name) >= 5 ){
+			$sql = "call edit_client('$c_id', '$c_index', '$c_name', '$c_address', '$c_nickname', '$c_code','$c_contact1', '$c_contact2', '$c_defaultproduct', '$c_remarks');";
+			execute_sql($sql);
+		}
+	}	
+	
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if(isset($_POST["sub"])){
 
+			//	add client form
+			if ($_POST["sub"] == "add_client_form") {
+				$index = $name = $address = $nickname = $code = $contact1 = $contact2 = $defaultproduct = $remarks = NULL;
+				$index = $_POST["sub_index"];
+				$name = $_POST["sub_name"];
+				$address = $_POST["sub_address"];
+				$nickname = $_POST["sub_nickname"];
+				$code = $_POST["sub_code"];
+				$contact1 = $_POST["sub_contact1"];
+				$contact2 = $_POST["sub_contact2"];
+				$defaultproduct = $_POST["sub_defaultproduct"];
+				$remarks = $_POST["sub_remarks"];
+				
+				add_client($index, $name, $address, $nickname, $code, $contact1, $contact2, $defaultproduct, $remarks);
+			}
+
+			//	edit client form
+			if ($_POST["sub"] == "edit_client_form") {
+				$id = $index = $name = $address = $nickname = $code = $contact1 = $contact2 = $defaultproduct = $remarks = NULL;
+				$id = $_POST["sub_id"];
+				$index = $_POST["sub_index"];
+				$name = $_POST["sub_name"];
+				$address = $_POST["sub_address"];
+				$nickname = $_POST["sub_nickname"];
+				$code = $_POST["sub_code"];
+				$contact1 = $_POST["sub_contact1"];
+				$contact2 = $_POST["sub_contact2"];
+				$defaultproduct = $_POST["sub_defaultproduct"];
+				$remarks = $_POST["sub_remarks"];
+				
+				edit_client($id, $index, $name, $address, $nickname, $code, $contact1, $contact2, $defaultproduct, $remarks);
+			}
+		}
 	}
-
-
 
 ?>

@@ -92,7 +92,7 @@
             <h4>Active Clients</h4>
           
             <!-- search the table -->
-            <button type="button" class="btn btn-success col-sm-2" data-toggle="modal" data-target="#addClientModel">Add New</button>
+            <button type="button" class="btn btn-success col-sm-2" data-toggle="modal" data-target="#addClientModel">Add New Client</button>
 
             <input class="form-control col-sm-3" type="search" id="active_clients_filter_input" onkeyup="filter_table('active_clients_filter_input', 'active_clients_table', 4)" placeholder="Search for active clients" >
           </nav>
@@ -160,9 +160,9 @@
                 </button>
               </div>
 
-              <div class="modal-body">
+              <div class="editform-modal-body">
                 <!-- This is the form contained inside the edit client modal -->
-                
+              
                 
               </div>
               
@@ -191,7 +191,7 @@
                     <!-- INDEX -->
                     <div class="col-md-2 mb-3">
                       <label for="InputINDEX">Index</label>
-                      <input type="number" class="form-control" id="InputINDEX">
+                      <input type="number" class="form-control" id="InputINDEX" >
                     </div>
 
                     <!-- CODE -->
@@ -228,7 +228,7 @@
                     <div class="col-md-6 mb-3">
                       <label for="InputPRODUCT">Default Product</label>
                       <select class="custom-select is-invalid" id="InputPRODUCT">
-                        <?php select_products(); ?>
+                        <?php select_products(true); ?>
                       </select>
                     </div>
 

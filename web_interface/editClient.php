@@ -10,8 +10,6 @@
 	
 	if(isset($_POST["clientid"])){
 		$client_id = $_POST['clientid'];
-		echo "Client id set";
-		echo $client_id;
 		if($client_id > 0){
 			try{
 				include("functions.php");
@@ -21,7 +19,7 @@
 			}
 		}
 	}
-	
+	// 0815629992 //
 		$c_index = $client_data[0];
 		$c_name = $client_data[1];
 		$c_address = $client_data[2];
@@ -32,20 +30,26 @@
 		$c_defaultproduct = $client_data[7];
 		$c_remarks = $client_data[8];
 
-		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=".htmlspecialchars($_SERVER["PHP_SELF"])." id = \"edit_client_form\">";
+		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]) id = \"edit_client_form\">";
 
-			//	ID, INDEX, CODE
+			//	INDEX, CODE
 			$form .= "<div class=\"form-row\">";
 				
+				//	ID - hidden
+				$form .= "<div class=\"col-md-2 mb-3 d-none\">";
+					$form .= "<label for=\"edit_InputID\">ID</label>";
+					$form .= "<input type=\"number\" class=\"form-control\" id=\"edit_InputID\" value=".$client_id." disabled>";
+				$form .= "</div>";
+
 				//	INDEX
 				$form .= "<div class=\"col-md-2 mb-3\">";
-					$form .= "<label for=\"InputINDEX\">Index</label>";
-					$form .= "<input type=\"number\" class=\"form-control\" id=\"edit_InputINDEX\" value=".$c_index.">";
+					$form .= "<label for=\"edit_InputINDEX\">Index</label>";
+					$form .= "<input type=\"number\" class=\"form-control\" id=\"edit_InputINDEX\" value=".$c_index." disabled>";
 				$form .= "</div>";
 
 				//	CODE
 				$form .= "<div class=\"col-md-3 mb-3\">";
-					$form .= "<label for=\"InputCODE\">Code No</label>";
+					$form .= "<label for=\"edit_InputCODE\">Code No</label>";
 					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputCODE\" value=\"".$c_code."\">";
 				$form .= "</div>";
 
@@ -81,7 +85,7 @@
 				$form .= "<div class=\"col-md-6 mb-3\">";
 					$form .= "<label for=\"InputPRODUCT\">Default Product</label>";
 					$form .= "<select class=\"custom-select is-invalid\" id=\"edit_InputPRODUCT\">";
-					$result = select_products();
+					$result = select_products(false);
 					if ($result) {
 						// output data of each row
 						while($row = $result->fetch_assoc()) {
