@@ -178,14 +178,8 @@
 
 		$result = $conn->query($sql);
 
-		if ($result) {
-		    // output data of each row
-		    while($row = $result->fetch_assoc()) {
-		        echo "<option value=" .$row["id"]. ">" . $row["Name"]. "</option>";
-	    	}
-	    } else {
-		    echo "0 results";
-		}
+		return $result;
+
 		disconnect($conn);
 	}
 
@@ -196,7 +190,7 @@
 			execute_sql($sql);
 		}
 	}
-
+	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(isset($_POST["sub"])){
 			if ($_POST["sub"] == "add_client_form") {
@@ -217,12 +211,15 @@
 	}
 
 	function get_client($id){
-		$conn = connect();
-		$sql = "select * from `clients` where (id=".$id.");";
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		
-		return array($row["Index"], $row["Name"], $row["Address"], $row["Nickname"], $row["CodeNo"], $row["Contact1"], $row["Contact2"], $row["DefaultProduct"], $row["Remarks"], $row["Timestamp"], $row["enabled"]);
+		if($id != NULL){
+			$conn = connect();
+			$sql = "select * from `clients` where (id=".$id.");";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			disconnect($conn);
+			return array($row["Index"], $row["Name"], $row["Address"], $row["Nickname"], $row["CodeNo"], $row["Contact1"], $row["Contact2"], $row["DefaultProduct"], $row["Remarks"], $row["Timestamp"], $row["enabled"]);
+		//return $row["Name"];
+		}
 	}
 
 	function remove_client($id){

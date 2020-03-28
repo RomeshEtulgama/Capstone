@@ -62,30 +62,33 @@ function filter_table(userInput, filtering_table, num_of_columns ) {
   }
 }
 
+
 $(document).ready(function(){
   $('#editClientModel').on('show.bs.modal', function (event) {
 
-    alert('The modal is about to be shown.');
+    //alert('The modal is about to be shown.');
 
     var button = $(event.relatedTarget); // Button that triggered the modal
     var client_id = button.data('whatever'); // Extract info from data-* attributes
-
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     //var modal = $(this);
     //modal.find('#InputID').val(client_id);
 
-    //   // AJAX request
-    //  $.ajax({
-    //   url: './index.php',
-    //   type: 'post',
-    //   data: {"client_id": client_id},
-    //   success: function(){ 
-    //     // Add response in Modal body
-    //     //$('.modal-body').html(response);
-
-    //     // Display Modal
-    //    // $('#editClientModel').modal('show'); 
-    // }
+      // AJAX request
+    $.ajax({
+      url: './editClient.php',
+      type: 'POST',
+      data: {clientid: client_id},
+      //contentType: "text/plain",
+      success: function(response) { //we got the response
+          //alert('Successfully called');
+          $('.modal-body').html(response);
+      },
+      error: function(jqxhr, status, exception) {
+          alert('Exception:', exception);
+      }
+    });
+    //});
   });
 });

@@ -1,77 +1,128 @@
-<?php
-	<form class="was-validated m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id = "edit_client_form">
-		<div class="form-row">
+<?php 
+	
+	$client_id = $client_data = $c_index = $c_name = $c_address = $c_nickname = $c_code = $c_contact1 = $c_contact2 = $c_remarks = NULL;
+	$c_defaultproduct = 1;
+	
+	//var_dump($_GET);
+	//var_dump($_POST);
+	//var_dump($_REQUEST);
+	//var_dump($GLOBALS);
+	
+	if(isset($_POST["clientid"])){
+		$client_id = $_POST['clientid'];
+		echo "Client id set";
+		echo $client_id;
+		if($client_id > 0){
+			try{
+				include("functions.php");
+				$client_data = get_client($client_id);
+			} catch(Exception $e){
+				
+			}
+		}
+	}
+	
+		$c_index = $client_data[0];
+		$c_name = $client_data[1];
+		$c_address = $client_data[2];
+		$c_nickname = $client_data[3];
+		$c_code = $client_data[4];
+		$c_contact1 = $client_data[5];
+		$c_contact2 = $client_data[6];
+		$c_defaultproduct = $client_data[7];
+		$c_remarks = $client_data[8];
 
-			<!-- ID -->
-			<div>
-			  <label for="InputID">ID</label>
-			  <input type="number" class="form-control" id="InputID">
-			</div>
+		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=".htmlspecialchars($_SERVER["PHP_SELF"])." id = \"edit_client_form\">";
 
-			<!-- INDEX -->
-			<div class="col-md-2 mb-3">
-			  <label for="InputINDEX">Index</label>
-			  <input type="number" class="form-control" id="InputINDEX" value="0">
-			</div>
+			//	ID, INDEX, CODE
+			$form .= "<div class=\"form-row\">";
+				
+				//	INDEX
+				$form .= "<div class=\"col-md-2 mb-3\">";
+					$form .= "<label for=\"InputINDEX\">Index</label>";
+					$form .= "<input type=\"number\" class=\"form-control\" id=\"edit_InputINDEX\" value=".$c_index.">";
+				$form .= "</div>";
 
-			<!-- CODE -->
-			<div class="col-md-3 mb-3">
-			  <label for="InputCODE">Code No</label>
-			  <input type="text" class="form-control" id="InputCODE" value="<?php echo $client_data; ?>">
-			</div>
-		</div>
+				//	CODE
+				$form .= "<div class=\"col-md-3 mb-3\">";
+					$form .= "<label for=\"InputCODE\">Code No</label>";
+					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputCODE\" value=\"".$c_code."\">";
+				$form .= "</div>";
 
-		<div class="form-row">
+			$form .= "</div>";
 
-			<!-- NAME -->
-			<div class="col-md-4 mb-3">
-			  <label for="InputNAME">Name</label>
-			  <input type="text" class="form-control" id="InputNAME" placeholder="Mr. Romesh Bandara">
-			</div>
+			// NAME, ADDRESS, NICKNAME
+			$form .= "<div class=\"form-row\">";
 
-			<!-- ADDRESS -->
-			<div class="col-md-4 mb-3">
-			  <label for="InputADDRESS">Address</label>
-			  <input type="text" class="form-control" id="InputADDRESS" placeholder="Etulgama, Thalatuoya">
-			</div>
+				//	NAME
+				$form .= "<div class=\"col-md-4 mb-3\">";
+					$form .= "<label for=\"InputNAME\">Name</label>";
+					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputNAME\" placeholder=\"Mr. Romesh Bandara\" value=\"".$c_name."\">";
+				$form .= "</div>";
 
-			<!-- NICKNAME -->
-			<div class="col-md-4 mb-3">
-			  <label for="InputNICKNAME">Nickname</label>
-			  <input type="text" class="form-control" id="InputNICKNAME" placeholder="Etulgama Romesh">
-			</div>
-		</div>
+				// ADDRESS
+				$form .= "<div class=\"col-md-4 mb-3\">";
+					$form .= "<label for=\"InputADDRESS\">Address</label>";
+					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputADDRESS\" placeholder=\"Etulgama, Thalatuoya\" value=\"".$c_address."\">";
+				$form .= "</div>";
 
-		<div class="form-row">
+				// NICKNAME
+				$form .= "<div class=\"col-md-4 mb-3\">";
+					$form .= "<label for=\"InputNICKNAME\">Nickname</label>";
+					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputNICKNAME\" placeholder=\"Etulgama Romesh\" value=\"".$c_nickname."\">";
+				$form .= "</div>";
 
-			<!-- PRODUCT -->
-			<div class="col-md-6 mb-3">
-			  <label for="InputPRODUCT">Default Product</label>
-			  <select class="custom-select is-invalid" id="InputPRODUCT">
-			    <?php select_products(); ?>
-			  </select>
-			</div>
+			$form .= "</div>";
 
-			<!-- CONTACT1 -->
-			<div class="col-md-3 mb-3">
-			  <label for="InputCONTACT1">Contact 1</label>
-			  <input type="text" class="form-control" id="InputCONTACT1">
-			</div>
+			// PRODUCT, CONTACT1, CONTACT2
+			$form .= "<div class=\"form-row\">";
 
-			<!-- CONTACT2 -->
-			<div class="col-md-3 mb-3">
-			  <label for="InputCONTACT2">Contact 2</label>
-			  <input type="text" class="form-control" id="InputCONTACT2">
-			</div>       
-		</div>
+				//	PRODUCT
+				$form .= "<div class=\"col-md-6 mb-3\">";
+					$form .= "<label for=\"InputPRODUCT\">Default Product</label>";
+					$form .= "<select class=\"custom-select is-invalid\" id=\"edit_InputPRODUCT\">";
+					$result = select_products();
+					if ($result) {
+						// output data of each row
+						while($row = $result->fetch_assoc()) {
+							$form .= "<option value=";
+							$form .= $row["id"]." ";
+							if($row["id"] == $c_defaultproduct){
+								$form .= "selected = \"selected\"";
+							}
+							$form .= ">";
+							$form .= $row["Name"];
+							$form .= "</option>";
+						}
+					} else {
+						echo "0 results";
+					}				
 
-		<div class="form-row">
+					$form .= "</select>";
+				$form .= "</div>";
 
-			<!-- REMARKS -->
-			<div class="col-md-6 mb-3">
-			  <label for="InputREMARKS">Remarks</label>
-			  <textarea class="form-control" id="InputREMARKS" rows="3"></textarea>
-			</div>
-		</div>
-	</form>
+				//	CONTACT1
+				$form .= "<div class=\"col-md-3 mb-3\">";
+					$form .= "<label for=\"InputCONTACT1\">Contact 1</label>";
+					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputCONTACT1\" value=".$c_contact1.">";
+				$form .= "</div>";
+
+				//	CONTACT2
+				$form .= "<div class=\"col-md-3 mb-3\">";
+					$form .= "<label for=\"InputCONTACT2\">Contact 2</label>";
+					$form .= "<input type=\"text\" class=\"form-control\" id=\"edit_InputCONTACT2\" value=".$c_contact2.">";
+				$form .= "</div>";       
+			$form .= "</div>";
+
+			//	REMARKS
+			$form .= "<div class=\"form-row\">";
+				$form .= "<div class=\"col-md-6 mb-3\">";
+				$form .= "<label for=\"InputREMARKS\">Remarks</label>";
+				$form .= "<textarea class=\"form-control\" id=\"edit_InputREMARKS\" rows=\"3\">".$c_remarks."</textarea>";
+				$form .= "</div>";
+			$form .= "</div>";
+		$form .= "</form>";
+		
+		echo $form;
+		exit;
 ?>
