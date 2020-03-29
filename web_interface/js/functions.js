@@ -1,3 +1,5 @@
+// Client
+
 function submitAddClientForm(){
   var index = $('#InputINDEX').val();
   var name = $('#InputNAME').val();
@@ -70,6 +72,37 @@ function submitEditClientForm(){
         sub_remarks: remarks
       });
       
+    }
+}
+
+// Products
+
+function submitAddProductForm(){
+  var index = $('#productInputINDEX').val();
+  var name = $('#productInputNAME').val();
+  var description = $('#productInputDESCRIPTION').val();
+  var unitprice = $('#productInputUNITPRICE').val();
+  var remarks = $('#productInputREMARKS').val();
+  var clients = $('#productSelectCLIENTS').val();
+
+  if(name.trim() == '' ){
+        alert('Please enter product name.');
+        $('#productInputINDEX').focus();
+        return false;
+    }else if(description.trim() == '' ){
+        alert('Please enter description address.');
+        $('#productInputDESCRIPTION').focus();
+        return false;
+    } else {
+      $.post("./functions.php", {
+        sub:"add_product_form",
+        sub_index: index,
+        sub_name: name,
+        sub_description: description,
+        sub_unitprice: unitprice,
+        sub_remarks: remarks,
+        sub_clients: clients
+      });
     }
 }
 
