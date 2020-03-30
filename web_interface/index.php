@@ -37,6 +37,10 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
+      <!-- BOOTSTRAP DATA TABLES PLUGIN -->
+      <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" /> -->
+      
+
 
       <?php include('functions.php'); ?>
 
@@ -68,6 +72,7 @@
       </nav>
 
       <div data-spy="scroll" data-target="#capstone-nav" data-offset="0">
+
         <div class="container"  id="Clients_area">
 
           <div class="starter-template">
@@ -293,7 +298,7 @@
               <input class="form-control col-sm-3" type="search" id="products_filter_input" onkeyup="filter_table('products_filter_input', 'products_table', 5)" placeholder="Search for products" >
             </nav>
 
-            <!-- Table -->
+            <!-- Products Table -->
             <table class="table table-hover table-dark table-sm" id="products_table">
               <?php view_products(); ?>
             </table>
@@ -405,6 +410,10 @@
           </div>
 
         </div>
+
+
+
+        
       </div>
 
       <!-- Bootstrap core JavaScript
@@ -415,6 +424,10 @@
       <script src="./index_files/bootstrap.min.js.download"></script>
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
       <script src="./index_files/ie10-viewport-bug-workaround.js.download"></script>
-    
+
+      <!-- BOOTSTRAP DATATABLES  -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+      <script type="text/javascript" src="./js/dataTables.js"></script>
   </body>
 </html>

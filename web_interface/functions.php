@@ -243,14 +243,14 @@
 		$result = $conn->query($sql);
 
 		if ($result) {
-			echo "<tr>
+			echo "<thead><tr>
 						<th class=\"text-center\">Index</th>
 						<th>Name</th>
 						<th>Description</th>
 						<th>Unit Price (LKR)</th>
 						<th>Remarks</th>
 						<th>Actions</th>
-					</tr>";
+					</tr></thead>";
 		    // output data of each row
 		    while($row = $result->fetch_assoc()) {
 		        echo "<tr>
