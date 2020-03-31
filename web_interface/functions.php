@@ -49,7 +49,7 @@
 		$result = $conn->query($sql);
 
 		if ($result) {
-			echo "<tr>
+			echo "<thead><tr>
 						<th>id</th>
 						<th>Index</th>
 						<th>Name</th>
@@ -62,7 +62,7 @@
 						<th>Remarks</th>
 						<th>Timestamp</th>
 						<th>Enabled</th>
-					</tr>";
+					</tr></thead>";
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
 				echo "<tr>
@@ -94,8 +94,8 @@
 		$result = $conn->query($sql);
 
 		if ($result) {
-			echo "<tr>
-						<th class=\"text-center\">Index</th>
+			echo "<thead><tr>
+						<th class=\"text-center\">ID</th>
 						<th>Name</th>
 						<th>Address</th>
 						<th>Nickname</th>
@@ -104,8 +104,8 @@
 						<th>Contact2</th>
 						<th>DefaultProduct</th>
 						<th>Remarks</th>
-						<th>Actions</th>
-					</tr>";
+						<th class=\"text-center\">Actions</th>
+					</tr></thead>";
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
 				echo "<tr>
@@ -118,7 +118,7 @@
 						<td>" . $row["Contact2"]. "</td>
 						<td>" . $row["DefaultProduct"]. "</td>
 						<td>" . $row["Remarks"]. "</td>
-						<td>
+						<td class=\"text-center\">
 							<form method=\"post\">
 								<button type=\"submit\" class=\"btn btn-danger btn-sm\" name=\"delete".$row["id"]. "\">Delete
 								</button>
@@ -244,12 +244,12 @@
 
 		if ($result) {
 			echo "<thead><tr>
-						<th class=\"text-center\">Index</th>
+						<th class=\"text-center\">ID</th>
 						<th>Name</th>
 						<th>Description</th>
-						<th>Unit Price (LKR)</th>
+						<th class=\"text-center\">Unit Price (LKR)</th>
 						<th>Remarks</th>
-						<th>Actions</th>
+						<th class=\"text-center\">Actions</th>
 					</tr></thead>";
 		    // output data of each row
 		    while($row = $result->fetch_assoc()) {
@@ -257,9 +257,9 @@
 		        		<td class=\"text-center\">" . $row["Index"]. "</td>
 		        		<td>" . $row["Name"]. "</td>
 		        		<td>" . $row["Description"]. "</td>
-		        		<td>" . $row["UnitPrice"]. "</td>
+		        		<td class=\"text-right\" style=\"padding-right :5%\">" . $row["UnitPrice"]. "</td>
 		        		<td>" . $row["Remarks"]. "</td>
-		        		<td>
+		        		<td class=\"text-center\">
 		        			<form method=\"post\">
 			        			<button type=\"submit\" class=\"btn btn-danger btn-sm\" name=\"delete_product".$row["id"]. "\">Delete
 								</button>

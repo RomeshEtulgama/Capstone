@@ -71,6 +71,8 @@ function submitEditClientForm(){
         sub_defaultproduct: defaultproduct,
         sub_remarks: remarks
       });
+
+      $("#active_clients_table").ajax.reload();
       
     }
 }
@@ -164,6 +166,14 @@ $(document).ready(function(){
   });
 
   $('#products_table').DataTable({
+    "searching" : false
+  });
+
+  $('#clients_table').DataTable({
+    "searching" : false
+  });
+
+  $('#active_clients_table').DataTable({
     "searching" : false
   });
 });

@@ -1101,7 +1101,7 @@
         for (var b = a.oClasses, c = a.sTableId, d = a.aLengthMenu, e = h.isArray(d[0]), f = e ? d[0] : d, d = e ? d[1] : d, e = h("<select/>", {
                 name: c + "_length",
                 "aria-controls": c,
-                "class": b.sLengthSelect
+                "class": b.sLengthSelect + "btn btn-secondary dropdown-toggle btn-sm",
             }), g = 0, j = f.length; g < j; g++) e[0][g] =
             new Option("number" === typeof d[g] ? a.fnFormatNumber(d[g]) : d[g], f[g]);
         var i = h("<div><label/></div>").addClass(b.sLength);
@@ -3299,19 +3299,19 @@
                 sPrevious: "Previous"
             },
             sEmptyTable: "No data available in table",
-            sInfo: "Showing _START_ to _END_ of _TOTAL_ products",
+            sInfo: "Showing _START_ to _END_ of _TOTAL_ entries",
             sInfoEmpty: "Showing 0 to 0 of 0 entries",
-            sInfoFiltered: "(filtered from _MAX_ total products)",
+            sInfoFiltered: "(filtered from _MAX_ total entries)",
             sInfoPostFix: "",
             sDecimal: "",
             sThousands: ",",
-            sLengthMenu: "Show _MENU_ products",
+            sLengthMenu: "Show _MENU_ entries",
             sLoadingRecords: "Loading...",
             sProcessing: "Processing...",
             sSearch: "Search:",
             sSearchPlaceholder: "",
             sUrl: "",
-            sZeroRecords: "No matching products found"
+            sZeroRecords: "No matching entries found"
         },
         oSearch: h.extend({}, m.models.oSearch),
         sAjaxDataProp: "data",

@@ -36,6 +36,10 @@ table.dataTable thead .sorting_desc {
     background-image: url("../images/sort_desc.png");
 }
 
+.table-small-text {
+    font-size: 14px;
+}
+
 /* table.dataTable thead .sorting_asc_disabled {
     background-image: url("../images/sort_asc_disabled.png");
 }
@@ -314,6 +318,41 @@ table.dataTable tbody th.dt-body-nowrap, table.dataTable tbody td.dt-body-nowrap
 .dataTables_info {
     color: #ffffff;
 }
+
+a.page-link {
+    background: #16191b;
+    color: rgb(173, 171, 171);
+    border: none;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #ffffff;
+    background-color: #21272b;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    font-weight: bold;
+    background-color: #091114 !Important;
+}
+
+.page-item.disabled .page-link {
+    background: #28303a;
+    color: rgb(173, 171, 171);
+    border-color : #343a40;
+}
+
+.dataTables_length {
+    color: white;
+    margin-left: 1em;
+}
+
 /* .dataTables_wrapper .dataTables_scroll {
     clear: both;
 }
@@ -347,6 +386,7 @@ table.dataTable tbody th.dt-body-nowrap, table.dataTable tbody td.dt-body-nowrap
     .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center;
+    }
 }
 /* .dataTables_wrapper .dataTables_paginate {
     margin-top: 0.5em;

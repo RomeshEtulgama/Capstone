@@ -90,7 +90,7 @@
             </nav>
 
             <!-- Table -->
-            <table class="table table-hover table-dark table-sm" id="clients_table">
+            <table class="table table-hover table-dark table-sm table-small-text" id="clients_table">
               <?php display_clients_table(); ?>
             </table>
           </div>
@@ -108,7 +108,7 @@
             </nav>
 
             <!-- Table -->
-            <table class="table table-hover table-dark table-sm" id="active_clients_table">
+            <table class="table table-hover table-dark table-sm table-small-text" id="active_clients_table">
               <?php view_clients(); ?>
             </table>
 
@@ -299,7 +299,7 @@
             </nav>
 
             <!-- Products Table -->
-            <table class="table table-hover table-dark table-sm" id="products_table">
+            <table class="table table-hover table-dark table-sm table-small-text" id="products_table">
               <?php view_products(); ?>
             </table>
 
