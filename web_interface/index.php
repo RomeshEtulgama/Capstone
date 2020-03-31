@@ -426,7 +426,7 @@
       <script src="./index_files/ie10-viewport-bug-workaround.js.download"></script>
 
       <!-- BOOTSTRAP DATATABLES  -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <!-- BUG --><!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
       <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
       <script type="text/javascript" src="./js/dataTables.js"></script>
   </body>
