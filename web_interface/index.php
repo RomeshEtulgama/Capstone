@@ -109,9 +109,9 @@
 
             <!-- Table -->
             <table class="table table-hover table-dark table-sm table-small-text" id="active_clients_table">
-              <?php view_clients(); ?>
+              
             </table>
-
+            <script>Populate_table("active_clients_table");</script>
           </div>
         
           <!-- Enable Client -->

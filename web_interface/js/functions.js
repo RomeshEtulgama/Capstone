@@ -70,10 +70,7 @@ function submitEditClientForm(){
         sub_contact2: contact2,
         sub_defaultproduct: defaultproduct,
         sub_remarks: remarks
-      });
-
-      $("#active_clients_table").ajax.reload();
-      
+      });      
     }
 }
 
@@ -135,6 +132,18 @@ function filter_table(userInput, filtering_table, num_of_columns ) {
   }
 }
 
+// Populate a table using ajax
+function Populate_table(str) {
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(str).innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "functions.php?q="+str, true);
+        xmlhttp.send();
+}
+
 
 $(document).ready(function(){
   $('#editClientModel').on('show.bs.modal', function (event) {
@@ -163,6 +172,14 @@ $(document).ready(function(){
       }
     });
     //});
+  });
+
+  $('#editClientModel').on('hidden.bs.modal', function (event) {
+    Populate_table("active_clients_table");
+  });
+
+  $('#addClientModel').on('hidden.bs.modal', function (event) {
+    Populate_table("active_clients_table");
   });
 
   $('#products_table').DataTable({

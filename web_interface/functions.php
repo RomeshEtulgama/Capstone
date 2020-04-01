@@ -93,8 +93,10 @@
 
 		$result = $conn->query($sql);
 
+		$table_data = "";
+
 		if ($result) {
-			echo "<thead><tr>
+			$table_data .= "<thead><tr>
 						<th class=\"text-center\">ID</th>
 						<th>Name</th>
 						<th>Address</th>
@@ -108,7 +110,7 @@
 					</tr></thead>";
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
-				echo "<tr>
+				$table_data .= "<tr>
 						<td class=\"text-center\">" . $row["Index"]. "</td>
 						<td>" . $row["Name"]. "</td>
 						<td>" . $row["Address"]. "</td>
@@ -132,6 +134,7 @@
 					remove_client($row["id"]) ; 
 				}
 			}
+			return $table_data;
 		} else {
 			echo "0 results";
 		}
@@ -384,6 +387,17 @@
 				add_product($index, $name, $description, $unitprice, $remarks, $clients);
 			}
 		}
+	}
+
+	if ($_SERVER["REQUEST_METHOD"] == "GET"){
+		if(isset($_REQUEST["q"])){
+			$populate_request = $_REQUEST["q"];
+			$table_data = "";
+			if($populate_request == "active_clients_table"){
+				$table_data = view_clients();
+				echo $table_data === "" ? "Error" : $table_data;
+			}
+		}	
 	}
 
 	function remove_product($id){
