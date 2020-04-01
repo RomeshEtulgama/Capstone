@@ -272,6 +272,30 @@
             </div>
           </div>
 
+          <!-- Delete Client Confirmation Model -->
+          <div class="modal fade" id="deleteClientModel" tabindex="-1" role="dialog" aria-labelledby="deleteClientModelLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content bg-dark text-white">
+                <div class="modal-header" style="border-bottom : 1px solid #495057">
+                  <h5 class="modal-title" id="deleteClientModelLabel">Delete Client</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body delete-client-modal-body">
+                  
+                
+                </div>
+                
+                <div class="modal-footer delete-client-modal-footer" style="border-top : 1px solid #495057">
+                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModel" onclick="deleteClient()">Yes</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Used for navigating to this product area -->

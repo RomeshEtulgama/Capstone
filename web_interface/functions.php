@@ -122,7 +122,8 @@
 						<td>" . $row["Remarks"]. "</td>
 						<td class=\"text-center\">
 							<form method=\"post\">
-								<button type=\"submit\" class=\"btn btn-danger btn-sm\" name=\"delete".$row["id"]. "\">Delete
+								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteClientModel\" 
+								data-whatever=\"".$row["id"]."\">Delete
 								</button>
 								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit\" data-toggle=\"modal\" data-target=\"#editClientModel\" 
 								data-whatever=\"".$row["id"]."\"> Edit
@@ -130,9 +131,6 @@
 							</form>
 						</td> 
 					</tr>";
-				if(isset($_POST["delete".$row["id"]])) { 
-					remove_client($row["id"]) ; 
-				}
 			}
 			return $table_data;
 		} else {
@@ -372,6 +370,15 @@
 				$remarks = $_POST["sub_remarks"];
 				
 				edit_client($id, $index, $name, $address, $nickname, $code, $contact1, $contact2, $defaultproduct, $remarks);
+			}
+
+			// delete client
+			if ($_POST["sub"] == "delete_client") {
+				$id = NULL;
+				$id = $_POST["sub_id"];
+				
+				remove_client($id);
+				
 			}
 
 			//	add product form
