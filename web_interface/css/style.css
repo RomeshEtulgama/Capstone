@@ -353,6 +353,19 @@ a.page-link {
     margin-left: 1em;
 }
 
+html {
+    overflow: hidden;
+    height: 100%;
+  }
+  body {
+    overflow: auto;
+    height: 100%;
+  }
+  
+  /* unset bs3 setting */
+  .modal-open {
+   overflow: auto; 
+  }
 /* .dataTables_wrapper .dataTables_scroll {
     clear: both;
 }

@@ -70,11 +70,15 @@ function submitEditClientForm(){
         sub_contact2: contact2,
         sub_defaultproduct: defaultproduct,
         sub_remarks: remarks
-      });
-
-      $("#active_clients_table").ajax.reload();
-      
+      });      
     }
+}
+
+function deleteClient(id){
+  $.post("./functions.php", {
+    sub:"delete_client",
+    sub_id: id
+  });   
 }
 
 // Products
@@ -108,6 +112,13 @@ function submitAddProductForm(){
     }
 }
 
+function deleteProduct(id){
+  $.post("./functions.php", {
+    sub:"delete_product",
+    sub_id: id
+  });   
+}
+
 function filter_table(userInput, filtering_table, num_of_columns ) {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -133,6 +144,28 @@ function filter_table(userInput, filtering_table, num_of_columns ) {
       }
     }
   }
+}
+
+// Populate a table using ajax
+function Populate_table(str) {
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(str).innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "functions.php?q="+str, true);
+        xmlhttp.send(); 
+        refresh_datatable(str);
+}
+
+function refresh_datatable(str) {
+  $('#'+str).DataTable().destroy();
+    setTimeout(() => { 
+      $('#'+str).DataTable({
+        "searching" : false
+      });
+    }, 1);
 }
 
 
@@ -165,6 +198,84 @@ $(document).ready(function(){
     //});
   });
 
+  $('#editClientModel').on('hidden.bs.modal', function (event) {
+    Populate_table("active_clients_table");    
+  });
+
+  $('#deleteClientModel').on('show.bs.modal', function (event) {
+
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var client_id = button.data('whatever'); // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //var modal = $(this);
+    //modal.find('#InputID').val(client_id);
+    var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">No</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteClientModel\" onclick=\"deleteClient("+client_id+")\">Yes</button>";
+  
+
+      // AJAX request
+    $.ajax({
+      url: './confirm_delete.php',
+      type: 'POST',
+      data: {type: "client", id: client_id},
+      //contentType: "text/plain",
+      success: function(response) { //we got the response
+          //alert('Successfully called');
+          $('.delete-client-modal-body').html(response);
+
+          $('.delete-client-modal-footer').html(footer);
+      },
+      error: function(jqxhr, status, exception) {
+          alert('Exception:', exception);
+      }
+    });
+    //});
+  });
+
+  $('#deleteClientModel').on('hidden.bs.modal', function (event) {
+    Populate_table("active_clients_table");    
+  });
+
+  $('#addClientModel').on('hidden.bs.modal', function (event) {
+    Populate_table("active_clients_table");
+  });  
+
+  $('#deleteProductModel').on('show.bs.modal', function (event) {
+
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var product_id = button.data('whatever'); // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //var modal = $(this);
+    //modal.find('#InputID').val(client_id);
+    var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">No</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteProductModel\" onclick=\"deleteProduct("+product_id+")\">Yes</button>";
+  
+
+      // AJAX request
+    $.ajax({
+      url: './confirm_delete.php',
+      type: 'POST',
+      data: {type: "product", id: product_id},
+      //contentType: "text/plain",
+      success: function(response) { //we got the response
+          //alert('Successfully called');
+          $('.delete-product-modal-body').html(response);
+
+          $('.delete-product-modal-footer').html(footer);
+      },
+      error: function(jqxhr, status, exception) {
+          alert('Exception:', exception);
+      }
+    });
+    //});
+  });
+
+  $('#deleteProductModel').on('hidden.bs.modal', function (event) {
+    Populate_table("products_table");    
+  });
+
   $('#products_table').DataTable({
     "searching" : false
   });
@@ -175,5 +286,5 @@ $(document).ready(function(){
 
   $('#active_clients_table').DataTable({
     "searching" : false
-  });
+  });  
 });
