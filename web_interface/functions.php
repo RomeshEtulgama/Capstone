@@ -243,8 +243,10 @@
 
 		$result = $conn->query($sql);
 
+		$table_data = "";
+
 		if ($result) {
-			echo "<thead><tr>
+			$table_data .= "<thead><tr>
 						<th class=\"text-center\">ID</th>
 						<th>Name</th>
 						<th>Description</th>
@@ -254,7 +256,7 @@
 					</tr></thead>";
 		    // output data of each row
 		    while($row = $result->fetch_assoc()) {
-		        echo "<tr>
+		        $table_data .= "<tr>
 		        		<td class=\"text-center\">" . $row["Index"]. "</td>
 		        		<td>" . $row["Name"]. "</td>
 		        		<td>" . $row["Description"]. "</td>
@@ -262,7 +264,8 @@
 		        		<td>" . $row["Remarks"]. "</td>
 		        		<td class=\"text-center\">
 		        			<form method=\"post\">
-			        			<button type=\"submit\" class=\"btn btn-danger btn-sm\" name=\"delete_product".$row["id"]. "\">Delete
+								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteProductModel\" 
+								data-whatever=\"".$row["id"]."\">Delete
 								</button>
 								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit_product\" data-toggle=\"modal\" data-target=\"#editProductModel\" 
 								data-whatever=\"".$row["id"]."\"> Edit
@@ -270,10 +273,11 @@
 							</form>
 						</td> 
 		        	</tr>";
-		        if(isset($_POST["delete_product".$row["id"]])) { 
-		            remove_product($row["id"]) ; 
-		        }
+		        // if(isset($_POST["delete_product".$row["id"]])) { 
+		        //     remove_product($row["id"]) ; 
+		        // }
 	    	}
+			return $table_data;
 	    } else {
 		    echo "0 results";
 		}
@@ -336,6 +340,22 @@
 		}
 	}
 
+	function get_product($id){
+		if($id != NULL){
+			$conn = connect();
+			$sql = "select * from `products` where (id=".$id.");";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			disconnect($conn);
+			return array($row["Index"], $row["Name"], $row["Description"], $row["UnitPrice"], $row["Remarks"], $row["Timestamp"]);
+		//return $row["Name"];
+		}
+	}
+
+	function remove_product($id){
+		execute_sql("call remove_product('" . $id . "');");
+	}
+	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(isset($_POST["sub"])){
 
@@ -393,6 +413,15 @@
 				
 				add_product($index, $name, $description, $unitprice, $remarks, $clients);
 			}
+
+			// delete product
+			if ($_POST["sub"] == "delete_product") {
+				$id = NULL;
+				$id = $_POST["sub_id"];
+				
+				remove_product($id);
+				
+			}
 		}
 	}
 
@@ -403,11 +432,13 @@
 			if($populate_request == "active_clients_table"){
 				$table_data = view_clients();
 				echo $table_data === "" ? "Error" : $table_data;
+			} elseif($populate_request == "products_table"){
+					$table_data = view_products();
+					echo $table_data === "" ? "Error" : $table_data;
 			}
+			
 		}	
 	}
 
-	function remove_product($id){
-		execute_sql("call remove_product('" . $id . "');");
-	}
+
 ?>

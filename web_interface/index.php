@@ -266,7 +266,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary submitBtn" onclick="submitAddClientForm()">Submit</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#addClientModel" onclick="submitAddClientForm()">Submit</button>
                 </div>
               </div>
             </div>
@@ -324,8 +324,9 @@
 
             <!-- Products Table -->
             <table class="table table-hover table-dark table-sm table-small-text" id="products_table">
-              <?php view_products(); ?>
+              <?php //view_products(); ?>
             </table>
+            <script>Populate_table("products_table");</script>
 
           </div>
         
@@ -433,6 +434,30 @@
             </div>
           </div>
 
+          <!-- Delete Product Confirmation Model -->
+          <div class="modal fade" id="deleteProductModel" tabindex="-1" role="dialog" aria-labelledby="deleteProductModelLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content bg-dark text-white">
+                <div class="modal-header" style="border-bottom : 1px solid #495057">
+                  <h5 class="modal-title" id="deleteProductModelLabel">Delete Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body delete-product-modal-body">
+                  
+                
+                </div>
+                
+                <div class="modal-footer delete-product-modal-footer" style="border-top : 1px solid #495057">
+                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModel" onclick="deleteClient()">Yes</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
 
@@ -450,7 +475,8 @@
       <script src="./index_files/ie10-viewport-bug-workaround.js.download"></script>
 
       <!-- BOOTSTRAP DATATABLES  -->
-      <!-- BUG --><!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+      <!-- BUG -->
+      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
       <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
       <script type="text/javascript" src="./js/dataTables.js"></script>
   </body>
