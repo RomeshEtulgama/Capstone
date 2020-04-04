@@ -56,7 +56,7 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Clients <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#Clients_area">Clients <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#Products_area">Products</a>
@@ -73,13 +73,18 @@
 
       <div data-spy="scroll" data-target="#capstone-nav" data-offset="0">
 
-        <div class="container"  id="Clients_area">
+        <!-- Used for navigating to this client area -->
+        <div id="Clients_area"> 
+          <br><br>
+        </div>
+
+        <div class="container">
 
           <div class="starter-template">
             <h1>Clients</h1>
             <p class="lead">Use this interface to interact with the Clients table.<br> All the allowed functions are available here.</p>
           </div>
-
+  
           <!-- Clients Table -->
           <div class="card bg-dark mb-3">
           <!-- Default panel contents -->
@@ -90,7 +95,7 @@
             </nav>
 
             <!-- Table -->
-            <table class="table table-hover table-dark table-sm table-small-text" id="clients_table">
+            <table class="table table-hover table-dark table-responsive-sm table-small-text" id="clients_table">
               <?php display_clients_table(); ?>
             </table>
           </div>
@@ -102,13 +107,13 @@
               <h4>Active Clients</h4>
             
               <!-- search the table -->
-              <button type="button" class="btn btn-success col-sm-2" data-toggle="modal" data-target="#addClientModel">Add New Client</button>
+              <button type="button" class="btn btn-success col-sm-2" data-toggle="modal" data-target="#addClientModal">Add New Client</button>
 
               <input class="form-control col-sm-3" type="search" id="active_clients_filter_input" onkeyup="filter_table('active_clients_filter_input', 'active_clients_table', 4)" placeholder="Search for active clients" >
             </nav>
 
             <!-- Table -->
-            <table class="table table-hover table-dark table-sm table-small-text" id="active_clients_table">
+            <table class="table table-hover table-dark table-responsive-sm table-small-text" id="active_clients_table">
               
             </table>
             <script>Populate_table("active_clients_table");</script>
@@ -159,12 +164,12 @@
             </table>
           </div>
 
-          <!-- Edit Client Model -->
-          <div class="modal fade bd-example-modal-lg " id="editClientModel" tabindex="-1" role="dialog" aria-labelledby="editClientModelLabel" aria-hidden="true">
+          <!-- Edit Client Modal -->
+          <div class="modal fade bd-example-modal-lg " id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editClientModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editClientModelLabel">Edit Client</h5>
+                  <h5 class="modal-title" id="editClientModalLabel">Edit Client</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -177,18 +182,18 @@
                 
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#editClientModel" onclick="submitEditClientForm()">Submit</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#editClientModal" onclick="submitEditClientForm()">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Add Client Model -->
-          <div class="modal fade bd-example-modal-lg " id="addClientModel" tabindex="-1" role="dialog" aria-labelledby="addClientModelLabel" aria-hidden="true">
+          <!-- Add Client Modal -->
+          <div class="modal fade bd-example-modal-lg " id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addClientModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="addClientModelLabel">Add New Client</h5>
+                  <h5 class="modal-title" id="addClientModalLabel">Add New Client</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -226,7 +231,7 @@
 
                       <!-- NICKNAME -->
                       <div class="col-md-4 mb-3">
-                        <label for="IndputNICKNAME">Nickname</label>
+                        <label for="InputNICKNAME">Nickname</label>
                         <input type="text" class="form-control" id="InputNICKNAME" placeholder="Etulgama Romesh">
                       </div>
                     </div>
@@ -266,18 +271,18 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#addClientModel" onclick="submitAddClientForm()">Submit</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#addClientModal" onclick="submitAddClientForm()">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Delete Client Confirmation Model -->
-          <div class="modal fade" id="deleteClientModel" tabindex="-1" role="dialog" aria-labelledby="deleteClientModelLabel" aria-hidden="true">
+          <!-- Delete Client Confirmation Modal -->
+          <div class="modal fade" id="deleteClientModal" tabindex="-1" role="dialog" aria-labelledby="deleteClientModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header" style="border-bottom : 1px solid #495057">
-                  <h5 class="modal-title" id="deleteClientModelLabel">Delete Client</h5>
+                  <h5 class="modal-title" id="deleteClientModalLabel">Delete Client</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -290,7 +295,7 @@
                 
                 <div class="modal-footer delete-client-modal-footer" style="border-top : 1px solid #495057">
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModel" onclick="deleteClient()">Yes</button> -->
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModal" onclick="deleteClient()">Yes</button> -->
                 </div>
               </div>
             </div>
@@ -317,25 +322,25 @@
               <h4>Products</h4>
             
               <!-- search the table -->
-              <button type="button" class="btn btn-success col-sm-2" data-toggle="modal" data-target="#addProductModel">Add New Product</button>
+              <button type="button" class="btn btn-success col-sm-2" data-toggle="modal" data-target="#addProductModal">Add New Product</button>
 
               <input class="form-control col-sm-3" type="search" id="products_filter_input" onkeyup="filter_table('products_filter_input', 'products_table', 5)" placeholder="Search for products" >
             </nav>
 
             <!-- Products Table -->
-            <table class="table table-hover table-dark table-sm table-small-text" id="products_table">
+            <table class="table table-hover table-dark table-responsive-sm table-small-text" id="products_table">
               <?php //view_products(); ?>
             </table>
             <script>Populate_table("products_table");</script>
 
           </div>
         
-          <!-- Edit Product Model -->
-          <div class="modal fade bd-example-modal-lg " id="editProductModel" tabindex="-1" role="dialog" aria-labelledby="editProductModelLabel" aria-hidden="true">
+          <!-- Edit Product Modal -->
+          <div class="modal fade bd-example-modal-lg " id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editProductModelLabel">Edit Product</h5>
+                  <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -348,18 +353,18 @@
                 
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#editProductModel" onclick="submitEditProductForm()">Submit</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#editProductModal" onclick="submitEditProductForm()">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Add Product Model -->
-          <div class="modal fade bd-example-modal-lg " id="addProductModel" tabindex="-1" role="dialog" aria-labelledby="addProductModelLabel" aria-hidden="true">
+          <!-- Add Product Modal -->
+          <div class="modal fade bd-example-modal-lg " id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="addProductModelLabel">Add New Product</h5>
+                  <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -428,18 +433,18 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary submitBtn" onclick="submitAddProductForm()">Submit</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#addProductModal" onclick="submitAddProductForm()">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Delete Product Confirmation Model -->
-          <div class="modal fade" id="deleteProductModel" tabindex="-1" role="dialog" aria-labelledby="deleteProductModelLabel" aria-hidden="true">
+          <!-- Delete Product Confirmation Modal -->
+          <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header" style="border-bottom : 1px solid #495057">
-                  <h5 class="modal-title" id="deleteProductModelLabel">Delete Product</h5>
+                  <h5 class="modal-title" id="deleteProductModalLabel">Delete Product</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -452,7 +457,7 @@
                 
                 <div class="modal-footer delete-product-modal-footer" style="border-top : 1px solid #495057">
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModel" onclick="deleteClient()">Yes</button> -->
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModal" onclick="deleteClient()">Yes</button> -->
                 </div>
               </div>
             </div>

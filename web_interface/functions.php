@@ -122,10 +122,10 @@
 						<td>" . $row["Remarks"]. "</td>
 						<td class=\"text-center\">
 							<form method=\"post\">
-								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteClientModel\" 
+								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteClientModal\" 
 								data-whatever=\"".$row["id"]."\">Delete
 								</button>
-								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit\" data-toggle=\"modal\" data-target=\"#editClientModel\" 
+								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit\" data-toggle=\"modal\" data-target=\"#editClientModal\" 
 								data-whatever=\"".$row["id"]."\"> Edit
 								</button>
 							</form>
@@ -264,10 +264,10 @@
 		        		<td>" . $row["Remarks"]. "</td>
 		        		<td class=\"text-center\">
 		        			<form method=\"post\">
-								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteProductModel\" 
+								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteProductModal\" 
 								data-whatever=\"".$row["id"]."\">Delete
 								</button>
-								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit_product\" data-toggle=\"modal\" data-target=\"#editProductModel\" 
+								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit_product\" data-toggle=\"modal\" data-target=\"#editProductModal\" 
 								data-whatever=\"".$row["id"]."\"> Edit
 								</button>
 							</form>
@@ -332,6 +332,7 @@
 					$p_id = $row["LAST_ID"];
 				}
 			}
+			disconnect($conn);
 
 			foreach ($p_clients as $c_id){
 				$sql = "call update_DefaultProduct($c_id, $p_id);";

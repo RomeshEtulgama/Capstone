@@ -170,7 +170,7 @@ function refresh_datatable(str) {
 
 
 $(document).ready(function(){
-  $('#editClientModel').on('show.bs.modal', function (event) {
+  $('#editClientModal').on('show.bs.modal', function (event) {
 
     //alert('The modal is about to be shown.');
 
@@ -198,11 +198,11 @@ $(document).ready(function(){
     //});
   });
 
-  $('#editClientModel').on('hidden.bs.modal', function (event) {
+  $('#editClientModal').on('hidden.bs.modal', function (event) {
     Populate_table("active_clients_table");    
   });
 
-  $('#deleteClientModel').on('show.bs.modal', function (event) {
+  $('#deleteClientModal').on('show.bs.modal', function (event) {
 
     var button = $(event.relatedTarget); // Button that triggered the modal
     var client_id = button.data('whatever'); // Extract info from data-* attributes
@@ -211,7 +211,7 @@ $(document).ready(function(){
     //var modal = $(this);
     //modal.find('#InputID').val(client_id);
     var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">No</button>";
-    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteClientModel\" onclick=\"deleteClient("+client_id+")\">Yes</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteClientModal\" onclick=\"deleteClient("+client_id+")\">Yes</button>";
   
 
       // AJAX request
@@ -233,15 +233,15 @@ $(document).ready(function(){
     //});
   });
 
-  $('#deleteClientModel').on('hidden.bs.modal', function (event) {
+  $('#deleteClientModal').on('hidden.bs.modal', function (event) {
     Populate_table("active_clients_table");    
   });
 
-  $('#addClientModel').on('hidden.bs.modal', function (event) {
+  $('#addClientModal').on('hidden.bs.modal', function (event) {
     Populate_table("active_clients_table");
   });  
 
-  $('#deleteProductModel').on('show.bs.modal', function (event) {
+  $('#deleteProductModal').on('show.bs.modal', function (event) {
 
     var button = $(event.relatedTarget); // Button that triggered the modal
     var product_id = button.data('whatever'); // Extract info from data-* attributes
@@ -250,7 +250,7 @@ $(document).ready(function(){
     //var modal = $(this);
     //modal.find('#InputID').val(client_id);
     var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">No</button>";
-    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteProductModel\" onclick=\"deleteProduct("+product_id+")\">Yes</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteProductModal\" onclick=\"deleteProduct("+product_id+")\">Yes</button>";
   
 
       // AJAX request
@@ -272,7 +272,7 @@ $(document).ready(function(){
     //});
   });
 
-  $('#deleteProductModel').on('hidden.bs.modal', function (event) {
+  $('#deleteProductModal').on('hidden.bs.modal', function (event) {
     Populate_table("products_table");    
   });
 
