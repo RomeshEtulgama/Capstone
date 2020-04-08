@@ -9,7 +9,7 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <link rel="icon" href="https://getbootstrap.com/docs/3.3/favicon.ico">
-      <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/starter-template/">
+      <!-- <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/starter-template/"> -->
 
       <title>Capstone Test Interface</title>
 
@@ -27,6 +27,7 @@
       <!-- Custom styles for this template -->
       <link href="./index_files/starter-template.css" rel="stylesheet">
 
+
       <link rel="stylesheet" href="css/style.css">
 
       <script src="./index_files/ie-emulation-modes-warning.js.download"></script>  
@@ -37,17 +38,14 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
-      <!-- BOOTSTRAP DATA TABLES PLUGIN -->
-      <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" /> -->
-      
-
-
       <?php include('functions.php'); ?>
 
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      
   </head>
+  <!-- Check header - have some bugs - that's what make the navbar active unable to work -->
 
-  <body data-spy="scroll" data-target="#capstone-nav">
+  <body data-spy="scroll" data-target="#capstone-nav" data-offset="0">
       <nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-dark" id="capstone-nav">
         <a class="navbar-brand" href="#">Capstone</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,8 +53,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#Clients_area">Clients <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="#Clients_area">Clients </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#Products_area">Products</a>
@@ -70,8 +68,8 @@
           </span>
         </div>
       </nav>
-
-      <div data-spy="scroll" data-target="#capstone-nav" data-offset="0">
+      
+      <div>
 
         <!-- Used for navigating to this client area -->
         <div id="Clients_area"> 

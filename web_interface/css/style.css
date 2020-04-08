@@ -354,18 +354,24 @@ a.page-link {
 }
 
 html {
-    overflow: hidden;
     height: 100%;
-  }
-  body {
+}
+
+body {
     overflow: auto;
     height: 100%;
-  }
-  
-  /* unset bs3 setting */
-  .modal-open {
-   overflow: auto; 
-  }
+    position: relative;
+}
+
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+/* unset bs3 setting */
+.modal-open {
+    overflow: auto; 
+}
 /* .dataTables_wrapper .dataTables_scroll {
     clear: both;
 }
@@ -413,6 +419,3 @@ html {
     margin-top: 0.5em;
 } */
 /* } */
-body {
-    position: relative;
-}
