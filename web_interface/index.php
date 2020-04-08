@@ -47,7 +47,7 @@
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#capstone-nav">
       <nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-dark" id="capstone-nav">
         <a class="navbar-brand" href="#">Capstone</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -403,8 +403,7 @@
 
                       <!-- REMARKS -->
                     <div class="form-row">
-
-                      <!-- REMARKS -->
+                      
                       <div class="col-md-6 mb-3">
                         <label for="productInputREMARKS">Remarks</label>
                         <textarea class="form-control" id="productInputREMARKS" rows="3"></textarea>

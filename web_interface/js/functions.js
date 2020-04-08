@@ -112,6 +112,34 @@ function submitAddProductForm(){
     }
 }
 
+function submitEditProductForm(){
+  var id = $('#productID').val();
+  var name = $('#productInputNAME').val();
+  var description = $('#productInputDESCRIPTION').val();
+  var unitprice = $('#productInputUNITPRICE').val();
+  var remarks = $('#productInputREMARKS').val();
+
+  if(name.trim() == '' ){
+        alert('Please enter product name.');
+        $('#edit_InputNAME').focus();
+        return false;
+    }else if(description.trim() == '' ){
+        alert('Please enter product description.');
+        $('#productInputDESCRIPTION').focus();
+        return false;
+    } else {
+      
+      $.post("./functions.php", {
+        sub:"edit_product_form",
+        sub_id: id,
+        sub_name: name,
+        sub_description: description,
+        sub_unitprice: unitprice,
+        sub_remarks: remarks
+      });      
+    }
+}
+
 function deleteProduct(id){
   $.post("./functions.php", {
     sub:"delete_product",
@@ -160,16 +188,22 @@ function Populate_table(str) {
 }
 
 function refresh_datatable(str) {
-  $('#'+str).DataTable().destroy();
-    setTimeout(() => { 
-      $('#'+str).DataTable({
-        "searching" : false
-      });
-    }, 1);
+  try{
+    $('#'+str).DataTable().destroy();
+      setTimeout(() => { 
+        $('#'+str).DataTable({
+          "searching" : false
+        });
+      }, 100);
+    } catch(Exception){
+    }
 }
 
 
 $(document).ready(function(){
+
+  // --------------- Clients ---------------//
+
   $('#editClientModal').on('show.bs.modal', function (event) {
 
     //alert('The modal is about to be shown.');
@@ -239,7 +273,42 @@ $(document).ready(function(){
 
   $('#addClientModal').on('hidden.bs.modal', function (event) {
     Populate_table("active_clients_table");
-  });  
+  });
+
+    // --------------- Products ---------------//
+
+  $('#editProductModal').on('show.bs.modal', function (event) {
+
+    //alert('The modal is about to be shown.');
+
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var product_id = button.data('whatever'); // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //var modal = $(this);
+    //modal.find('#InputID').val(client_id);
+
+      // AJAX request
+    $.ajax({
+      url: './editProduct.php',
+      type: 'POST',
+      data: {productid: product_id},
+      //contentType: "text/plain",
+      success: function(response) { //we got the response
+          //alert('Successfully called');
+          $('.editproductform-modal-body').html(response);
+      },
+      error: function(jqxhr, status, exception) {
+          alert('Exception:', exception);
+      }
+    });
+    //});
+  });
+
+  $('#editProductModal').on('hidden.bs.modal', function (event) {
+    Populate_table("active_clients_table");
+    Populate_table("products_table"); 
+  });
 
   $('#deleteProductModal').on('show.bs.modal', function (event) {
 
@@ -276,6 +345,12 @@ $(document).ready(function(){
     Populate_table("products_table");    
   });
 
+  $('#addProductModal').on('hidden.bs.modal', function (event) {
+    Populate_table("products_table");
+  });
+
+  // --------------- Activating DataTables for Regular Bootstrap tables ---------------//
+
   $('#products_table').DataTable({
     "searching" : false
   });
@@ -287,4 +362,5 @@ $(document).ready(function(){
   $('#active_clients_table').DataTable({
     "searching" : false
   });  
+  
 });

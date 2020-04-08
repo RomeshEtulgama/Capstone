@@ -341,6 +341,14 @@
 		}
 	}
 
+	function edit_product($c_id, $c_name, $c_description, $c_unitprice, $c_remarks){
+		if(strlen($c_name) >= 1 ){
+			$sql = "call edit_product('$c_id', '$c_name', '$c_description', '$c_unitprice', '$c_remarks');";
+			// make edit product procedure in sql !!!!!!!!!!!!!!!!!!!!!
+			execute_sql($sql);
+		}
+	}
+
 	function get_product($id){
 		if($id != NULL){
 			$conn = connect();
@@ -413,6 +421,17 @@
 				$clients = $_POST["sub_clients"];
 				
 				add_product($index, $name, $description, $unitprice, $remarks, $clients);
+			}
+
+			//	edit product form
+			if ($_POST["sub"] == "edit_product_form") {
+				$id = $index = $name = $address = $nickname = $code = $contact1 = $contact2 = $defaultproduct = $remarks = NULL;
+				$id = $_POST["sub_id"];
+				$name = $_POST["sub_name"];
+				$description = $_POST["sub_description"];
+				$unitprice = $_POST["sub_unitprice"];
+				$remarks = $_POST["sub_remarks"];
+				edit_product($id, $name, $description, $unitprice, $remarks);
 			}
 
 			// delete product
