@@ -33,9 +33,12 @@
 			echo ("Error : " . mysqli_error($connection));
 		} else {
 			$connection->query($sql_query);
+			
 		}
 		disconnect($connection);
 	}
+
+	# ------ Clients ------ #
 
 	function display_clients_table(){
 		
@@ -46,7 +49,7 @@
 		$result = $conn->query($sql);
 
 		if ($result) {
-			echo "<tr>
+			echo "<thead><tr>
 						<th>id</th>
 						<th>Index</th>
 						<th>Name</th>
@@ -59,26 +62,26 @@
 						<th>Remarks</th>
 						<th>Timestamp</th>
 						<th>Enabled</th>
+					</tr></thead>";
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				echo "<tr>
+						<td>" . $row["id"]. "</td>
+						<td>" . $row["Index"]. "</td>
+						<td>" . $row["Name"]. "</td>
+						<td>" . $row["Address"]. "</td>
+						<td>" . $row["Nickname"]. "</td>
+						<td>" . $row["CodeNo"]. "</td>
+						<td>" . $row["Contact1"]. "</td>
+						<td>" . $row["Contact2"]. "</td>
+						<td>" . $row["DefaultProduct"]. "</td>
+						<td>" . $row["Remarks"]. "</td>
+						<td>" . $row["Timestamp"]. "</td>
+						<td>" . $row["enabled"]. "</td>
 					</tr>";
-		    // output data of each row
-		    while($row = $result->fetch_assoc()) {
-		        echo "<tr>
-		        		<td>" . $row["id"]. "</td>
-		        		<td>" . $row["Index"]. "</td>
-		        		<td>" . $row["Name"]. "</td>
-		        		<td>" . $row["Address"]. "</td>
-		        		<td>" . $row["Nickname"]. "</td>
-		        		<td>" . $row["CodeNo"]. "</td>
-		        		<td>" . $row["Contact1"]. "</td>
-		        		<td>" . $row["Contact2"]. "</td>
-		        		<td>" . $row["DefaultProduct"]. "</td>
-		        		<td>" . $row["Remarks"]. "</td>
-		        		<td>" . $row["Timestamp"]. "</td>
-		        		<td>" . $row["enabled"]. "</td>
-		        	</tr>";
-	    	}
-	    } else {
-		    echo "0 results";
+			}
+		} else {
+			echo "0 results";
 		}
 		disconnect($conn);
 	}
@@ -90,9 +93,11 @@
 
 		$result = $conn->query($sql);
 
+		$table_data = "";
+
 		if ($result) {
-			echo "<tr>
-						<th class=\"text-center\">Index</th>
+			$table_data .= "<thead><tr>
+						<th class=\"text-center\">ID</th>
 						<th>Name</th>
 						<th>Address</th>
 						<th>Nickname</th>
@@ -101,36 +106,35 @@
 						<th>Contact2</th>
 						<th>DefaultProduct</th>
 						<th>Remarks</th>
-						<th>Actions</th>
-					</tr>";
-		    // output data of each row
-		    while($row = $result->fetch_assoc()) {
-		        echo "<tr>
-		        		<td class=\"text-center\">" . $row["Index"]. "</td>
-		        		<td>" . $row["Name"]. "</td>
-		        		<td>" . $row["Address"]. "</td>
-		        		<td>" . $row["Nickname"]. "</td>
-		        		<td>" . $row["CodeNo"]. "</td>
-		        		<td>" . $row["Contact1"]. "</td>
-		        		<td>" . $row["Contact2"]. "</td>
-		        		<td>" . $row["DefaultProduct"]. "</td>
-		        		<td>" . $row["Remarks"]. "</td>
-		        		<td>
-		        			<form method=\"post\">
-			        			<button type=\"submit\" class=\"btn btn-danger btn-sm\" name=\"delete".$row["id"]. "\">Delete
+						<th class=\"text-center\">Actions</th>
+					</tr></thead>";
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$table_data .= "<tr>
+						<td class=\"text-center\">" . $row["Index"]. "</td>
+						<td>" . $row["Name"]. "</td>
+						<td>" . $row["Address"]. "</td>
+						<td>" . $row["Nickname"]. "</td>
+						<td>" . $row["CodeNo"]. "</td>
+						<td>" . $row["Contact1"]. "</td>
+						<td>" . $row["Contact2"]. "</td>
+						<td>" . $row["DefaultProduct"]. "</td>
+						<td>" . $row["Remarks"]. "</td>
+						<td class=\"text-center\">
+							<form method=\"post\">
+								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteClientModal\" 
+								data-whatever=\"".$row["id"]."\">Delete
 								</button>
-								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit\" data-toggle=\"modal\" data-target=\"#editClientModel\" 
+								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit\" data-toggle=\"modal\" data-target=\"#editClientModal\" 
 								data-whatever=\"".$row["id"]."\"> Edit
 								</button>
 							</form>
 						</td> 
-		        	</tr>";
-		        if(isset($_POST["delete".$row["id"]])) { 
-		            remove_client($row["id"]) ; 
-		        }
-	    	}
-	    } else {
-		    echo "0 results";
+					</tr>";
+			}
+			return $table_data;
+		} else {
+			echo "0 results";
 		}
 		disconnect($conn);
 	}
@@ -143,12 +147,12 @@
 		$result = $conn->query($sql);
 
 		if ($result) {
-		    // output data of each row
-		    while($row = $result->fetch_assoc()) {
-		        echo "<option value=" .$row["id"].">" . $row["Index"]. "&emsp;" . $row["Name"]. "&emsp;" . $row["Address"]. "&emsp;" . $row["Nickname"]. "&emsp;" . $row["Remarks"]. "</option>";
-	    	}
-	    } else {
-		    echo "0 results";
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				echo "<option value=" .$row["id"].">" . $row["Index"]. "&emsp;" . $row["Name"]. "&emsp;" . $row["Address"]. "&emsp;" . $row["Nickname"]. "&emsp;" . $row["Remarks"]. "</option>";
+			}
+		} else {
+			echo "0 results";
 		}
 		disconnect($conn);
 	}
@@ -161,12 +165,12 @@
 		$result = $conn->query($sql);
 
 		if ($result) {
-		    // output data of each row
-		    while($row = $result->fetch_assoc()) {
-		        echo "<option value=" .$row["id"].">" . $row["Index"]. "&emsp;" . $row["Name"]. "&emsp;" . $row["Address"]. "&emsp;" . $row["Nickname"]. "&emsp;" . $row["Remarks"]. "</option>";
-	    	}
-	    } else {
-		    echo "0 results";
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				echo "<option value=" .$row["id"].">" . $row["Index"]. "&emsp;" . $row["Name"]. "&emsp;" . $row["Address"]. "&emsp;" . $row["Nickname"]. "&emsp;" . $row["Remarks"]. "</option>";
+			}
+		} else {
+			echo "0 results";
 		}
 		disconnect($conn);
 	}
@@ -174,7 +178,7 @@
 	function select_products($full_mode = false){
 		$conn = connect();
 		// sql to select table
-		$sql = "SELECT id, Name FROM clients ORDER BY id ASC;";
+		$sql = "SELECT id, Name FROM products ORDER BY id ASC;";
 
 		$result = $conn->query($sql);
 
@@ -195,7 +199,6 @@
 		disconnect($conn);
 	
 	}
-
 
 	function add_client($c_index, $c_name, $c_address, $c_nickname, $c_code, $c_contact1, $c_contact2, $c_defaultproduct, $c_remarks){
 		if(strlen($c_name) >= 5 ){
@@ -230,6 +233,137 @@
 			execute_sql($sql);
 		}
 	}	
+
+	# ------ Products ------ #
+
+	function view_products(){
+		$conn = connect();
+		// sql to select table
+		$sql = "call view_products()";
+
+		$result = $conn->query($sql);
+
+		$table_data = "";
+
+		if ($result) {
+			$table_data .= "<thead><tr>
+						<th class=\"text-center\">ID</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th class=\"text-center\">Unit Price (LKR)</th>
+						<th>Remarks</th>
+						<th class=\"text-center\">Actions</th>
+					</tr></thead>";
+		    // output data of each row
+		    while($row = $result->fetch_assoc()) {
+		        $table_data .= "<tr>
+		        		<td class=\"text-center\">" . $row["Index"]. "</td>
+		        		<td>" . $row["Name"]. "</td>
+		        		<td>" . $row["Description"]. "</td>
+		        		<td class=\"text-right\" style=\"padding-right :5%\">" . $row["UnitPrice"]. "</td>
+		        		<td>" . $row["Remarks"]. "</td>
+		        		<td class=\"text-center\">
+		        			<form method=\"post\">
+								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteProductModal\" 
+								data-whatever=\"".$row["id"]."\">Delete
+								</button>
+								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit_product\" data-toggle=\"modal\" data-target=\"#editProductModal\" 
+								data-whatever=\"".$row["id"]."\"> Edit
+								</button>
+							</form>
+						</td> 
+		        	</tr>";
+		        // if(isset($_POST["delete_product".$row["id"]])) { 
+		        //     remove_product($row["id"]) ; 
+		        // }
+	    	}
+			return $table_data;
+	    } else {
+		    echo "0 results";
+		}
+		disconnect($conn);
+	}
+
+	function select_clients($full_mode = false){
+		$conn = connect();
+		// sql to select table
+		$sql = "CALL get_clients()";
+
+		$result = $conn->query($sql);
+
+		if($full_mode == false){
+			return $result;
+		} else {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$option = "<option value=";
+				$option .= $row["id"]." ";
+				$option .= "data-subtext=";
+				$option .= $row["DISPLAY2"];
+				$option .= ">";
+				$option .= $row["DISPLAY1"];
+				$option .= "</option>";
+				echo $option;
+			}
+		}
+
+		disconnect($conn);
+	
+	}
+
+	function add_product($p_index, $p_name, $p_description, $p_unitprice, $p_remarks, $p_clients){
+	
+		$p_id = null;
+
+		if(strlen($p_name) >= 5 ){
+			$sql = "call add_product('$p_index', '$p_name', '$p_description', '$p_unitprice', '$p_remarks');";
+			execute_sql($sql);
+
+			$p_id = 0;
+
+			$conn = connect();
+			// sql to select table
+			$sql = "select max(id) as 'LAST_ID' from products;";
+
+			$result = $conn->query($sql);
+
+			if($result){
+				while($row = $result->fetch_assoc()){
+					$p_id = $row["LAST_ID"];
+				}
+			}
+			disconnect($conn);
+
+			foreach ($p_clients as $c_id){
+				$sql = "call update_DefaultProduct($c_id, $p_id);";
+				execute_sql($sql);
+			}
+		}
+	}
+
+	function edit_product($c_id, $c_name, $c_description, $c_unitprice, $c_remarks){
+		if(strlen($c_name) >= 1 ){
+			$sql = "call edit_product('$c_id', '$c_name', '$c_description', '$c_unitprice', '$c_remarks');";
+			// make edit product procedure in sql !!!!!!!!!!!!!!!!!!!!!
+			execute_sql($sql);
+		}
+	}
+
+	function get_product($id){
+		if($id != NULL){
+			$conn = connect();
+			$sql = "select * from `products` where (id=".$id.");";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			disconnect($conn);
+			return array($row["Index"], $row["Name"], $row["Description"], $row["UnitPrice"], $row["Remarks"], $row["Timestamp"]);
+		//return $row["Name"];
+		}
+	}
+
+	function remove_product($id){
+		execute_sql("call remove_product('" . $id . "');");
+	}
 	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(isset($_POST["sub"])){
@@ -266,7 +400,65 @@
 				
 				edit_client($id, $index, $name, $address, $nickname, $code, $contact1, $contact2, $defaultproduct, $remarks);
 			}
+
+			// delete client
+			if ($_POST["sub"] == "delete_client") {
+				$id = NULL;
+				$id = $_POST["sub_id"];
+				
+				remove_client($id);
+				
+			}
+
+			//	add product form
+			if ($_POST["sub"] == "add_product_form") {
+				$index = $name = $description = $unitprice = $remarks = $clients = NULL;
+				$index = $_POST["sub_index"];
+				$name = $_POST["sub_name"];
+				$description = $_POST["sub_description"];
+				$unitprice = $_POST["sub_unitprice"];
+				$remarks = $_POST["sub_remarks"];
+				$clients = $_POST["sub_clients"];
+				
+				add_product($index, $name, $description, $unitprice, $remarks, $clients);
+			}
+
+			//	edit product form
+			if ($_POST["sub"] == "edit_product_form") {
+				$id = $index = $name = $address = $nickname = $code = $contact1 = $contact2 = $defaultproduct = $remarks = NULL;
+				$id = $_POST["sub_id"];
+				$name = $_POST["sub_name"];
+				$description = $_POST["sub_description"];
+				$unitprice = $_POST["sub_unitprice"];
+				$remarks = $_POST["sub_remarks"];
+				edit_product($id, $name, $description, $unitprice, $remarks);
+			}
+
+			// delete product
+			if ($_POST["sub"] == "delete_product") {
+				$id = NULL;
+				$id = $_POST["sub_id"];
+				
+				remove_product($id);
+				
+			}
 		}
 	}
+
+	if ($_SERVER["REQUEST_METHOD"] == "GET"){
+		if(isset($_REQUEST["q"])){
+			$populate_request = $_REQUEST["q"];
+			$table_data = "";
+			if($populate_request == "active_clients_table"){
+				$table_data = view_clients();
+				echo $table_data === "" ? "Error" : $table_data;
+			} elseif($populate_request == "products_table"){
+					$table_data = view_products();
+					echo $table_data === "" ? "Error" : $table_data;
+			}
+			
+		}	
+	}
+
 
 ?>
