@@ -71,12 +71,7 @@
       
       <div>
 
-        <!-- Used for navigating to this client area -->
-        <div id="Clients_area"> 
-          <br><br>
-        </div>
-
-        <div class="container">
+        <div class="container" id="Clients_area" style="padding-top: 50px">
 
           <div class="starter-template">
             <h1>Clients</h1>
@@ -301,12 +296,7 @@
 
         </div>
 
-        <!-- Used for navigating to this product area -->
-        <div id="Products_area"> 
-          <br><br>
-        </div>
-
-        <div class="container">
+        <div class="container"id="Products_area" style="padding-top: 50px">
 
           <div class="starter-template">
             <h1>Products</h1>
