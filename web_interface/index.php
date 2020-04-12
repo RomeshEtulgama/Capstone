@@ -5,28 +5,18 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <meta name="description" content="">
-      <meta name="author" content="">
+      <meta name="description" content="Web application for simple accounting operations">
+      <meta name="author" content="Romesh Etulgama">
+
       <link rel="icon" href="https://getbootstrap.com/docs/3.3/favicon.ico">
-      <!-- <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/starter-template/"> -->
 
       <title>Capstone Test Interface</title>
 
       <!-- Bootstrap core CSS -->
-      <!-- <link href="./index_files/bootstrap.min.css" rel="stylesheet"> -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-      <link href="./index_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-      <!-- Custom styles for this template -->
-      <link href="./index_files/starter-template.css" rel="stylesheet">
-
 
       <link rel="stylesheet" href="css/style.css">
 
@@ -40,10 +30,9 @@
 
       <?php include('functions.php'); ?>
 
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
       
   </head>
-  <!-- Check header - have some bugs - that's what make the navbar active unable to work -->
 
   <body data-spy="scroll" data-target="#capstone-nav" data-offset="0">
       <nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-dark" id="capstone-nav">
@@ -461,15 +450,9 @@
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="./index_files/jquery.min.js.download"></script>
-      <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+      
       <script src="./index_files/bootstrap.min.js.download"></script>
-      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-      <script src="./index_files/ie10-viewport-bug-workaround.js.download"></script>
-
-      <!-- BOOTSTRAP DATATABLES  -->
-      <!-- BUG -->
-      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
-      <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+      
       <script type="text/javascript" src="./js/dataTables.js"></script>
   </body>
 </html>

@@ -217,7 +217,7 @@ $(document).ready(function(){
 
       // AJAX request
     $.ajax({
-      url: './editClient.php',
+      url: './edit_client.php',
       type: 'POST',
       data: {clientid: client_id},
       //contentType: "text/plain",
@@ -290,7 +290,7 @@ $(document).ready(function(){
 
       // AJAX request
     $.ajax({
-      url: './editProduct.php',
+      url: './edit_product.php',
       type: 'POST',
       data: {productid: product_id},
       //contentType: "text/plain",
