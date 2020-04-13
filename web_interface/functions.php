@@ -304,6 +304,7 @@
 				$option .= $row["DISPLAY1"];
 				$option .= "</option>";
 				echo $option;
+				// echo json_encode($option);
 			}
 		}
 
@@ -364,9 +365,8 @@
 	function remove_product($id){
 		execute_sql("call remove_product('" . $id . "');");
 	}
-	
-	# ------ Invoices ------ #
 
+	# ------ Routes ------ #
 	function get_routes(){
 		$conn = connect();
 		// sql to select table
@@ -385,8 +385,8 @@
 			$tab_content .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
 		    while($row = $result->fetch_assoc()) {
 				$tab_data .= "<li class=\"nav-item\">";
-				$tab_content .= "<div class=\"tab-pane fade". $tab_content_active ."\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\">" . $row["Name"]. " - Content</div>";
-				$tab_data .= "<a class=\"nav-link bg-dark text-white " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
+				$tab_content .= "<div class=\"tab-pane fade ". $tab_content_active ."\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\">" . $row["Name"]. " - Content</div>";
+				$tab_data .= "<a class=\"nav-link " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
 				$tab_data .= "</li>";
 				$tab_content_active = "";
 				$tab_active = "";
@@ -401,7 +401,7 @@
 		}
 		disconnect($conn);
 	}
-
+	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(isset($_POST["sub"])){
 
@@ -490,13 +490,20 @@
 				$table_data = view_clients();
 				echo $table_data === "" ? "Error" : $table_data;
 			} elseif($populate_request == "products_table"){
-					$table_data = view_products();
-					echo $table_data === "" ? "Error" : $table_data;
+				$table_data = view_products();
+				echo $table_data === "" ? "Error" : $table_data;
 			} elseif($populate_request == "route_tabs"){
 				$tab_data = get_routes();
-				echo $tab_data === "" ? "Error" : $tab_data;
-		}
+				echo $tab_data == "" ? "Error" : $tab_data;
+			} elseif(substr($populate_request, 0,19)  == "invoiceSelectCLIENT"){
+				$select_data = select_clients(true);
+				echo $select_data == "" ? "" : $select_data;
+			} elseif(substr($populate_request, 0,20) == "invoiceSelectPRODUCT"){
+				$select_data = select_products(true);
+				echo $select_data == "" ? "" : $select_data;
+			}
+			
+			
 			
 		}	
 	}
-?>

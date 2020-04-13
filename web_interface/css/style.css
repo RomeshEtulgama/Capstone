@@ -401,6 +401,16 @@ body {
     clear: both;
     height: 0;
 } */
+.nav-pills .nav-link.active, .nav-pills .show .nav-link{
+    font-weight: bold;
+    background-color: #091114;
+}
+
+.nav-pills .nav-link, .nav-pills .show .nav-link{
+    color: grey;
+    background-color: #212529;
+}
+
 @media screen and (max-width: 767px) {
     .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
     float: none;
