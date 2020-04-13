@@ -194,14 +194,16 @@ function add_row() {
 
   var t = $('#invoices_table').DataTable();
   var counter = t.rows().count() + 1;
-  
+  // onchange=\"select_product(" + counter + ")\"
+  // onchange=\"calculate_amount()\"
+  // onchange=\"calculate_amount(" + counter + ")\"
   // Client Name Field
   no_field = "<label style=\"display: block; text-align: center;\" >"+String(counter)+"</label>";
-  client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\"></select>";
-  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell text-white\" autocomplete=\"off\" spellcheck=\"false\" value=\"25\" onchange=\"calculate_amount()\">";
-  product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"calculate_amount(" + counter + ")\"></select> ";
-  amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"table-cell text-white\" value=0 style=\"text-align: right\">";
-  total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"table-cell text-white\"  value=1467258.0 style=\"text-align: right\">";
+  client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" ></select>"; 
+  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" value=\"25\" >";
+  product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" ></select> ";
+  amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
+  total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"table-cell bg-dark text-white\"  value=1467258.0 style=\"text-align: right\">";
 
   t.row.add([
     no_field,
@@ -414,5 +416,30 @@ $(document).ready(function () {
   });
 
   add_row();
+
+  // ---------------- Typeahead ---------------- //
+  // Defining the local dataset
+  var packets = ["5", "10", "15", "20"];
+  var i = 0;
+  while(i++ < 10)
+    packets.push(String(i*25));
+  
+  // Constructing the suggestion engine
+  var packets = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: packets
+  });
+  
+  // Initializing the typeahead
+  $('.typeahead').typeahead({
+      hint: false,
+      highlight: true, /* Enable substring highlighting */
+      minLength: 1 /* Specify minimum characters required for showing result */
+  },{
+      name: 'packets',
+      source: packets
+  });
+
 
 });

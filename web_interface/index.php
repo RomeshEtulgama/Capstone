@@ -36,6 +36,8 @@
   <!-- Datepicker -->
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+  
   
 </head>
 
@@ -69,6 +71,9 @@
   <!-- DataTables -->
   <script type="text/javascript" src="./js/dataTables.js"></script>
 
+  <!-- Typeahead -->
+  <script src="js/typeahead.bundle.js" type="text/javascript"></script>
+  
 </body>
 
 </html>
