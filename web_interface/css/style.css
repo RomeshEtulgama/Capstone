@@ -411,6 +411,13 @@ body {
     background-color: #212529;
 }
 
+/* Invoices Table */
+td > div > .btn-light {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: white !important;
+}
+
 @media screen and (max-width: 767px) {
     .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
     float: none;

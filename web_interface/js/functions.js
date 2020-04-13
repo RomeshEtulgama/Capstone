@@ -174,11 +174,29 @@ function filter_table(userInput, filtering_table, num_of_columns) {
   }
 }
 
+// Invoice Table
+function populate_select_field(str){
+  var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById(str).innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "functions.php?q="+str, true);
+        xmlhttp.send(); 
+}
+
+function select_product($id){
+  alert("select");
+}
+
 function add_row() {
 
   var t = $('#invoices_table').DataTable();
   var counter = t.rows().count() + 1;
+  
   // Client Name Field
+  no_field = "<label style=\"display: block; text-align: center;\" >"+String(counter)+"</label>";
   client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\"></select>";
   quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell text-white\" autocomplete=\"off\" spellcheck=\"false\" value=\"25\" onchange=\"calculate_amount()\">";
   product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"calculate_amount(" + counter + ")\"></select> ";
@@ -186,7 +204,7 @@ function add_row() {
   total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"table-cell text-white\"  value=1467258.0 style=\"text-align: right\">";
 
   t.row.add([
-    counter,
+    no_field,
     client_name_field,
     quantity_field,
     product_field,
@@ -196,8 +214,8 @@ function add_row() {
 
   populate_select_field("invoiceSelectCLIENT_" + String(counter));
   populate_select_field("invoiceSelectPRODUCT_" + String(counter));
-  // counter++;
-  (".selectpicker").selectpicker().selectpicker("render");
+
+  // (".selectpicker").selectpicker().selectpicker("render");
 
 }
 

@@ -55,30 +55,33 @@
           </div>
 
         </div>
+
+        <div class="form-row">
+          <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="invoices_table">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center; width: 6%">No</th>
+                <th scope="col" style="text-align: center">Client Name</th>
+                <th scope="col" style="text-align: center; width: 15%">Quantity</th>
+                <th scope="col" style="text-align: center">Product</th>
+                <th scope="col" style="text-align: center">Amount</th>
+                <th scope="col" style="text-align: center">Total Outstanding</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfooter>
+              <tr>
+                <th colspan="6" style="text-align: center" onclick="add_row()">Add Row</th>
+              </tr>
+            </tfooter>
+          </table>
+        </div>
+
       </form>
 
-      <div>
-        <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="invoices_table">
-          <thead>
-            <tr>
-              <th scope="col" style="text-align: center; width: 6%">No</th>
-              <th scope="col" style="text-align: center">Client Name</th>
-              <th scope="col" style="text-align: center; width: 15%">Quantity</th>
-              <th scope="col" style="text-align: center">Product</th>
-              <th scope="col" style="text-align: center">Amount</th>
-              <th scope="col" style="text-align: center">Total Outstanding</th>
-            </tr>
-          </thead>
-          <tbody>
 
-          </tbody>
-          <tfooter>
-            <tr>
-              <th colspan="6" style="text-align: center" onclick="add_row()" >Add Row</th>
-            </tr>
-          </tfooter>
-        </table>
-      </div>
 
     </div>
 
