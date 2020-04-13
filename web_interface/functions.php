@@ -375,26 +375,27 @@
 		$result = $conn->query($sql);
 
 		$tab_data = "";
-
+		$tab_content = "";
+		$tab_active = "active";
+		$tab_content_active = "show active";
+		$tab_data = "<div class=\"card-header\"><h4>Generate Invoices</h4></div>";
+		
 		if ($result) {
 			$tab_data .= "<ul class=\"nav nav-pills mb-3\" id=\"pills-tab\" role=\"tablist\">";
-		    // output data of each row
+			$tab_content .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
 		    while($row = $result->fetch_assoc()) {
 				$tab_data .= "<li class=\"nav-item\">";
-				$tab_data .= "<a class=\"nav-link bg-dark text-white\" id=\"pills-" . $row["Name"]. "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"]. "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"]. "\" aria-selected=\"true\">" . $row["Name"]. "</a>";
-		        $tab_data .= "</li>";
+				$tab_content .= "<div class=\"tab-pane fade". $tab_content_active ."\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\">" . $row["Name"]. " - Content</div>";
+				$tab_data .= "<a class=\"nav-link bg-dark text-white " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
+				$tab_data .= "</li>";
+				$tab_content_active = "";
+				$tab_active = "";
 			}
 			$tab_data .= "</ul>";
-
-			$tab_data .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
-		    // output content of each row
-		    while($row = $result->fetch_assoc()) {
-				$tab_data .= "<div class=\"tab-pane fade\" id=\"pills-" . $row["Name"]. "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"]. "-tab\">...</div>";
-			}
-			$tab_data .= "</div>";
-
+			$tab_content .= "</div>";
+			$tab_data .= $tab_content;
+						
 			return $tab_data;
-
 	    } else {
 		    echo "0 results";
 		}
@@ -498,6 +499,4 @@
 			
 		}	
 	}
-
-
 ?>
