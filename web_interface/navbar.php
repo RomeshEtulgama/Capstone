@@ -1,0 +1,22 @@
+<nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-dark" id="capstone-nav">
+    <a class="navbar-brand" href="#">Capstone</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#Clients_area">Clients </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#Products_area">Products</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+        </li>
+        </ul>
+        <span class="navbar-text">
+        Testing interface
+        </span>
+    </div>
+</nav>
