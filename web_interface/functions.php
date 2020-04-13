@@ -365,6 +365,42 @@
 		execute_sql("call remove_product('" . $id . "');");
 	}
 	
+	# ------ Invoices ------ #
+
+	function get_routes(){
+		$conn = connect();
+		// sql to select table
+		$sql = "call get_routes()";
+
+		$result = $conn->query($sql);
+
+		$tab_data = "";
+
+		if ($result) {
+			$tab_data .= "<ul class=\"nav nav-pills mb-3\" id=\"pills-tab\" role=\"tablist\">";
+		    // output data of each row
+		    while($row = $result->fetch_assoc()) {
+				$tab_data .= "<li class=\"nav-item\">";
+				$tab_data .= "<a class=\"nav-link bg-dark text-white\" id=\"pills-" . $row["Name"]. "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"]. "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"]. "\" aria-selected=\"true\">" . $row["Name"]. "</a>";
+		        $tab_data .= "</li>";
+			}
+			$tab_data .= "</ul>";
+
+			$tab_data .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
+		    // output content of each row
+		    while($row = $result->fetch_assoc()) {
+				$tab_data .= "<div class=\"tab-pane fade\" id=\"pills-" . $row["Name"]. "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"]. "-tab\">...</div>";
+			}
+			$tab_data .= "</div>";
+
+			return $tab_data;
+
+	    } else {
+		    echo "0 results";
+		}
+		disconnect($conn);
+	}
+
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(isset($_POST["sub"])){
 
@@ -455,7 +491,10 @@
 			} elseif($populate_request == "products_table"){
 					$table_data = view_products();
 					echo $table_data === "" ? "Error" : $table_data;
-			}
+			} elseif($populate_request == "route_tabs"){
+				$tab_data = get_routes();
+				echo $tab_data === "" ? "Error" : $tab_data;
+		}
 			
 		}	
 	}
