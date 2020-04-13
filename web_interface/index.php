@@ -33,6 +33,10 @@
 
   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 
+  <!-- Datepicker -->
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  
 </head>
 
 <body data-spy="scroll" data-target="#capstone-nav" data-offset="0">
@@ -62,7 +66,9 @@
 
   <script src="./index_files/bootstrap.min.js.download"></script>
 
+  <!-- DataTables -->
   <script type="text/javascript" src="./js/dataTables.js"></script>
+
 </body>
 
 </html>
