@@ -429,6 +429,9 @@ td > div > .btn-light {
 td > span > input {
     border-color: transparent !important;
 }
+td > input {
+    border-color: transparent !important;
+}
 
 tbody > tr > td {
     vertical-align: middle !important;

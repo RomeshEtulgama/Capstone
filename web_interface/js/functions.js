@@ -175,20 +175,44 @@ function filter_table(userInput, filtering_table, num_of_columns) {
 }
 
 // Invoice Table
-function populate_select_field(str){
+function populate_select_field(str) {
   var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById(str).innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "functions.php?q="+str, true);
-        xmlhttp.send(); 
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById(str).innerHTML = this.responseText;
+    }
+  };
+  xmlhttp.open("GET", "functions.php?q=" + str, true);
+  xmlhttp.send();
 }
 
-function select_product($id){
+function populate_quantity_field(str) {
+  // Defining the local dataset
+  var packets = ["5", "10", "15", "20"];
+  var i = 0;
+  while (i++ < 10)
+    packets.push(String(i * 25));
+
+  // Constructing the suggestion engine
+  var packets = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: packets
+  });
+
+  // Initializing the typeahead
+  $('#'+ str).typeahead({
+    hint: false,
+    highlight: true, /* Enable substring highlighting */
+    minLength: 1 /* Specify minimum characters required for showing result */
+  }, {
+    name: 'packets',
+    source: packets
+  });
+}
+
+function select_product($id) {
   var row_id = $id;
-  alert(row_id);
 }
 
 function add_row() {
@@ -199,10 +223,10 @@ function add_row() {
   // 
   // 
   // Client Name Field
-  no_field = "<label style=\"display: block; text-align: center;\" >"+String(counter)+"</label>";
-  client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\" ></select>"; 
-  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" value=\"25\" onchange=\"calculate_amount()\" >";
-  product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"calculate_amount(" + counter + ")\" ></select> ";
+  no_field = "<label style=\"display: block; text-align: center;\" >" + String(counter) + "</label>";
+  client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\" ></select>";
+  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount()\" >";
+  product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"select_product(" + counter + ")\" ></select>";
   amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
   total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=1467258.0 style=\"text-align: right\">";
 
@@ -216,10 +240,18 @@ function add_row() {
   ]).draw(false);
 
   populate_select_field("invoiceSelectCLIENT_" + String(counter));
+
+  setTimeout(() => {
+    $("#invoiceSelectCLIENT_" + String(counter)).selectpicker();
+  }, 100);
+
+  populate_quantity_field("inviceQUANTITY_" + String(counter));
+
   populate_select_field("invoiceSelectPRODUCT_" + String(counter));
 
-  $("#invoiceSelectCLIENT_" + String(counter)).selectpicker();
-  $("#invoiceSelectPRODUCT_" + String(counter)).selectpicker();
+  setTimeout(() => {
+    $("#invoiceSelectPRODUCT_" + String(counter)).selectpicker();
+  }, 100);
   //$("#invoiceAMOUNT_" + String(counter)).typeahead();
 
 }
@@ -421,27 +453,6 @@ $(document).ready(function () {
   add_row();
 
   // ---------------- Typeahead ---------------- //
-  // Defining the local dataset
-  var packets = ["5", "10", "15", "20"];
-  var i = 0;
-  while(i++ < 10)
-    packets.push(String(i*25));
   
-  // Constructing the suggestion engine
-  var packets = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.whitespace,
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      local: packets
-  });
-  
-  // Initializing the typeahead
-  $('.typeahead').typeahead({
-      hint: false,
-      highlight: true, /* Enable substring highlighting */
-      minLength: 1 /* Specify minimum characters required for showing result */
-  },{
-      name: 'packets',
-      source: packets
-  });
 
 });
