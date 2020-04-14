@@ -418,11 +418,16 @@ td > div > .btn-light {
     color: white !important;
 }
 
-td > input {
+/* td > input {
     background-color: transparent !important;
     border-color: transparent !important;
     color: white !important;
     font-size: 1rem !important;
+    border-radius: 0.25rem;
+} */
+
+td > span > input {
+    border-color: transparent !important;
 }
 
 tbody > tr > td {
@@ -433,7 +438,6 @@ tbody > tr > td > label {
     font-size: 1rem;
     margin-bottom: 0;
 }
-
 
 @media screen and (max-width: 767px) {
     .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
