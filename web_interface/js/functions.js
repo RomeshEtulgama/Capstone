@@ -175,14 +175,17 @@ function filter_table(userInput, filtering_table, num_of_columns) {
 }
 
 // Invoice Table
-function populate_select_field(str) {
+function populate_select_field(str, selected_product=0) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById(str).innerHTML = this.responseText;
     }
   };
-  xmlhttp.open("GET", "functions.php?q=" + str, true);
+  if (selected_product==0)
+    xmlhttp.open("GET", "functions.php?q=" + str, true);
+  else
+    xmlhttp.open("GET", "functions.php?q=" + str+"&select="+selected_product, true);
   xmlhttp.send();
 }
 
@@ -212,7 +215,11 @@ function populate_quantity_field(str) {
 }
 
 function select_product($id) {
-  var row_id = $id;
+  var c_id = $("#invoiceSelectCLIENT_" + String($id)).val()
+  populate_select_field("invoiceSelectPRODUCT_" + String($id), c_id);
+  setTimeout(() => {
+    $("#invoiceSelectPRODUCT_" + String($id)).selectpicker('render');
+  }, 100);
 }
 
 function add_row() {

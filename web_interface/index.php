@@ -61,6 +61,8 @@
     </div>
 
   </div>
+  
+  <div id="scripts"></div>
 
   <!-- Bootstrap core JavaScript
       ================================================== -->
