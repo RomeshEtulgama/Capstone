@@ -175,17 +175,17 @@ function filter_table(userInput, filtering_table, num_of_columns) {
 }
 
 // Invoice Table
-function populate_select_field(str, selected_product=0) {
+function populate_select_field(str, selected = 0) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById(str).innerHTML = this.responseText;
     }
   };
-  if (selected_product==0)
+  if (selected == 0)
     xmlhttp.open("GET", "functions.php?q=" + str, true);
   else
-    xmlhttp.open("GET", "functions.php?q=" + str+"&select="+selected_product, true);
+    xmlhttp.open("GET", "functions.php?q=" + str + "&select=" + selected, true);
   xmlhttp.send();
 }
 
@@ -204,7 +204,7 @@ function populate_quantity_field(str) {
   });
 
   // Initializing the typeahead
-  $('#'+ str).typeahead({
+  $('#' + str).typeahead({
     hint: false,
     highlight: true, /* Enable substring highlighting */
     minLength: 1 /* Specify minimum characters required for showing result */
@@ -219,66 +219,53 @@ function select_product(row_id) {
   populate_select_field("invoiceSelectPRODUCT_" + String(row_id), c_id);
   setTimeout(() => {
     $("#invoiceSelectPRODUCT_" + String(row_id)).selectpicker('render');
-    set_unit_price(row_id);
-    calculate_amount(row_id);
+    setTimeout(() => {
+      set_unit_price(row_id);
+    }, 100);
   }, 100);
-  // calculate_amount(row_id);
-  
+
+  // $("#invoiceQUANTITY_" + String(row_id)).val('0');
+  // $("#invoiceAMOUNT_" + String(row_id)).val('0.00');
 }
 
-function calculate_amount(row_id){
-  // alert("Abount");
-  // var quantity = Number($("#inviceQUANTITY_" + String(row_id)).val());
-  // var product_id = Number($("#invoiceSelectPRODUCT_" + String(row_id)).val());
-  // if (quantity==NaN){
-  //   quantity = 0;
-  // }
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-    
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     t = document.getElementById("invoiceAMOUNT_"+String(row_id));
-  //     if (t!=null)
-  //       t.value = this.responseText;
-  //     }
-  // };
-  // xmlhttp.open("GET", "functions.php?q=calculate_amount" + "&quantity="+quantity + "&product_id="+product_id, true);
-  // xmlhttp.send();
-  var quantity = Number($("#inviceQUANTITY_" + String(row_id)).val());
+function calculate_amount(row_id) {
+  select_product(row_id);
+  var quantity = Number($("#invoiceQUANTITY_" + String(row_id)).val());
   var unit_price = Number($("#invoiceUNITPRICE_" + String(row_id)).val());
-  var amount = quantity*unit_price;
-  alert(amount);
-  $('#invoiceAMOUNT_'+String(row_id)).value(amount);
-
+  var amount = quantity * unit_price;
+  amount = (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  // alert(amount);
+  $('#invoiceAMOUNT_' + String(row_id)).val(amount);
 }
 
-function set_unit_price(row_id){
+function set_unit_price(row_id) {
   var product_id = Number($("#invoiceSelectPRODUCT_" + String(row_id)).val());
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
-    
+
     if (this.readyState == 4 && this.status == 200) {
-      t = document.getElementById("invoiceUNITPRICE_"+String(row_id));
-      if (t!=null)
+      t = document.getElementById("invoiceUNITPRICE_" + String(row_id));
+      if (t != null)
         t.value = this.responseText;
-      }
+    }
   };
-  xmlhttp.open("GET", "functions.php?q=get_unit_price&product_id="+product_id, true);
+  xmlhttp.open("GET", "functions.php?q=get_unit_price&product_id=" + product_id, true);
   xmlhttp.send();
-  
+  setTimeout(() => {
+    calculate_amount(row_id);
+  }, 100);
 }
 
 function add_row() {
 
   var t = $('#invoices_table').DataTable();
   var counter = t.rows().count() + 1;
-   
-  // Client Name Field
+
   no_field = "<label style=\"display: block; text-align: center;\" >" + String(counter) + "</label>";
   client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\" ></select>";
-  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" >";
+  quantity_field = "<input id = \"invoiceQUANTITY_" + String(counter) + "\" type=\"number\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" >";
   product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"set_unit_price(" + counter + ")\" ></select>";
-  unit_price_field = "<input readonly id = \"invoiceUNITPRICE_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
+  unit_price_field = "<input readonly id = \"invoiceUNITPRICE_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\" onchange=\"calculate_amount(" + counter + ")\">";
   amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
   total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=1467258.0 style=\"text-align: right\">";
 
@@ -293,6 +280,7 @@ function add_row() {
   ]).draw(false);
 
   populate_select_field("invoiceSelectCLIENT_" + String(counter));
+
 
   setTimeout(() => {
     $("#invoiceSelectCLIENT_" + String(counter)).selectpicker();
@@ -506,6 +494,27 @@ $(document).ready(function () {
   add_row();
 
   // ---------------- Typeahead ---------------- //
-  
+  // Defining the local dataset
+  var packets = ["5", "10", "15", "20"];
+  var i = 0;
+  while (i++ < 10)
+    packets.push(String(i * 25));
+
+  // Constructing the suggestion engine
+  var packets = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: packets
+  });
+
+  // Initializing the typeahead
+  $('.typeahead').typeahead({
+    hint: false,
+    highlight: true, /* Enable substring highlighting */
+    minLength: 1 /* Specify minimum characters required for showing result */
+  }, {
+    name: 'packets',
+    source: packets
+  });
 
 });
