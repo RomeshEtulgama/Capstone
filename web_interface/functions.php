@@ -423,6 +423,17 @@ function get_routes()
 	disconnect($conn);
 }
 
+function calculate_amount($quantity, $p_id){
+	$amount = 0;
+	try {
+		$amount = $quantity * get_product($p_id)[3];
+	} catch(Exception $e) {
+		$amount = 0;
+	}
+	echo number_format($amount, 2, '.', ',');
+		
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (isset($_POST["sub"])) {
 
@@ -525,6 +536,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$select_data = select_products(true);
 			}
 			echo $select_data == "" ? "" : $select_data;
+		} elseif ($populate_request == "calculate_amount") {
+			$quantity = $_REQUEST["quantity"];
+			$p_id = $_REQUEST["product_id"];
+			if($quantity != 'NaN' && $p_id != 'Nan'){
+				calculate_amount($quantity, $p_id);
+				// echo "0.00";
+			} else {
+				echo "0.00";
+			}
+		} elseif ($populate_request  == "get_unit_price") {
+			$p_id = $_REQUEST["product_id"];
+			$unitprice = get_product($p_id)[3];
+			echo $unitprice == "" ? "" : $unitprice;
 		}
 	}
 }

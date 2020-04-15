@@ -214,26 +214,71 @@ function populate_quantity_field(str) {
   });
 }
 
-function select_product($id) {
-  var c_id = $("#invoiceSelectCLIENT_" + String($id)).val()
-  populate_select_field("invoiceSelectPRODUCT_" + String($id), c_id);
+function select_product(row_id) {
+  var c_id = $("#invoiceSelectCLIENT_" + String(row_id)).val()
+  populate_select_field("invoiceSelectPRODUCT_" + String(row_id), c_id);
   setTimeout(() => {
-    $("#invoiceSelectPRODUCT_" + String($id)).selectpicker('render');
+    $("#invoiceSelectPRODUCT_" + String(row_id)).selectpicker('render');
+    set_unit_price(row_id);
+    calculate_amount(row_id);
   }, 100);
+  // calculate_amount(row_id);
+  
+}
+
+function calculate_amount(row_id){
+  // alert("Abount");
+  // var quantity = Number($("#inviceQUANTITY_" + String(row_id)).val());
+  // var product_id = Number($("#invoiceSelectPRODUCT_" + String(row_id)).val());
+  // if (quantity==NaN){
+  //   quantity = 0;
+  // }
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+    
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     t = document.getElementById("invoiceAMOUNT_"+String(row_id));
+  //     if (t!=null)
+  //       t.value = this.responseText;
+  //     }
+  // };
+  // xmlhttp.open("GET", "functions.php?q=calculate_amount" + "&quantity="+quantity + "&product_id="+product_id, true);
+  // xmlhttp.send();
+  var quantity = Number($("#inviceQUANTITY_" + String(row_id)).val());
+  var unit_price = Number($("#invoiceUNITPRICE_" + String(row_id)).val());
+  var amount = quantity*unit_price;
+  alert(amount);
+  $('#invoiceAMOUNT_'+String(row_id)).value(amount);
+
+}
+
+function set_unit_price(row_id){
+  var product_id = Number($("#invoiceSelectPRODUCT_" + String(row_id)).val());
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      t = document.getElementById("invoiceUNITPRICE_"+String(row_id));
+      if (t!=null)
+        t.value = this.responseText;
+      }
+  };
+  xmlhttp.open("GET", "functions.php?q=get_unit_price&product_id="+product_id, true);
+  xmlhttp.send();
+  
 }
 
 function add_row() {
 
   var t = $('#invoices_table').DataTable();
   var counter = t.rows().count() + 1;
-  // 
-  // 
-  // 
+   
   // Client Name Field
   no_field = "<label style=\"display: block; text-align: center;\" >" + String(counter) + "</label>";
   client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\" ></select>";
-  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount()\" >";
-  product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"select_product(" + counter + ")\" ></select>";
+  quantity_field = "<input id = \"inviceQUANTITY_" + String(counter) + "\" type=\"text\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" >";
+  product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"set_unit_price(" + counter + ")\" ></select>";
+  unit_price_field = "<input readonly id = \"invoiceUNITPRICE_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
   amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
   total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=1467258.0 style=\"text-align: right\">";
 
@@ -242,6 +287,7 @@ function add_row() {
     client_name_field,
     quantity_field,
     product_field,
+    unit_price_field,
     amount_field,
     total_outstanding_field
   ]).draw(false);

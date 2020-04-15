@@ -64,6 +64,7 @@
                 <th scope="col" style="text-align: center">Client Name</th>
                 <th scope="col" style="text-align: center; width: 15%">Quantity</th>
                 <th scope="col" style="text-align: center">Product</th>
+                <th scope="col" style="text-align: center">Unit Price</th> 
                 <th scope="col" style="text-align: center">Amount</th>
                 <th scope="col" style="text-align: center">Total Outstanding</th>
               </tr>
@@ -73,7 +74,7 @@
             </tbody>
             <tfooter>
               <tr>
-                <th colspan="6" style="text-align: center" onclick="add_row()">Add Row</th>
+                <th colspan="7" style="text-align: center" onclick="add_row()">Add Row</th>
               </tr>
             </tfooter>
           </table>
