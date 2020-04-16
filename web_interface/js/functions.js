@@ -218,24 +218,39 @@ function select_product(row_id) {
   var c_id = $("#invoiceSelectCLIENT_" + String(row_id)).val()
   populate_select_field("invoiceSelectPRODUCT_" + String(row_id), c_id);
   setTimeout(() => {
-    $("#invoiceSelectPRODUCT_" + String(row_id)).selectpicker('render');
-    setTimeout(() => {
-      set_unit_price(row_id);
-    }, 100);
+    $("#invoiceSelectPRODUCT_" + String(row_id)).selectpicker('refresh');
   }, 100);
-
-  // $("#invoiceQUANTITY_" + String(row_id)).val('0');
-  // $("#invoiceAMOUNT_" + String(row_id)).val('0.00');
+  setTimeout(() => {
+    set_unit_price(row_id);
+  }, 100);
+  setTimeout(() => {
+    set_total_outstanding("#invoiceOUTSTANDING_" + String(row_id), c_id);
+  }, 100);
+  
 }
 
 function calculate_amount(row_id) {
-  select_product(row_id);
+  // select_product(row_id);
   var quantity = Number($("#invoiceQUANTITY_" + String(row_id)).val());
   var unit_price = Number($("#invoiceUNITPRICE_" + String(row_id)).val());
   var amount = quantity * unit_price;
   amount = (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   // alert(amount);
   $('#invoiceAMOUNT_' + String(row_id)).val(amount);
+}
+
+function set_total_outstanding(row_id, c_id){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+
+    if (this.readyState == 4 && this.status == 200) {
+      t = document.getElementById("invoiceOUTSTANDING_" + String(row_id));
+      if (t != null)
+        t.value = this.responseText;
+    }
+  };
+  xmlhttp.open("GET", "functions.php?q=get_total_outstanding&client_id=" + c_id, true);
+  xmlhttp.send();
 }
 
 function set_unit_price(row_id) {
@@ -267,7 +282,7 @@ function add_row() {
   product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"set_unit_price(" + counter + ")\" ></select>";
   unit_price_field = "<input readonly id = \"invoiceUNITPRICE_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\" onchange=\"calculate_amount(" + counter + ")\">";
   amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
-  total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=1467258.0 style=\"text-align: right\">";
+  total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=0.00 style=\"text-align: right\">";
 
   t.row.add([
     no_field,
@@ -286,7 +301,7 @@ function add_row() {
     $("#invoiceSelectCLIENT_" + String(counter)).selectpicker();
   }, 100);
 
-  populate_quantity_field("inviceQUANTITY_" + String(counter));
+  populate_quantity_field("invoiceQUANTITY_" + String(counter));
 
   populate_select_field("invoiceSelectPRODUCT_" + String(counter));
 
@@ -321,7 +336,6 @@ function refresh_datatable(str) {
   } catch (Exception) {
   }
 }
-
 
 $(document).ready(function () {
 
@@ -495,26 +509,26 @@ $(document).ready(function () {
 
   // ---------------- Typeahead ---------------- //
   // Defining the local dataset
-  var packets = ["5", "10", "15", "20"];
-  var i = 0;
-  while (i++ < 10)
-    packets.push(String(i * 25));
+  // var packets = ["5", "10", "15", "20"];
+  // var i = 0;
+  // while (i++ < 10)
+  //   packets.push(String(i * 25));
 
-  // Constructing the suggestion engine
-  var packets = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.whitespace,
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: packets
-  });
+  // // Constructing the suggestion engine
+  // var packets = new Bloodhound({
+  //   datumTokenizer: Bloodhound.tokenizers.whitespace,
+  //   queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //   local: packets
+  // });
 
-  // Initializing the typeahead
-  $('.typeahead').typeahead({
-    hint: false,
-    highlight: true, /* Enable substring highlighting */
-    minLength: 1 /* Specify minimum characters required for showing result */
-  }, {
-    name: 'packets',
-    source: packets
-  });
+  // // Initializing the typeahead
+  // $('.typeahead').typeahead({
+  //   hint: false,
+  //   highlight: true, /* Enable substring highlighting */
+  //   minLength: 1 /* Specify minimum characters required for showing result */
+  // }, {
+  //   name: 'packets',
+  //   source: packets
+  // });
 
 });

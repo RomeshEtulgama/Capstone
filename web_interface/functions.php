@@ -231,6 +231,10 @@ function get_client($id)
 	}
 }
 
+function get_outstanding($client_id){
+	echo "14.25";
+}
+
 function remove_client($id)
 {
 	execute_sql("call remove_client('" . $id . "');");
@@ -549,6 +553,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$p_id = $_REQUEST["product_id"];
 			$unitprice = get_product($p_id)[3];
 			echo $unitprice == "" ? "" : $unitprice;
+		} elseif ($populate_request  == "get_total_outstanding") {
+			$c_id = $_REQUEST["client_id"];
+			$outstanding = get_outstanding($c_id);
+			echo $outstanding == "" ? "" : $outstanding;
 		}
 	}
 }
