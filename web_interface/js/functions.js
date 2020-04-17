@@ -225,6 +225,8 @@ function select_product(row_id) {
   }, 100);
   setTimeout(() => {
     set_total_outstanding(row_id, c_id);
+    var that = document.activeElement;
+    $('[tabIndex=' + (+that.tabIndex + 1) + ']')[0].focus();
   }, 100);
 
 }
