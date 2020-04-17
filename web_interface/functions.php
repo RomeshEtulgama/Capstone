@@ -410,7 +410,9 @@ function get_routes()
 		$tab_content .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
 		while ($row = $result->fetch_assoc()) {
 			$tab_data .= "<li class=\"nav-item\">";
-			$tab_content .= "<div class=\"tab-pane fade " . $tab_content_active . "\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\">" . $row["Name"] . " - Content</div>";
+			$tab_content .= "<div class=\"tab-pane fade " . $tab_content_active . "\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\" >" . $row["Name"] . " - Content";
+			$tab_content .= ""; // add route tab contents here - maybe convert the test card contents to text then add here
+			$tab_content .= "</div>";
 			$tab_data .= "<a class=\"nav-link " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
 			$tab_data .= "</li>";
 			$tab_content_active = "";

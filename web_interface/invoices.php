@@ -62,7 +62,7 @@
                 <th scope="col" style="text-align: center">Client Name</th>
                 <th scope="col" style="text-align: center; width: 15%">Quantity</th>
                 <th scope="col" style="text-align: center">Product</th>
-                <th scope="col" style="text-align: center">Unit Price</th> 
+                <th scope="col" style="text-align: center">Unit Price</th>
                 <th scope="col" style="text-align: center">Amount</th>
                 <th scope="col" style="text-align: center">Total Outstanding</th>
               </tr>
@@ -77,30 +77,15 @@
             </tfooter>
           </table>
         </div>
-
       </form>
+
+      <hr>
+      
+      <div align='right'>
+        <button type="submit" class="btn btn-primary submitBtn mr-5" onclick="submitAddOrderForm()">Submit</button>
+      </div>
+
     </div>
-
-    <!-- <button id="addRow">Add Row</button> -->
-
-    <!-- <div class="col-sm-10">
-      <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="invoices_table">
-        <thead>
-          <tr>
-            <th scope="col" style="text-align: center; width: 6%">#</th>
-            <th scope="col" style="text-align: center">Client Name</th>
-            <th scope="col" style="text-align: center; width: 15%">Quantity</th>
-            <th scope="col" style="text-align: center">Product</th>
-            <th scope="col" style="text-align: center">Amount</th>
-            <th scope="col" style="text-align: center">Total Outstanding</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </div> -->
-
 
   </div>
 </div>

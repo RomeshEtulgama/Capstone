@@ -174,7 +174,7 @@ function filter_table(userInput, filtering_table, num_of_columns) {
   }
 }
 
-// --------------- Invoice Table --------------- //
+// --------------- Invoices --------------- //
 function populate_select_field(str, selected = 0) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
@@ -312,6 +312,17 @@ function add_row() {
   }, 100);
   //$("#invoiceAMOUNT_" + String(counter)).typeahead();
 
+}
+
+function submitAddOrderForm() {
+  var order_no;
+}
+
+function clear_invoices_table(){
+  var t = $('#invoices_table').DataTable();
+  t.clear();
+  t.draw();
+  add_row();
 }
 
 // Populate a table using ajax
@@ -487,6 +498,9 @@ $(document).ready(function () {
   $('#addProductModal').on('hidden.bs.modal', function (event) {
     Populate_table("products_table");
   });
+
+  // ------------------------------ Invoices -------------------------------------- //
+
 
   // --------------- Activating DataTables for Regular Bootstrap tables ---------------//
 
