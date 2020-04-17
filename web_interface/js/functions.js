@@ -1,4 +1,4 @@
-// Client
+// --------------- Client --------------- //
 
 function submitAddClientForm() {
   var index = $('#InputINDEX').val();
@@ -81,7 +81,7 @@ function deleteClient(id) {
   });
 }
 
-// Products
+// --------------- Products --------------- //
 
 function submitAddProductForm() {
   var index = $('#productInputINDEX').val();
@@ -174,7 +174,7 @@ function filter_table(userInput, filtering_table, num_of_columns) {
   }
 }
 
-// Invoice Table
+// --------------- Invoice Table --------------- //
 function populate_select_field(str, selected = 0) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
@@ -224,9 +224,9 @@ function select_product(row_id) {
     set_unit_price(row_id);
   }, 100);
   setTimeout(() => {
-    set_total_outstanding("#invoiceOUTSTANDING_" + String(row_id), c_id);
+    set_total_outstanding(row_id, c_id);
   }, 100);
-  
+
 }
 
 function calculate_amount(row_id) {
@@ -239,14 +239,12 @@ function calculate_amount(row_id) {
   $('#invoiceAMOUNT_' + String(row_id)).val(amount);
 }
 
-function set_total_outstanding(row_id, c_id){
+function set_total_outstanding(row_id, c_id) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
 
     if (this.readyState == 4 && this.status == 200) {
-      t = document.getElementById("invoiceOUTSTANDING_" + String(row_id));
-      if (t != null)
-        t.value = this.responseText;
+      $("#invoiceOUTSTANDING_" + String(row_id)).val(this.responseText);
     }
   };
   xmlhttp.open("GET", "functions.php?q=get_total_outstanding&client_id=" + c_id, true);
@@ -299,6 +297,7 @@ function add_row() {
 
   setTimeout(() => {
     $("#invoiceSelectCLIENT_" + String(counter)).selectpicker();
+    $("#invoiceSelectCLIENT_" + String(counter)).selectpicker('val', 0);
   }, 100);
 
   populate_quantity_field("invoiceQUANTITY_" + String(counter));
@@ -307,6 +306,7 @@ function add_row() {
 
   setTimeout(() => {
     $("#invoiceSelectPRODUCT_" + String(counter)).selectpicker();
+    $("#invoiceSelectPRODUCT_" + String(counter)).selectpicker('val', 0);
   }, 100);
   //$("#invoiceAMOUNT_" + String(counter)).typeahead();
 
@@ -506,29 +506,5 @@ $(document).ready(function () {
   });
 
   add_row();
-
-  // ---------------- Typeahead ---------------- //
-  // Defining the local dataset
-  // var packets = ["5", "10", "15", "20"];
-  // var i = 0;
-  // while (i++ < 10)
-  //   packets.push(String(i * 25));
-
-  // // Constructing the suggestion engine
-  // var packets = new Bloodhound({
-  //   datumTokenizer: Bloodhound.tokenizers.whitespace,
-  //   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  //   local: packets
-  // });
-
-  // // Initializing the typeahead
-  // $('.typeahead').typeahead({
-  //   hint: false,
-  //   highlight: true, /* Enable substring highlighting */
-  //   minLength: 1 /* Specify minimum characters required for showing result */
-  // }, {
-  //   name: 'packets',
-  //   source: packets
-  // });
 
 });

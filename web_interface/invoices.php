@@ -11,8 +11,6 @@
     </script>
 
     <div id="route_tabs" class="card bg-dark text-white col-sm-12">
-
-
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
       </div>
@@ -81,9 +79,6 @@
         </div>
 
       </form>
-
-
-
     </div>
 
     <!-- <button id="addRow">Add Row</button> -->

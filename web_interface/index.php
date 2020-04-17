@@ -54,8 +54,6 @@
       <?php include("products.php"); ?>
     </div>
 
-
-
     <div class="container" id="Invoices_area" style="padding-top: 50px">
       <?php include("invoices.php"); ?>
     </div>

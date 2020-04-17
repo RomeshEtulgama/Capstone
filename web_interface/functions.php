@@ -232,7 +232,7 @@ function get_client($id)
 }
 
 function get_outstanding($client_id){
-	echo "14.25";
+	return "14.25";
 }
 
 function remove_client($id)
