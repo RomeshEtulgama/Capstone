@@ -275,8 +275,8 @@ function add_row() {
   var counter = t.rows().count() + 1;
 
   no_field = "<label style=\"display: block; text-align: center;\" >" + String(counter) + "</label>";
-  client_name_field = "<select id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\" ></select>";
-  quantity_field = "<input id = \"invoiceQUANTITY_" + String(counter) + "\" type=\"number\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" >";
+  client_name_field = "<select name = \"client_name\"  id = \"invoiceSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" onchange=\"select_product(" + counter + ")\" tabIndex=\"" + counter + "1\"></select>";
+  quantity_field = "<input name = \"quantity\" id = \"invoiceQUANTITY_" + String(counter) + "\" type=\"number\" class=\"typeahead form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" tabIndex=\"" + counter + "2\">";
   product_field = "<select id = \"invoiceSelectPRODUCT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" onchange=\"set_unit_price(" + counter + ")\" ></select>";
   unit_price_field = "<input readonly id = \"invoiceUNITPRICE_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\" onchange=\"calculate_amount(" + counter + ")\">";
   amount_field = "<input readonly id = \"invoiceAMOUNT_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\" value=0 style=\"text-align: right\">";
@@ -507,4 +507,23 @@ $(document).ready(function () {
 
   add_row();
 
+});
+
+$(function() {
+  $(document).on('keypress', function(e) {
+      var that = document.activeElement;
+      if( e.which == 13 ) {
+        // e.preventDefault();
+        if(that.name == "quantity"){
+          try{
+            $('[tabIndex=' + (+that.tabIndex + 9) + ']')[0].focus();
+          } catch {
+            add_row();
+            setTimeout(() => {
+              $('[tabIndex=' + (+that.tabIndex + 9) + ']')[0].focus();
+            }, 100); 
+          }
+        }
+      }            
+  });
 });
