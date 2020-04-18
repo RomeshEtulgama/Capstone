@@ -17,27 +17,27 @@
       </nav>
       <label for="route">Route</label>
       <div id="routes_radio" class="btn-group btn-group-toggle col-sm-2 pl-0" data-toggle="buttons"></div>
-      <br>
+        <br>
       <form>
         <div class="form-row">
 
           <!-- Order No -->
           <div class="form-group col-sm-2 mr-4">
-            <label for="order_no-CMB">Order No</label>
+            <label for="order_no">Order No</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-dark text-white" id="basic-addon3-CMB">CMB</span>
+                <span class="input-group-text bg-dark text-white" id="basic-addon3">CMB</span>
               </div>
-              <input type="number" class="form-control" id="order_no-CMB" aria-describedby="basic-addon3-CMB" autocomplete="off">
+              <input type="number" class="form-control" id="order_no" aria-describedby="basic-addon3" autocomplete="off">
             </div>
           </div>
 
           <!-- Order Date -->
           <div class="form-group col-sm-2 mr-4">
-            <label for="datepicker-CMB">Order Date</label>
-            <input autocomplete="off" id="datepicker-CMB">
+            <label for="datepicker">Order Date</label>
+            <input autocomplete="off" id="datepicker">
             <script>
-              $('#datepicker-CMB').datepicker({
+              $('#datepicker').datepicker({
                 uiLibrary: 'bootstrap4',
                 format: 'yyyy-dd-mm'
               });
@@ -46,9 +46,9 @@
 
           <!-- Remarks -->
           <div class="form-group col-sm-7">
-            <label for="order_remarks-CMB">Remarks</label>
+            <label for="order_remarks">Remarks</label>
             <div class="input-group mb-3">
-              <textarea class="form-control" id="order_remarks-CMB" rows="1" autocomplete="off"></textarea>
+              <textarea class="form-control" id="order_remarks" rows="1" autocomplete="off"></textarea>
             </div>
           </div>
 

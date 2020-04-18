@@ -431,7 +431,7 @@ function get_routes()
 	if($result) {
 		while ($row = $result->fetch_assoc()) {
 			$radio .= "<label class=\"btn btn-secondary\">\n";
-			$radio .= "<input type=\"radio\" name=\"options\" id=\"radio-".$row["Name"]."\" ".$radio_checked."> ".$row["Acronym"]."\n";
+			$radio .= "<input type=\"radio\" name=\"options\" id=\"radio-".$row["Name"]."\" ".$radio_checked." value=\"".$row["Acronym"]."\"> ".$row["Name"]."\n";
 			$radio .= "</label>";
 			$radio_checked = "";
 		}

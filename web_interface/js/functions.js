@@ -325,6 +325,10 @@ function clear_invoices_table(){
   add_row();
 }
 
+function change_acronym_for_ORDNO(str){
+  document.getElementById("basic-addon3").textContent = str;
+}
+
 // Populate a table using ajax
 function Populate_table(str) {
   var xmlhttp = new XMLHttpRequest();
@@ -541,5 +545,11 @@ $(function() {
           }
         }
       }            
+  });
+});
+
+$(document).ready(function() {
+  $('input[type=radio][name="options"]').change(function() {
+    document.getElementById("basic-addon3").textContent = this.value;
   });
 });
