@@ -34,10 +34,10 @@
 
           <!-- Order Date -->
           <div class="form-group col-sm-2 mr-4">
-            <label for="datepicker">Order Date</label>
-            <input autocomplete="off" id="datepicker">
+            <label for="order_date">Order Date</label>
+            <input autocomplete="off" id="order_date">
             <script>
-              $('#datepicker').datepicker({
+              $('#order_date').datepicker({
                 uiLibrary: 'bootstrap4',
                 format: 'yyyy-dd-mm'
               });

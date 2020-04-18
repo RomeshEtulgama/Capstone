@@ -326,9 +326,37 @@ function change_acronym_for_ORDNO(str){
 }
 
 function submitAddOrderForm() {
-  var route_id = $('input[type=radio][id="routes-radio"]:checked').val();
-  var order_no;
-  alert("Hei");
+  var i_route_id = Number(document.getElementById("basic-addon3").value);
+  var i_order_no = Number(document.getElementById("order_no").value);
+  var i_order_date = (document.getElementById("order_date").value);
+  var i_order_remarks = document.getElementById("order_remarks").value;
+  var i_header, i_body;
+  if(isNaN(i_order_no) || i_order_no<=0){
+    alert("Please fill Order No.");
+  } else {
+    i_header = [i_route_id, i_order_no, i_order_date, i_order_remarks];
+    var table = $("#invoices_table").dataTable();
+    var rows = table.fnGetNodes();
+    var i_entries = [];
+    rows.forEach(row => {
+      var client_id = Number(row.cells[1].lastElementChild.firstElementChild.value);
+      var quantity = Number(row.cells[2].lastElementChild.firstElementChild.value);
+      var product_id = Number(row.cells[3].lastElementChild.firstElementChild.value);
+      if(client_id > 0 && product_id > 0)
+        i_entries.push([client_id, quantity, product_id]);
+    });
+    var i_order_data = [i_header, i_entries];
+    
+    $.post("./functions.php", {
+      sub: "add_order_form",
+      sub_data: i_order_data
+    });
+
+  }
+
+
+  
+  // alert([route_id, order_no, order_date, order_remarks]);
 
 }
 
