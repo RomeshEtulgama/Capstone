@@ -7,17 +7,17 @@
     </div>
 
     <script>
-      Populate_table("route_tabs")
+      Populate_table("routes_radio")
     </script>
 
-    <div id="route_tabs" class="card bg-dark text-white col-sm-12">
-      <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-      </div>
-    </div>
-
-    <!-- Testing Card -->
-    <div id="route_tabs" class="card bg-dark text-white col-sm-12">
+    <!-- Invoices -->
+    <div id="invoices_card" class="card bg-dark text-white col-sm-12">
+      <nav class="navbar navbar-dark bg-dark text-white pl-0">
+        <h4>Invoices</h4>
+      </nav>
+      <label for="route">Route</label>
+      <div id="routes_radio" class="btn-group btn-group-toggle col-sm-2 pl-0" data-toggle="buttons"></div>
+      <br>
       <form>
         <div class="form-row">
 
@@ -80,7 +80,7 @@
       </form>
 
       <hr>
-      
+
       <div align='right'>
         <button type="submit" class="btn btn-primary submitBtn mr-5" onclick="submitAddOrderForm()">Submit</button>
       </div>

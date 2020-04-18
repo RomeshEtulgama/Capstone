@@ -399,33 +399,47 @@ function get_routes()
 
 	$result = $conn->query($sql);
 
-	$tab_data = "";
-	$tab_content = "";
-	$tab_active = "active";
-	$tab_content_active = "show active";
-	$tab_data = "<div class=\"card-header\"><h4>Generate Invoices</h4></div>";
+	// $tab_data = "";
+	// $tab_content = "";
+	// $tab_active = "active";
+	// $tab_content_active = "show active";
+	// $tab_data = "<div class=\"card-header\"><h4>Generate Invoices</h4></div>";
 
-	if ($result) {
-		$tab_data .= "<ul class=\"nav nav-pills mb-3\" id=\"pills-tab\" role=\"tablist\">";
-		$tab_content .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
+	// if ($result) {
+	// 	$tab_data .= "<ul class=\"nav nav-pills mb-3\" id=\"pills-tab\" role=\"tablist\">";
+	// 	$tab_content .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
+	// 	while ($row = $result->fetch_assoc()) {
+	// 		$tab_data .= "<li class=\"nav-item\">";
+	// 		$tab_content .= "<div class=\"tab-pane fade " . $tab_content_active . "\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\" >" . $row["Name"] . " - Content";
+	// 		$tab_content .= ""; 
+	// 		$tab_content .= "</div>";
+	// 		$tab_data .= "<a class=\"nav-link " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
+	// 		$tab_data .= "</li>";
+	// 		$tab_content_active = "";
+	// 		$tab_active = "";
+	// 	}
+	// 	$tab_data .= "</ul>";
+	// 	$tab_content .= "</div>";
+	// 	$tab_data .= $tab_content;
+
+	// 	return $tab_data;
+	// } else {
+	// 	echo "0 results";
+	// }
+	$radio = "";
+	$radio_checked = "checked";
+	if($result) {
 		while ($row = $result->fetch_assoc()) {
-			$tab_data .= "<li class=\"nav-item\">";
-			$tab_content .= "<div class=\"tab-pane fade " . $tab_content_active . "\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\" >" . $row["Name"] . " - Content";
-			$tab_content .= ""; // add route tab contents here - maybe convert the test card contents to text then add here
-			$tab_content .= "</div>";
-			$tab_data .= "<a class=\"nav-link " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
-			$tab_data .= "</li>";
-			$tab_content_active = "";
-			$tab_active = "";
+			$radio .= "<label class=\"btn btn-secondary\">\n";
+			$radio .= "<input type=\"radio\" name=\"options\" id=\"radio-".$row["Name"]."\" ".$radio_checked."> ".$row["Acronym"]."\n";
+			$radio .= "</label>";
+			$radio_checked = "";
 		}
-		$tab_data .= "</ul>";
-		$tab_content .= "</div>";
-		$tab_data .= $tab_content;
-
-		return $tab_data;
 	} else {
 		echo "0 results";
 	}
+	return $radio;
+	
 	disconnect($conn);
 }
 
@@ -528,7 +542,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		} elseif ($populate_request == "products_table") {
 			$table_data = view_products();
 			echo $table_data === "" ? "Error" : $table_data;
-		} elseif ($populate_request == "route_tabs") {
+		} elseif ($populate_request == "routes_radio") {
 			$tab_data = get_routes();
 			echo $tab_data == "" ? "Error" : $tab_data;
 		} elseif (substr($populate_request, 0, 19)  == "invoiceSelectCLIENT") {
