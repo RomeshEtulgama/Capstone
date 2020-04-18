@@ -529,6 +529,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			remove_product($id);
 		}
+
+		// add order
+		if ($_POST["sub"] == "add_order_form") {
+			$data = $_POST["sub_data"];
+			$route_id = $data[0][0];
+			$order_no = $data[0][1];
+			$order_date = $data[0][2];
+			$order_remarks = $data[0][3];
+			echo $data[0][0];
+
+		}
 	}
 }
 
