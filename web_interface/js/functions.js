@@ -314,10 +314,6 @@ function add_row() {
 
 }
 
-function submitAddOrderForm() {
-  var order_no;
-}
-
 function clear_invoices_table(){
   var t = $('#invoices_table').DataTable();
   t.clear();
@@ -327,6 +323,13 @@ function clear_invoices_table(){
 
 function change_acronym_for_ORDNO(str){
   document.getElementById("basic-addon3").textContent = str;
+}
+
+function submitAddOrderForm() {
+  var route_id = $('input[type=radio][id="routes-radio"]:checked').val();
+  var order_no;
+  alert("Hei");
+
 }
 
 // Populate a table using ajax
@@ -527,6 +530,15 @@ $(document).ready(function () {
 
   add_row();
 
+  $('input[type=radio][id="routes-radio"]').change(function() {
+    document.getElementById("basic-addon3").textContent = this.value;
+    document.getElementById("basic-addon3").value = this.name;
+  });
+
+  init_route = $('input[type=radio][id="routes-radio"]')[0]
+  document.getElementById("basic-addon3").textContent = init_route.value;
+  document.getElementById("basic-addon3").value = init_route.name;
+
 });
 
 $(function() {
@@ -545,11 +557,5 @@ $(function() {
           }
         }
       }            
-  });
-});
-
-$(document).ready(function() {
-  $('input[type=radio][name="options"]').change(function() {
-    document.getElementById("basic-addon3").textContent = this.value;
   });
 });

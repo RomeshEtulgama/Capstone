@@ -17,7 +17,7 @@
       </nav>
       <label for="route">Route</label>
       <div id="routes_radio" class="btn-group btn-group-toggle col-sm-2 pl-0" data-toggle="buttons"></div>
-        <br>
+      <br>
       <form>
         <div class="form-row">
 
@@ -26,7 +26,7 @@
             <label for="order_no">Order No</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-dark text-white" id="basic-addon3">CMB</span>
+                <span class="input-group-text bg-dark text-white" id="basic-addon3"></span>
               </div>
               <input type="number" class="form-control" id="order_no" aria-describedby="basic-addon3" autocomplete="off">
             </div>
@@ -82,7 +82,7 @@
       <hr>
 
       <div align='right'>
-        <button type="submit" class="btn btn-primary submitBtn mr-5" onclick="submitAddOrderForm()">Submit</button>
+        <button type="submit" class="btn btn-primary submitBtn mr-5" onclick= submitAddOrderForm() >Submit</button>
       </div>
 
     </div>
