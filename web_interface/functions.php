@@ -399,33 +399,6 @@ function get_routes()
 
 	$result = $conn->query($sql);
 
-	// $tab_data = "";
-	// $tab_content = "";
-	// $tab_active = "active";
-	// $tab_content_active = "show active";
-	// $tab_data = "<div class=\"card-header\"><h4>Generate Invoices</h4></div>";
-
-	// if ($result) {
-	// 	$tab_data .= "<ul class=\"nav nav-pills mb-3\" id=\"pills-tab\" role=\"tablist\">";
-	// 	$tab_content .= "<div class=\"tab-content\" id=\"pills-tabContent\">";
-	// 	while ($row = $result->fetch_assoc()) {
-	// 		$tab_data .= "<li class=\"nav-item\">";
-	// 		$tab_content .= "<div class=\"tab-pane fade " . $tab_content_active . "\" id=\"pills-" . $row["Name"] . "\" role=\"tabpanel\" aria-labelledby=\"pills-" . $row["Name"] . "-tab\" >" . $row["Name"] . " - Content";
-	// 		$tab_content .= ""; 
-	// 		$tab_content .= "</div>";
-	// 		$tab_data .= "<a class=\"nav-link " . $tab_active . "\" id=\"pills-" . $row["Name"] . "-tab\" data-toggle=\"pill\" href=\"#pills-" . $row["Name"] . "\" role=\"tab\" aria-controls=\"pills-" . $row["Name"] . "\" aria-selected=\"true\">" . $row["Name"] . "</a>";
-	// 		$tab_data .= "</li>";
-	// 		$tab_content_active = "";
-	// 		$tab_active = "";
-	// 	}
-	// 	$tab_data .= "</ul>";
-	// 	$tab_content .= "</div>";
-	// 	$tab_data .= $tab_content;
-
-	// 	return $tab_data;
-	// } else {
-	// 	echo "0 results";
-	// }
 	$radio = "";
 	$radio_checked = "checked";
 	if($result) {
@@ -537,7 +510,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$order_no = $data[0][1];
 			$order_date = $data[0][2];
 			$order_remarks = $data[0][3];
+			//header("Location: index.php?message=User name or Email id already exists.");
 			echo $data[0][0];
+			echo $data[0][1];
+			echo $data[0][2];
+			echo $data[0][3];
+			echo $data[1][0][0];
+			echo $data[1][0][1];
+			echo $data[1][0][2];
 
 		}
 	}

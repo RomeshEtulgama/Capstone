@@ -325,13 +325,6 @@ function change_acronym_for_ORDNO(str){
   document.getElementById("basic-addon3").textContent = str;
 }
 
-function get_order(order_no){
-  // sends the order no to the php and if there is an existing order,
-  // shows "Want to update existing order ?" dialog. if yes, shows update order modal, 
-  // else focuses on the order no field.
-  return [1, 2, 3];
-}
-
 function submitAddOrderForm() {
   var i_route_id = Number(document.getElementById("basic-addon3").value);
   var i_order_no = Number(document.getElementById("order_no").value);
@@ -341,30 +334,27 @@ function submitAddOrderForm() {
   if(isNaN(i_order_no) || i_order_no<=0){
     alert("Please fill Order No.");
   } else {
-    if(get_order(i_order_no).length > 0){
-      alert("Existing order found with same Order No");
-    } else {
-      i_header = [i_route_id, i_order_no, i_order_date, i_order_remarks];
-      var table = $("#invoices_table").dataTable();
-      var rows = table.fnGetNodes();
-      var i_entries = [];
-      rows.forEach(row => {
-        var client_id = Number(row.cells[1].lastElementChild.firstElementChild.value);
-        var quantity = Number(row.cells[2].lastElementChild.firstElementChild.value);
-        var product_id = Number(row.cells[3].lastElementChild.firstElementChild.value);
-        if(client_id > 0 && product_id > 0)
-          i_entries.push([client_id, quantity, product_id]);
+    
+    i_header = [i_route_id, i_order_no, i_order_date, i_order_remarks];
+    var table = $("#invoices_table").dataTable();
+    var rows = table.fnGetNodes();
+    var i_entries = [];
+    rows.forEach(row => {
+      var client_id = Number(row.cells[1].lastElementChild.firstElementChild.value);
+      var quantity = Number(row.cells[2].lastElementChild.firstElementChild.value);
+      var product_id = Number(row.cells[3].lastElementChild.firstElementChild.value);
+      if(client_id > 0 && product_id > 0)
+        i_entries.push([client_id, quantity, product_id]);
+    });
+    var i_order_data = [i_header, i_entries];
+    
+    if(i_entries.length < 1)
+      alert("Please add some orders in the table");
+    else
+      $.post("./functions.php", {
+        sub: "add_order_form",
+        sub_data: i_order_data
       });
-      var i_order_data = [i_header, i_entries];
-      
-      if(i_entries.length < 1)
-        alert("Please add some orders in the table");
-      else
-        $.post("./functions.php", {
-          sub: "add_order_form",
-          sub_data: i_order_data
-        });
-    }
 
   }
 
