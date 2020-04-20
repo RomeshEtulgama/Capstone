@@ -4,7 +4,9 @@ function connect()
 	$servername = "localhost";
 	$username = "root";
 	$password = "romesh1995";
+	//000webhost db password : Romeshetulgama+1995
 	$dbname = "amila_inv_db";
+	//000webhost db name : id10251950_amila_inv_db
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
@@ -186,7 +188,7 @@ function select_products($full_mode = false, $select_product = 0)
 {
 	$conn = connect();
 	// sql to select table
-	$sql = "SELECT id, Name FROM products ORDER BY id ASC;";
+	$sql = "SELECT id, Name FROM products WHERE enabled=1 ORDER BY id ASC;";
 
 	$result = $conn->query($sql);
 
@@ -287,12 +289,15 @@ function view_products()
 								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteProductModal\" 
 								data-whatever=\"" . $row["id"] . "\">Delete
 								</button>
-								<button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit_product\" data-toggle=\"modal\" data-target=\"#editProductModal\" 
-								data-whatever=\"" . $row["id"] . "\"> Edit
-								</button>
 							</form>
 						</td> 
-		        	</tr>";
+					</tr>";
+					
+					// ----------- Removed Edit Product Button - Editing products causes Logical Errors ------------ //
+					// <button type=\"button\" class=\"btn btn-warning btn-sm\" name=\"edit_product\" data-toggle=\"modal\" data-target=\"#editProductModal\" 
+					// data-whatever=\"" . $row["id"] . "\"> Edit
+					// </button>
+
 			// if(isset($_POST["delete_product".$row["id"]])) { 
 			//     remove_product($row["id"]) ; 
 			// }
@@ -338,7 +343,7 @@ function add_product($p_index, $p_name, $p_description, $p_unitprice, $p_remarks
 	$p_id = null;
 
 	if (strlen($p_name) >= 5) {
-		$sql = "call add_product('$p_index', '$p_name', '$p_description', '$p_unitprice', '$p_remarks');";
+		$sql = "call add_product(0, '$p_name', '$p_description', '$p_unitprice', '$p_remarks');";
 		execute_sql($sql);
 
 		$p_id = 0;
@@ -356,9 +361,11 @@ function add_product($p_index, $p_name, $p_description, $p_unitprice, $p_remarks
 		}
 		disconnect($conn);
 
-		foreach ($p_clients as $c_id) {
-			$sql = "call update_DefaultProduct($c_id, $p_id);";
-			execute_sql($sql);
+		if($p_clients != ""){
+			foreach ($p_clients as $c_id) {
+				$sql = "call update_DefaultProduct($c_id, $p_id);";
+				execute_sql($sql);
+			}
 		}
 	}
 }
@@ -403,7 +410,7 @@ function get_routes()
 	$radio_checked = "checked";
 	if($result) {
 		while ($row = $result->fetch_assoc()) {
-			$radio .= "<label class=\"btn btn-secondary\">\n";
+			$radio .= "<label class=\"btn btn-secondary\" style=\"max-width : 100px\">\n";
 			$radio .= "<input type=\"radio\" name=\"".$row["id"]."\" id=\"routes-radio\" ".$radio_checked." value=\"".$row["Acronym"]."\"> ".$row["Name"]."\n";
 			$radio .= "</label>";
 			$radio_checked = "";
@@ -411,6 +418,9 @@ function get_routes()
 	} else {
 		echo "0 results";
 	}
+	$radio .= "<label id=\"new-route-btn\"class=\"btn btn-dark col-sm-2\" style=\"max-width : 120px\">\n";
+	$radio .= "<input type=\"radio\" name=\"new\" id=\"routes-radio\" " . $radio_checked . " value=\"new\" >Add Route\n";
+	$radio .= "</label>";
 	return $radio;
 	
 	disconnect($conn);

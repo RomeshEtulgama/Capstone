@@ -418,6 +418,10 @@ td > div > .btn-light {
     color: white !important;
 }
 
+.dropdown-menu{
+    z-index: 5000 !important;
+}
+
 /* td > input {
     background-color: transparent !important;
     border-color: transparent !important;

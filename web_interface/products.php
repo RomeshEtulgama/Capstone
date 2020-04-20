@@ -61,7 +61,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="was-validated m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_product_form">
+                <form class="was-validated m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_product_form" autocomplete="off">
 
                     <!-- INDEX, NAME, DESCRIPTION, UNIT PRICE -->
                     <div class="form-row">
@@ -75,7 +75,7 @@
                         <!-- NAME -->
                         <div class="col-md-4 mb-3">
                             <label for="productInputNAME">Name</label>
-                            <input type="text" class="form-control" id="productInputNAME" placeholder="Milk Toffee xxx/=">
+                            <input type="text" class="form-control" id="productInputNAME" placeholder="Milk Toffee xxx/=" autocomplete="off">
                         </div>
 
                         <!-- DESCRIPTION -->

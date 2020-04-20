@@ -84,12 +84,15 @@ function deleteClient(id) {
 // --------------- Products --------------- //
 
 function submitAddProductForm() {
-  var index = $('#productInputINDEX').val();
+  var index = Number($('#productInputINDEX').val());
   var name = $('#productInputNAME').val();
   var description = $('#productInputDESCRIPTION').val();
   var unitprice = $('#productInputUNITPRICE').val();
   var remarks = $('#productInputREMARKS').val();
   var clients = $('#productSelectCLIENTS').val();
+  
+  if (clients.length == 0)
+    clients = "";
 
   if (name.trim() == '') {
     alert('Please enter product name.');
@@ -552,7 +555,8 @@ $(document).ready(function () {
   });
 
   $('#active_clients_table').DataTable({
-    "searching": false
+    "searching": false,
+    "lengthMenu": [ 5, 10, 25, 50, 75, 100 ]
   });
 
   // Invoices Table
@@ -563,8 +567,12 @@ $(document).ready(function () {
   add_row();
 
   $('input[type=radio][id="routes-radio"]').change(function() {
+    if (this.name != "new"){
     document.getElementById("basic-addon3").textContent = this.value;
     document.getElementById("basic-addon3").value = this.name;
+    } else {
+      alert("Add New Route Modal");
+    }
   });
 
   init_route = $('input[type=radio][id="routes-radio"]')[0]

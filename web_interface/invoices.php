@@ -16,7 +16,7 @@
         <h4>Invoices</h4>
       </nav>
       <label for="route">Route</label>
-      <div id="routes_radio" class="btn-group btn-group-toggle col-sm-2 pl-0" data-toggle="buttons"></div>
+      <div id="routes_radio" class="btn-group btn-group-toggle pl-0" data-toggle="buttons"></div>
       <br>
       <form>
         <div class="form-row">

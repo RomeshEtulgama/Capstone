@@ -140,7 +140,7 @@
                         <!-- NAME -->
                         <div class="col-md-4 mb-3">
                             <label for="InputNAME">Name</label>
-                            <input type="text" class="form-control" id="InputNAME" placeholder="Mr. Romesh Bandara">
+                            <input type="text" class="form-control" id="InputNAME" placeholder="Mr. Romesh Bandara" autocomplete="off">
                         </div>
 
                         <!-- ADDRESS -->
