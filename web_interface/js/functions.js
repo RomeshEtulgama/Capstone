@@ -359,6 +359,10 @@ function submitAddOrderForm() {
         sub_data: i_order_data
       });
 
+    setTimeout(() => {
+      refresh_datatable('orders_table');
+    }, 500);
+    
   }
 
 

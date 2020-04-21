@@ -437,7 +437,9 @@ function view_orders()
 	if ($result) {
 		$table_data .= "<thead><tr>
 						<th class=\"text-center\">Serial No</th>
+						<th>Route</th>
 						<th>Order No</th>
+						<th>Trip No</th>
 						<th>Client Name</th>
 						<th>Client Address</th>
 						<th>Product Name</th>
@@ -447,7 +449,9 @@ function view_orders()
 		while ($row = $result->fetch_assoc()) {
 			$table_data .= "<tr>
 						<td class=\"text-center\">" . $row["SerialNo"] . "</td>
+						<td>" . $row["Acronym"] . "</td>
 						<td>" . $row["OrdNo"] . "</td>
+						<td>" . $row["trip_no"] . "</td>
 						<td>" . $row["c_name"] . "</td>
 						<td>" . $row["Address"] . "</td>
 						<td>" . $row["p_name"] . "</td>
