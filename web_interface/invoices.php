@@ -85,6 +85,13 @@
         <button type="submit" class="btn btn-primary submitBtn mr-5" onclick= submitAddOrderForm() >Submit</button>
       </div>
 
+      <br>
+      <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="orders_table">      
+      </table>
+      <script>
+        Populate_table("orders_table");
+      </script>
+
     </div>
 
   </div>

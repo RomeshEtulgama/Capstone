@@ -108,9 +108,8 @@ function view_clients()
 						<th>Name</th>
 						<th>Address</th>
 						<th>Nickname</th>
-						<th>CodeNo</th>
-						<th>Contact1</th>
-						<th>Contact2</th>
+						<th style=\"display : none\">CodeNo</th>
+						<th>Contacts</th>
 						<th>DefaultProduct</th>
 						<th>Remarks</th>
 						<th class=\"text-center\">Actions</th>
@@ -122,12 +121,11 @@ function view_clients()
 						<td>" . $row["Name"] . "</td>
 						<td>" . $row["Address"] . "</td>
 						<td>" . $row["Nickname"] . "</td>
-						<td>" . $row["CodeNo"] . "</td>
-						<td>" . $row["Contact1"] . "</td>
-						<td>" . $row["Contact2"] . "</td>
+						<td style=\"display : none\">" . $row["CodeNo"] . "</td>
+						<td>" . $row["Contact1"] . "\n" . $row["Contact2"] . "</td>
 						<td>" . $row["DefaultProduct"] . "</td>
 						<td>" . $row["Remarks"] . "</td>
-						<td class=\"text-center\">
+						<td class=\"text-center\" >
 							<form method=\"post\">
 								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteClientModal\" 
 								data-whatever=\"" . $row["id"] . "\">Delete
@@ -426,6 +424,43 @@ function get_routes()
 	disconnect($conn);
 }
 
+function view_orders()
+{
+	$conn = connect();
+	// sql to select table
+	$sql = "call view_orders()";
+
+	$result = $conn->query($sql);
+
+	$table_data = "";
+
+	if ($result) {
+		$table_data .= "<thead><tr>
+						<th class=\"text-center\">Serial No</th>
+						<th>Order No</th>
+						<th>Client Name</th>
+						<th>Client Address</th>
+						<th>Product Name</th>
+						<th>Quantity</th>
+					</tr></thead>";
+		// output data of each row
+		while ($row = $result->fetch_assoc()) {
+			$table_data .= "<tr>
+						<td class=\"text-center\">" . $row["SerialNo"] . "</td>
+						<td>" . $row["OrdNo"] . "</td>
+						<td>" . $row["c_name"] . "</td>
+						<td>" . $row["Address"] . "</td>
+						<td>" . $row["p_name"] . "</td>
+						<td>" . $row["quantity"] . "</td>
+					</tr>";
+		}
+		return $table_data;
+	} else {
+		echo "0 results";
+	}
+	disconnect($conn);
+}
+
 function calculate_amount($quantity, $p_id){
 	$amount = 0;
 	try {
@@ -608,6 +643,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$c_id = $_REQUEST["client_id"];
 			$outstanding = get_outstanding($c_id);
 			echo $outstanding == "" ? "" : $outstanding;
+		} elseif ($populate_request  == "orders_table") {
+			$table_data = view_orders();
+			echo $table_data === "" ? "Error" : $table_data;
 		}
 	}
 }

@@ -564,6 +564,10 @@ $(document).ready(function () {
     "searching": false
   });
 
+  $('#orders_table').DataTable({
+    searching : false
+  });
+
   add_row();
 
   $('input[type=radio][id="routes-radio"]').change(function() {
