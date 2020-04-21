@@ -516,18 +516,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		// add order
 		if ($_POST["sub"] == "add_order_form") {
 			$data = $_POST["sub_data"];
+			// echo '<pre>'; print_r($data); echo '</pre>';
 			$route_id = $data[0][0];
 			$order_no = $data[0][1];
 			$order_date = $data[0][2];
 			$order_remarks = $data[0][3];
 			//header("Location: index.php?message=User name or Email id already exists.");
-			echo $data[0][0];
-			echo $data[0][1];
-			echo $data[0][2];
-			echo $data[0][3];
-			echo $data[1][0][0];
-			echo $data[1][0][1];
-			echo $data[1][0][2];
+			// echo "----------------data[1]----------------";
+			// echo '<pre>'; print_r($data[1]); echo '</pre>';
+			// echo "----------------count(data[1])----------------";
+
+			$conn = connect();
+			$sql = "call add_order(".$route_id.",\"".$order_date."\",".$order_no.",\"".$order_remarks."\",@o_id);\n";
+			// echo $sql."\n";
+			$conn->query($sql);
+			$sql = "SELECT @o_id as o_id";
+			$o_id = 0;
+			$result = $conn->query($sql);
+			if($result) {
+				$row = $result->fetch_assoc();
+				$o_id = $row["o_id"];
+				// echo "o_id : ".$o_id."\n"; 
+			}
+			for ($i=0, $len=count($data[1]); $i<$len; $i++) {
+				$c_id = $data[1][$i][0];
+				$qty = $data[1][$i][1];
+				$p_id = $data[1][$i][2];
+				
+				if($o_id > 0){
+					$sql = "call add_trip(".$o_id.",".$c_id.",@t_id);\n";
+					// echo $sql."\n";
+					$conn->query($sql);
+					$sql = "SELECT @t_id as t_id";
+					$t_id = 0;
+					$result = $conn->query($sql);
+					if($result) {
+						$row = $result->fetch_assoc();
+						$t_id = $row["t_id"];
+						// echo "t_id : ".$t_id."\n"; 
+					}
+					if($t_id > 0){
+						$sql = "call add_invoice(".$p_id.",".$qty.",".$t_id.");";
+						// echo $sql."\n";
+						$result = $conn->query($sql);
+					}
+				}
+			}
 
 		}
 	}

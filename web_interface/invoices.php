@@ -39,7 +39,7 @@
             <script>
               $('#order_date').datepicker({
                 uiLibrary: 'bootstrap4',
-                format: 'yyyy-dd-mm'
+                format: 'yyyy-mm-dd'
               });
             </script>
           </div>
