@@ -416,9 +416,9 @@ function get_routes()
 	} else {
 		echo "0 results";
 	}
-	$radio .= "<label id=\"new-route-btn\"class=\"btn btn-dark col-sm-2\" style=\"max-width : 120px\">\n";
-	$radio .= "<input type=\"radio\" name=\"new\" id=\"routes-radio\" " . $radio_checked . " value=\"new\" >Add Route\n";
-	$radio .= "</label>";
+	// $radio .= "<label id=\"new-route-btn\"class=\"btn btn-dark col-sm-2\" style=\"max-width : 120px\">\n";
+	// $radio .= "<input type=\"radio\" name=\"new\" id=\"routes-radio\" " . $radio_checked . " value=\"new\" data-toggle=\"modal\" data-target=\"#addRouteModal\" >Add Route\n";
+	// $radio .= "</label>";
 	return $radio;
 	
 	disconnect($conn);
@@ -498,6 +498,14 @@ function calculate_amount($quantity, $p_id){
 	}
 	echo number_format($amount, 2, '.', ',');
 		
+}
+
+function add_route($r_name, $r_acronym)
+{
+	if (strlen($r_name) >= 3) {
+		$sql = "call add_route(0, '$r_name', '$r_acronym', '');";
+		execute_sql($sql);
+	}
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -634,6 +642,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$id = $_POST["sub_id"];
 
 			remove_invoice($id);
+		}
+
+		//	add route form
+		if ($_POST["sub"] == "add_route_form") {
+			$name = $acronym = NULL;
+			$name = $_POST["sub_name"];
+			$acronym = $_POST["sub_acronym"];
+
+			add_route($name, $acronym);
 		}
 	}
 }

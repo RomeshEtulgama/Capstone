@@ -382,6 +382,32 @@ function remove_invoice(id) {
   }, 100);
 }
 
+function submitAddRouteForm() {
+  var name = $('#route_name').val();
+  var acronym = $('#route_acronym').val();
+  
+  if (name.trim() == '') {
+    alert('Please enter route name.');
+    $('#route_name').focus();
+    return false;
+  } else if (acronym.trim() == '') {
+    alert('Please enter route acronym.');
+    $('#route_acronym').focus();
+    return false;
+  } else {
+
+    $.post("./functions.php", {
+      sub: "add_route_form",
+      sub_name: name,
+      sub_acronym: acronym
+    });
+
+    setTimeout(() => {
+      Populate_table('routes_radio');
+    }, 500);
+  }
+}
+
 
 // Populate a table using ajax
 function Populate_table(str) {
@@ -393,7 +419,8 @@ function Populate_table(str) {
   };
   xmlhttp.open("GET", "functions.php?q=" + str, true);
   xmlhttp.send();
-  refresh_datatable(str);
+  if(str!='routes_radio')
+    refresh_datatable(str);
 }
 
 function refresh_datatable(str) {
@@ -619,9 +646,11 @@ $(document).ready(function () {
     if (this.name != "new"){
     document.getElementById("basic-addon3").textContent = this.value;
     document.getElementById("basic-addon3").value = this.name;
-    } else {
-      alert("Add New Route Modal");
-    }
+    } 
+    // else {
+    //   // alert("Add New Route Modal");
+    //   // $('#addRouteModal').modal('toggle');
+    // }
   });
 
   init_route = $('input[type=radio][id="routes-radio"]')[0]

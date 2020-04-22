@@ -16,7 +16,10 @@
         <h4>Invoices</h4>
       </nav>
       <label for="route">Route</label>
-      <div id="routes_radio" class="btn-group btn-group-toggle pl-0" data-toggle="buttons"></div>
+      <div class="form-row">
+        <div id="routes_radio" class="btn-group btn-group-toggle pl-0" data-toggle="buttons"></div>
+        <button type="button" class="btn btn-dark col-sm-1" data-toggle="modal" data-target="#addRouteModal">Add Route</button>
+      </div>
       <br>
       <form>
         <div class="form-row">
@@ -82,11 +85,11 @@
       <hr>
 
       <div align='right'>
-        <button type="submit" class="btn btn-primary submitBtn mr-5" onclick= submitAddOrderForm() >Submit</button>
+        <button type="submit" class="btn btn-primary submitBtn mr-5" onclick=submitAddOrderForm()>Submit</button>
       </div>
 
       <br>
-      <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="orders_table">      
+      <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="orders_table">
       </table>
       <script>
         Populate_table("orders_table");
@@ -96,25 +99,67 @@
 
     <!-- Delete Order Confirmation Modal -->
     <div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header" style="border-bottom : 1px solid #495057">
-                    <h5 class="modal-title" id="deleteOrderModalLabel">Delete Order</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header" style="border-bottom : 1px solid #495057">
+            <h5 class="modal-title" id="deleteOrderModalLabel">Delete Order</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-                <div class="modal-body delete-order-modal-body">
+          <div class="modal-body delete-order-modal-body">
 
 
-                </div>
+          </div>
 
-                <div class="modal-footer delete-order-modal-footer" style="border-top : 1px solid #495057">
-                
-                </div>
-            </div>
+          <div class="modal-footer delete-order-modal-footer" style="border-top : 1px solid #495057">
+
+          </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Add Route Modal -->
+    <div class="modal fade bd-example-modal-sm " id="addRouteModal" tabindex="-1" role="dialog" aria-labelledby="addRouteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addRouteModalLabel">Add New Route</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="was-validated m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_route_form">
+              
+              <div class="form-row">
+
+                <!-- NAME -->
+                <div>
+                  <label for="route_name">Name</label>
+                  <input type="text" class="form-control" id="route_name" placeholder="Add route name" autocomplete="off">
+                </div>
+
+              </div>
+              <br>
+              <div class="form-row">
+                <!-- ACRONYM -->
+                <div>
+                  <label for="route_acronym">Acronym</label>
+                  <input type="text" class="form-control" id="route_acronym" placeholder="CMB, KDY">
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#addRouteModal" onclick="submitAddRouteForm()">Submit</button>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
