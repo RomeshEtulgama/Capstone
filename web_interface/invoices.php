@@ -94,5 +94,28 @@
 
     </div>
 
+    <!-- Delete Order Confirmation Modal -->
+    <div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header" style="border-bottom : 1px solid #495057">
+                    <h5 class="modal-title" id="deleteOrderModalLabel">Delete Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body delete-order-modal-body">
+
+
+                </div>
+
+                <div class="modal-footer delete-order-modal-footer" style="border-top : 1px solid #495057">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
   </div>
 </div>

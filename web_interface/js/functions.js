@@ -360,8 +360,8 @@ function submitAddOrderForm() {
       });
 
     setTimeout(() => {
-      refresh_datatable('orders_table');
-    }, 500);
+      Populate_table('orders_table');
+    }, 1000);
     
   }
 
@@ -370,6 +370,18 @@ function submitAddOrderForm() {
   // alert([route_id, order_no, order_date, order_remarks]);
 
 }
+
+function remove_invoice(id) {
+  $.post("./functions.php", {
+    sub: "remove_invoice",
+    sub_id: id
+  });
+
+  setTimeout(() => {
+    Populate_table('orders_table');
+  }, 100);
+}
+
 
 // Populate a table using ajax
 function Populate_table(str) {
@@ -546,7 +558,36 @@ $(document).ready(function () {
   });
 
   // ------------------------------ Invoices -------------------------------------- //
+  $('#deleteOrderModal').on('show.bs.modal', function (event) {
 
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var i_id = button.data('whatever'); // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //var modal = $(this);
+    //modal.find('#InputID').val(client_id);
+    var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">No</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteOrderModal\" onclick=\"remove_invoice(" + i_id + ")\">Yes</button>";
+
+
+    // AJAX request
+    $.ajax({
+      url: './confirm_delete.php',
+      type: 'POST',
+      data: { type: "invoice", id: i_id },
+      //contentType: "text/plain",
+      success: function (response) { //we got the response
+        //alert('Successfully called');
+        $('.delete-order-modal-body').html(response);
+
+        $('.delete-order-modal-footer').html(footer);
+      },
+      error: function (jqxhr, status, exception) {
+        alert('Exception:', exception);
+      }
+    });
+    //});
+  });
 
   // --------------- Activating DataTables for Regular Bootstrap tables ---------------//
 

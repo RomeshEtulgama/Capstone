@@ -437,25 +437,34 @@ function view_orders()
 	if ($result) {
 		$table_data .= "<thead><tr>
 						<th class=\"text-center\">Serial No</th>
-						<th>Route</th>
-						<th>Order No</th>
-						<th>Trip No</th>
-						<th>Client Name</th>
-						<th>Client Address</th>
-						<th>Product Name</th>
-						<th>Quantity</th>
+						<th class=\"text-center\">Route</th>
+						<th class=\"text-center\">Order No</th>
+						<th class=\"text-center\">Trip No</th>
+						<th class=\"text-center\">Client Name</th>
+						<th class=\"text-center\">Client Address</th>
+						<th class=\"text-center\">Product Name</th>
+						<th class=\"text-center\">Quantity</th>
+						<th class=\"text-center\">Action</th>
 					</tr></thead>";
 		// output data of each row
 		while ($row = $result->fetch_assoc()) {
 			$table_data .= "<tr>
 						<td class=\"text-center\">" . $row["SerialNo"] . "</td>
-						<td>" . $row["Acronym"] . "</td>
-						<td>" . $row["OrdNo"] . "</td>
-						<td>" . $row["trip_no"] . "</td>
-						<td>" . $row["c_name"] . "</td>
-						<td>" . $row["Address"] . "</td>
-						<td>" . $row["p_name"] . "</td>
-						<td>" . $row["quantity"] . "</td>
+						<td class=\"text-center\">" . $row["Acronym"] . "</td>
+						<td class=\"text-center\">" . $row["OrdNo"] . "</td>
+						<td class=\"text-center\">" . $row["trip_no"] . "</td>
+						<td class=\"text-center\">" . $row["c_name"] . "</td>
+						<td class=\"text-center\">" . $row["Address"] . "</td>
+						<td class=\"text-center\">" . $row["p_name"] . "</td>
+						<td class=\"text-center\">" . $row["quantity"] . "</td>
+						<td class=\"text-center\">
+							<button class=\"btn btn-sm btn-danger\" id=\"remove_order\"  data-toggle=\"modal\" data-target=\"#deleteOrderModal\" data-whatever=\"" . $row["i_id"] . "\">
+								<i class=\"fa fa-close\"></i>
+							</button>
+							<button class=\"btn btn-sm btn-warning \">
+								<i class=\"fa fa-pencil\"></i>
+							</button>
+						</td>
 					</tr>";
 		}
 		return $table_data;
@@ -463,6 +472,21 @@ function view_orders()
 		echo "0 results";
 	}
 	disconnect($conn);
+}
+
+function get_invoice($id){
+	if ($id != NULL) {
+		$conn = connect();
+		$sql = "call get_invoice(" . $id . ");";
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		disconnect($conn);
+		return array($row["r_Name"], $row["Date"], $row["trip_no"], $row["SerialNo"], $row["c_name"], $row["Address"], $row["p_name"], $row["quantity"]);
+	}
+}
+
+function remove_invoice($id){
+	execute_sql("call remove_invoice('" . $id . "');");
 }
 
 function calculate_amount($quantity, $p_id){
@@ -602,6 +626,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				}
 			}
 
+		}
+
+		// remove invoice
+		if ($_POST["sub"] == "remove_invoice") {
+			$id = NULL;
+			$id = $_POST["sub_id"];
+
+			remove_invoice($id);
 		}
 	}
 }
