@@ -458,10 +458,10 @@ function view_orders()
 						<td class=\"text-center\">" . $row["p_name"] . "</td>
 						<td class=\"text-center\">" . $row["quantity"] . "</td>
 						<td class=\"text-center\">
-							<button class=\"btn btn-sm btn-danger\" id=\"remove_order\"  data-toggle=\"modal\" data-target=\"#deleteOrderModal\" data-whatever=\"" . $row["i_id"] . "\">
+							<button class=\"btn btn-sm btn-danger\" id=\"remove_invoice\"  data-toggle=\"modal\" data-target=\"#deleteInvoiceModal\" data-whatever=\"" . $row["i_id"] . "\">
 								<i class=\"fa fa-close\"></i>
 							</button>
-							<button class=\"btn btn-sm btn-warning \">
+							<button class=\"btn btn-sm btn-warning\" id=\"edit_invoice\"  data-toggle=\"modal\" data-target=\"#editInvoiceModal\" data-whatever=\"" . $row["i_id"] . "\">
 								<i class=\"fa fa-pencil\"></i>
 							</button>
 						</td>
@@ -481,7 +481,7 @@ function get_invoice($id){
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
 		disconnect($conn);
-		return array($row["r_Name"], $row["Date"], $row["trip_no"], $row["SerialNo"], $row["c_name"], $row["Address"], $row["p_name"], $row["quantity"]);
+		return array($row["r_Name"], $row["Date"], $row["trip_no"], $row["SerialNo"], $row["c_name"], $row["Address"], $row["p_name"], $row["quantity"], $row["OrdNo"], $row["client_id"], $row["product_id"]);
 	}
 }
 

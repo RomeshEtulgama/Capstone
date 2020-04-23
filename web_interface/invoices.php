@@ -97,23 +97,46 @@
 
     </div>
 
-    <!-- Delete Order Confirmation Modal -->
-    <div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+    <!-- Delete Invoice Confirmation Modal -->
+    <div class="modal fade" id="deleteInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="deleteInvoiceModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark text-white">
           <div class="modal-header" style="border-bottom : 1px solid #495057">
-            <h5 class="modal-title" id="deleteOrderModalLabel">Delete Order</h5>
+            <h5 class="modal-title" id="deleteInvoiceModalLabel">Delete Invoice</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
 
-          <div class="modal-body delete-order-modal-body">
+          <div class="modal-body delete-invoice-modal-body">
 
 
           </div>
 
-          <div class="modal-footer delete-order-modal-footer" style="border-top : 1px solid #495057">
+          <div class="modal-footer delete-invoice-modal-footer" style="border-top : 1px solid #495057">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Invoice Modal -->
+    <div class="modal fade bd-example-modal-lg" id="editInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="editInvoiceModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header" style="border-bottom : 1px solid #495057">
+            <h5 class="modal-title" id="editInvoiceModalLabel">Edit Invoice</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body edit-invoice-modal-body">
+
+
+          </div>
+
+          <div class="modal-footer edit-invoice-modal-footer" style="border-top : 1px solid #495057">
 
           </div>
         </div>

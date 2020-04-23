@@ -585,7 +585,7 @@ $(document).ready(function () {
   });
 
   // ------------------------------ Invoices -------------------------------------- //
-  $('#deleteOrderModal').on('show.bs.modal', function (event) {
+  $('#deleteInvoiceModal').on('show.bs.modal', function (event) {
 
     var button = $(event.relatedTarget); // Button that triggered the modal
     var i_id = button.data('whatever'); // Extract info from data-* attributes
@@ -594,7 +594,7 @@ $(document).ready(function () {
     //var modal = $(this);
     //modal.find('#InputID').val(client_id);
     var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">No</button>";
-    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteOrderModal\" onclick=\"remove_invoice(" + i_id + ")\">Yes</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#deleteInvoiceModal\" onclick=\"remove_invoice(" + i_id + ")\">Yes</button>";
 
 
     // AJAX request
@@ -605,9 +605,9 @@ $(document).ready(function () {
       //contentType: "text/plain",
       success: function (response) { //we got the response
         //alert('Successfully called');
-        $('.delete-order-modal-body').html(response);
+        $('.delete-invoice-modal-body').html(response);
 
-        $('.delete-order-modal-footer').html(footer);
+        $('.delete-invoice-modal-footer').html(footer);
       },
       error: function (jqxhr, status, exception) {
         alert('Exception:', exception);
@@ -616,6 +616,48 @@ $(document).ready(function () {
     //});
   });
 
+  $('#editInvoiceModal').on('show.bs.modal', function (event) {
+
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var i_id = button.data('whatever'); // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //var modal = $(this);
+    //modal.find('#InputID').val(client_id);
+    var footer = "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>";
+    footer += "<button type=\"submit\" class=\"btn btn-primary submitBtn\" data-toggle=\"modal\" data-target=\"#editInvoiceModal\" onclick=\"edit_invoice(" + i_id + ")\">Submit</button>";
+
+
+    // AJAX request
+    $.ajax({
+      url: './edit_invoice.php',
+      type: 'POST',
+      data: { type: "invoice", id: i_id },
+      //contentType: "text/plain",
+      success: function (response) { //we got the response
+        //alert('Successfully called');
+        $('.edit-invoice-modal-body').html(response);
+
+        $('.edit-invoice-modal-footer').html(footer);
+      },
+      error: function (jqxhr, status, exception) {
+        alert('Exception:', exception);
+      }
+    });    
+    //});
+  });
+
+  $('#editInvoiceModal').on('shown.bs.modal', function (event) {
+    x = document.getElementById('invoiceSelectCLIENT_edit');
+    while(window.getComputedStyle(x).display == "none"){
+      setTimeout(() => {
+        $("#invoiceSelectCLIENT_edit").selectpicker();
+      }, 1000);
+    }
+
+    //check here... tweaking....
+    
+  });
   // --------------- Activating DataTables for Regular Bootstrap tables ---------------//
 
   $('#products_table').DataTable({
