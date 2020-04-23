@@ -648,14 +648,15 @@ $(document).ready(function () {
   });
 
   $('#editInvoiceModal').on('shown.bs.modal', function (event) {
+    tries = 50;
     x = document.getElementById('invoiceSelectCLIENT_edit');
-    while(window.getComputedStyle(x).display == "none"){
-      setTimeout(() => {
-        $("#invoiceSelectCLIENT_edit").selectpicker();
-      }, 1000);
+    y = document.getElementById('invoiceSelectPRODUCT_edit');
+    while((window.getComputedStyle(x).display == "none" || window.getComputedStyle(y).display == "none" ) && tries>0){
+      $("#invoiceSelectCLIENT_edit").selectpicker();
+      $("#invoiceSelectPRODUCT_edit").selectpicker();
+      tries--;
     }
-
-    //check here... tweaking....
+    
     
   });
   // --------------- Activating DataTables for Regular Bootstrap tables ---------------//

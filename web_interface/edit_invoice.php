@@ -17,6 +17,7 @@
 		$c_id = $invoice_data[9];
 		$qty = $invoice_data[7];
 		$p_id = $invoice_data[10];
+		$acronym = $invoice_data[11];
 
 		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]); id = \"edit_invoice_form\">";
                     
@@ -35,7 +36,7 @@
 			$form .=  "            <label for=\"edit_order_no\">Order No</label>\n";
 			$form .=  "            <div class=\"input-group mb-3\">\n";
 			$form .=  "              <div class=\"input-group-prepend\">\n";
-			$form .=  "                <span class=\"input-group-text bg-dark text-white\" id=\"edit-basic-addon3\">TST</span>\n";
+			$form .=  "                <span class=\"input-group-text bg-dark text-white\" id=\"edit-basic-addon3\">".$acronym."</span>\n";
 			$form .=  "              </div>\n";
 			$form .=  "              <input readonly type=\"number\" class=\"form-control\" id=\"edit_order_no\" aria-describedby=\"edit-basic-addon3\" autocomplete=\"off\" value=\"".$o_no."\">\n";
 			$form .=  "            </div>\n";
@@ -53,14 +54,50 @@
 			$form .=  "          <div class=\"form-group mr-4\">\n";
 			$form .=  "            <label for=\"edit_order_no\">Select Client</label>\n";
 			$form .=  "            <div class=\"input-group mb-3\">\n";
-			$form .=  "              <select name = \"edit_client_name\"  id = \"invoiceSelectCLIENT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\"></select>\n";
+			$form .=  "              <select name = \"edit_client_name\"  id = \"invoiceSelectCLIENT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\">";
+					$result = select_clients(false);
+					if ($result) {
+						// output data of each row
+						while($row = $result->fetch_assoc()) {
+							$form .= "<option value=";
+							$form .= $row["id"]." ";
+							if($row["id"] == $c_id){
+								$form .= "selected = \"selected\"";
+							}
+							$form .= "data-subtext=";
+							$form .= $row["DISPLAY2"];
+							$form .= ">";
+							$form .= $row["DISPLAY1"];
+							$form .= "</option>";
+						}
+					} else {
+						echo "0 results";
+					}		
+			$form .=  "				 </select>\n";
 			$form .=  "            </div>\n";
 			$form .=  "          </div>  \n";
 			$form .=  "\n";
 			$form .=  "          <div class=\"form-group mr-4\">\n";
 			$form .=  "            <label for=\"edit_order_no\">Select Product</label>\n";
 			$form .=  "            <div class=\"input-group mb-3\">\n";
-			$form .=  "              <select id = \"invoiceSelectPRODUCT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\"></select>\n";
+			$form .=  "              <select id = \"invoiceSelectPRODUCT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\">";
+			$result = select_products(false);
+					if ($result) {
+						// output data of each row
+						while($row = $result->fetch_assoc()) {
+							$form .= "<option value=";
+							$form .= $row["id"]." ";
+							if($row["id"] == $p_id){
+								$form .= "selected = \"selected\"";
+							}
+							$form .= ">";
+							$form .= $row["Name"];
+							$form .= "</option>";
+						}
+					} else {
+						echo "0 results";
+					}		
+			$form .=  "				 </select>\n";
 			$form .=  "            </div>\n";
 			$form .=  "          </div>\n";
 			$form .=  "\n";

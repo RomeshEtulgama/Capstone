@@ -481,7 +481,7 @@ function get_invoice($id){
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
 		disconnect($conn);
-		return array($row["r_Name"], $row["Date"], $row["trip_no"], $row["SerialNo"], $row["c_name"], $row["Address"], $row["p_name"], $row["quantity"], $row["OrdNo"], $row["client_id"], $row["product_id"]);
+		return array($row["r_Name"], $row["Date"], $row["trip_no"], $row["SerialNo"], $row["c_name"], $row["Address"], $row["p_name"], $row["quantity"], $row["OrdNo"], $row["client_id"], $row["product_id"], $row["Acronym"]);
 	}
 }
 
