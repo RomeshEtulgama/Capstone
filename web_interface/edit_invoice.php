@@ -19,7 +19,7 @@
 		$p_id = $invoice_data[10];
 		$acronym = $invoice_data[11];
 
-		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]); id = \"edit_invoice_form\">";
+		$form = "<form class=\"m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]); id = \"edit_invoice_form\">";
                     
 			$form .=  "        <div class=\"form-row\">\n";
 			$form .=  "\n";
@@ -54,7 +54,7 @@
 			$form .=  "          <div class=\"form-group mr-4\">\n";
 			$form .=  "            <label for=\"edit_order_no\">Select Client</label>\n";
 			$form .=  "            <div class=\"input-group mb-3\">\n";
-			$form .=  "              <select name = \"edit_client_name\"  id = \"invoiceSelectCLIENT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\">";
+			$form .=  "              <select name = \"edit_client_name\"  id = \"invoiceSelectCLIENT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" data-width=\"300px\">";
 					$result = select_clients(false);
 					if ($result) {
 						// output data of each row
@@ -80,7 +80,7 @@
 			$form .=  "          <div class=\"form-group mr-4\">\n";
 			$form .=  "            <label for=\"edit_order_no\">Select Product</label>\n";
 			$form .=  "            <div class=\"input-group mb-3\">\n";
-			$form .=  "              <select id = \"invoiceSelectPRODUCT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\">";
+			$form .=  "              <select id = \"invoiceSelectPRODUCT_edit\" class=\"selectpicker\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Product\" data-width=\"fit\">";
 			$result = select_products(false);
 					if ($result) {
 						// output data of each row
@@ -103,7 +103,7 @@
 			$form .=  "\n";
 			$form .=  "          <div class=\"form-group mr-4\">\n";
 			$form .=  "            <label for=\"edit_order_no\">Quantity</label>\n";
-			$form .=  "            <div class=\"input-group mb-3\">\n";
+			$form .=  "            <div class=\"input-group mb-3\" style=\"max-width:150px\">\n";
 			$form .=  "              <input type=\"number\" class=\"form-control\" id=\"edit_quantity\" autocomplete=\"off\" value=\"".$qty."\">\n";
 			$form .=  "            </div>\n";
 			$form .=  "          </div>                  \n";

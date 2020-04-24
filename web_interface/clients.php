@@ -119,7 +119,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="was-validated m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_client_form">
+                <form class="m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_client_form">
                     <div class="form-row">
 
                         <!-- INDEX -->

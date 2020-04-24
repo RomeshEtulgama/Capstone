@@ -19,7 +19,6 @@
 			}
 		}
 	}
-	// 0815629992 //
 		$c_index = $client_data[0];
 		$c_name = $client_data[1];
 		$c_address = $client_data[2];
@@ -30,7 +29,7 @@
 		$c_defaultproduct = $client_data[7];
 		$c_remarks = $client_data[8];
 
-		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]) id = \"edit_client_form\">";
+		$form = "<form class=\"m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]) id = \"edit_client_form\">";
 
 			//	INDEX, CODE
 			$form .= "<div class=\"form-row\">";

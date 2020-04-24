@@ -24,7 +24,7 @@
 		$p_unitprice = $product_data[3];
 		$p_remarks = $product_data[4];
 
-		$form = "<form class=\"was-validated m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]); id = \"edit_product_form\">";
+		$form = "<form class=\"m-sm-3\" method=\"post\" action=htmlspecialchars(\$_SERVER[\"PHP_SELF\"]); id = \"edit_product_form\">";
                     
 			$form .= "<div class=\"form-row\">";
 

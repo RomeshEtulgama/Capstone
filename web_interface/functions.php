@@ -508,6 +508,19 @@ function add_route($r_name, $r_acronym)
 	}
 }
 
+function edit_invoice($i_id, $c_id, $p_id, $qty){
+	execute_sql("call edit_invoice('" . $i_id . "', '" . $c_id . "', '" . $p_id . "', '" . $qty . "');");
+}
+
+
+
+
+
+
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (isset($_POST["sub"])) {
 
@@ -644,6 +657,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			remove_invoice($id);
 		}
 
+		// edit invoice
+		if ($_POST["sub"] == "edit_invoice") {
+			$i_id = $c_id = $p_id = $qty = NULL;
+			$i_id = $_POST["sub_i_id"];
+			$c_id = $_POST["sub_c_id"];
+			$p_id = $_POST["sub_p_id"];
+			$qty =$_POST["sub_qty"];
+
+			if( ($i_id!=NULL) && ($c_id!=NULL) && ($p_id!=NULL) && ($qty!=NULL)){
+				edit_invoice($i_id, $c_id, $p_id, $qty);
+			}
+		} 
+
 		//	add route form
 		if ($_POST["sub"] == "add_route_form") {
 			$name = $acronym = NULL;
@@ -654,6 +680,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if (isset($_REQUEST["q"])) {

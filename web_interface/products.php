@@ -61,7 +61,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="was-validated m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_product_form" autocomplete="off">
+                <form class="m-sm-3" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="add_product_form" autocomplete="off">
 
                     <!-- INDEX, NAME, DESCRIPTION, UNIT PRICE -->
                     <div class="form-row">

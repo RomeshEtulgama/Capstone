@@ -435,6 +435,26 @@ function refresh_datatable(str) {
   }
 }
 
+function edit_invoice(id){
+  var i_id = id;
+  var c_id = $('#invoiceSelectCLIENT_edit').val();
+  var p_id = $('#invoiceSelectPRODUCT_edit').val();
+  var qty = $('#edit_quantity').val();
+
+  $.post("./functions.php", {
+    sub: "edit_invoice",
+    sub_i_id: i_id,
+    sub_c_id: c_id,
+    sub_p_id: p_id,
+    sub_qty: qty,
+  });
+
+  setTimeout(() => {
+    Populate_table('orders_table');
+  }, 500);
+  
+}
+
 $(document).ready(function () {
 
   // --------------- Clients ---------------//
