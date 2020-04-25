@@ -5,15 +5,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#Clients_area">Clients </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#Products_area">Products</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#Invoices_area">Invoices</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Clients_area">Clients </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Products_area">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Invoices_area">Invoices</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Payments_area">Payments</a>
+            </li>
         </ul>
         <span class="navbar-text">
         Testing interface

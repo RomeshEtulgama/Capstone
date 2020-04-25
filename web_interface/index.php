@@ -41,7 +41,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#capstone-nav" data-offset="0">
+<body data-spy="scroll" data-target="#capstone-nav" data-offset="0" >
 
   <?php include("navbar.php"); ?>
 
@@ -59,6 +59,10 @@
       <?php include("invoices.php"); ?>
     </div>
 
+    <div class="container" id="Payments_area" style="padding-top: 50px">
+      <?php include("payments.php"); ?>
+    </div>
+
   </div>
   
   <div id="scripts"></div>
@@ -73,6 +77,8 @@
 
   <!-- DataTables -->
   <script type="text/javascript" src="./js/dataTables.js"></script>
+  <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
+  
 
   <!-- Typeahead -->
   <script src="js/typeahead.bundle.js" type="text/javascript"></script>
