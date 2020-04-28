@@ -512,7 +512,7 @@ function edit_invoice($i_id, $c_id, $p_id, $qty){
 	execute_sql("call edit_invoice('" . $i_id . "', '" . $c_id . "', '" . $p_id . "', '" . $qty . "');");
 }
 
-
+# ------------ Payments ------------ #
 
 
 
@@ -703,7 +703,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		} elseif ($populate_request == "routes_radio") {
 			$tab_data = get_routes();
 			echo $tab_data == "" ? "Error" : $tab_data;
-		} elseif (substr($populate_request, 0, 19)  == "invoiceSelectCLIENT") {
+		} elseif ((substr($populate_request, 0, 19)  == "invoiceSelectCLIENT") || (substr($populate_request, 0, 19)  == "paymentSelectCLIENT")) {
 			$select_data = select_clients(true);
 			echo $select_data == "" ? "" : $select_data;
 		} elseif (substr($populate_request, 0, 20) == "invoiceSelectPRODUCT") {

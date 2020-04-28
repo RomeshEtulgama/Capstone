@@ -446,6 +446,14 @@ tbody > tr > td > label {
     margin-bottom: 0;
 }
 
+td > div > span > button {
+    border: 0px !important;
+}
+
+.gj-datepicker {
+    min-width: 60px;
+}
+
 @media screen and (max-width: 767px) {
     .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
     float: none;
