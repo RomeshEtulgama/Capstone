@@ -19,12 +19,13 @@
             <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="payments_table">
                 <thead>
                     <tr>
-                        <th scope="col" style="text-align: center">Date</th>
-                        <th scope="col" style="text-align: center; width: 15%">Client Name</th>
-                        <th scope="col" style="text-align: center">Payment Method</th>
-                        <th scope="col" style="text-align: center">Amount</th>
-                        <th scope="col" style="text-align: center">Remarks</th>
-                        <th scope="col" style="text-align: center">Total Outstanding</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Payment<br>Date</th>
+                        <th scope="col" style="text-align: center; width: 300px; vertical-align:middle">Client Name</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Payment<br>Method</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Amount</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Remarks</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Action</th>
+                        <!-- <th scope="col" style="text-align: center; vertical-align:middle">Total<br>Outstanding</th> -->
                     </tr>
                 </thead>
                 <tbody>

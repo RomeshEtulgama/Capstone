@@ -90,7 +90,7 @@ function submitAddProductForm() {
   var unitprice = $('#productInputUNITPRICE').val();
   var remarks = $('#productInputREMARKS').val();
   var clients = $('#productSelectCLIENTS').val();
-  
+
   if (clients.length == 0)
     clients = "";
 
@@ -317,14 +317,14 @@ function add_row() {
 
 }
 
-function clear_invoices_table(){
+function clear_invoices_table() {
   var t = $('#invoices_table').DataTable();
   t.clear();
   t.draw();
   add_row();
 }
 
-function change_acronym_for_ORDNO(str){
+function change_acronym_for_ORDNO(str) {
   document.getElementById("basic-addon3").textContent = str;
 }
 
@@ -334,10 +334,10 @@ function submitAddOrderForm() {
   var i_order_date = (document.getElementById("order_date").value);
   var i_order_remarks = document.getElementById("order_remarks").value;
   var i_header;
-  if(isNaN(i_order_no) || i_order_no<=0){
+  if (isNaN(i_order_no) || i_order_no <= 0) {
     alert("Please fill Order No.");
   } else {
-    
+
     i_header = [i_route_id, i_order_no, i_order_date, i_order_remarks];
     var table = $("#invoices_table").dataTable();
     var rows = table.fnGetNodes();
@@ -346,12 +346,12 @@ function submitAddOrderForm() {
       var client_id = Number(row.cells[1].lastElementChild.firstElementChild.value);
       var quantity = Number(row.cells[2].lastElementChild.firstElementChild.value);
       var product_id = Number(row.cells[3].lastElementChild.firstElementChild.value);
-      if(client_id > 0 && product_id > 0)
+      if (client_id > 0 && product_id > 0)
         i_entries.push([client_id, quantity, product_id]);
     });
     var i_order_data = [i_header, i_entries];
-    
-    if(i_entries.length < 1)
+
+    if (i_entries.length < 1)
       alert("Please add some orders in the table");
     else
       $.post("./functions.php", {
@@ -362,11 +362,11 @@ function submitAddOrderForm() {
     setTimeout(() => {
       Populate_table('orders_table');
     }, 1000);
-    
+
   }
 
 
-  
+
   // alert([route_id, order_no, order_date, order_remarks]);
 
 }
@@ -385,7 +385,7 @@ function remove_invoice(id) {
 function submitAddRouteForm() {
   var name = $('#route_name').val();
   var acronym = $('#route_acronym').val();
-  
+
   if (name.trim() == '') {
     alert('Please enter route name.');
     $('#route_name').focus();
@@ -409,24 +409,28 @@ function submitAddRouteForm() {
 }
 
 // ------------------ Payments --------------------------- //
-function add_payment_row(){
+function add_payment_row() {
   var t = $('#payments_table').DataTable();
   var counter = t.rows().count() + 1;
 
-  var payment_date = "<input id=\"paymentDATE_"+ String(counter)+ "\" style=\"border: 0px\" class=\"bg-dark text-white\" />";
-  var payment_client_name_field = "<select name = \"client_name\"  id = \"paymentSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" tabIndex=\"" + counter + "1\"></select>";
-  
-  var payment_method_field = "<select id = \"paymentSelectMETHOD_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Method\" onchange=\"set_unit_price(" + counter + ")\" >";
+  var payment_date = "<input id=\"paymentDATE_" + String(counter) + "\" style=\"border: 0px\" class=\"bg-dark text-white\" />";
+  var payment_client_name_field = "<select name = \"client_name\"  id = \"paymentSelectCLIENT_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Client\" tabIndex=\"" + counter + "101\" onchange=\"set_payment_client(" + String(counter) + ")\" ></select>";
+
+  var payment_method_field = "<select name=\"method\" id = \"paymentSelectMETHOD_" + String(counter) + "\" class=\"selectpicker\" data-width=\"100%\" data-live-search=\"true\" data-actions-box = \"true\" data-none-selected-text=\"Select Method\" onchange=\"set_payment_method(" + String(counter) + ")\" tabIndex=\"" + counter + "102\">";
   payment_method_field += "     <option value = 1>Cash</option>";
-	payment_method_field += "     <option value = 2>Bank Transfer</option>";
-	payment_method_field += "     <option value = 3>Cheque</option>";
+  payment_method_field += "     <option value = 2>Bank Transfer</option>";
+  payment_method_field += "     <option value = 3>Cheque</option>";
   payment_method_field += "</select>";
 
-  payment_method_field += "<input id=\"paymentCHEQUEDATE_"+ String(counter)+ "\" style=\"border: 0px\" class=\"bg-dark text-white\" />";
-  
-  var payment_amount_field = "<input name = \"amount\" id = \"paymentAMOUNT_" + String(counter) + "\" type=\"number\" class=\"form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" tabIndex=\"" + counter + "2\">";
-  var payment_remarks_field = "<input name = \"remarks\" id = \"paymentREMARKS_" + String(counter) + "\" type=\"text\" class=\"form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"calculate_amount(" + counter + ")\" tabIndex=\"" + counter + "2\">";
-  var total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=0.00 style=\"text-align: right\">";
+  var payment_amount_field = "<input name = \"amount\" id = \"paymentAMOUNT_" + String(counter) + "\" type=\"number\" class=\"form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"set_payment_amount(" + counter + ")\" tabIndex=\"" + counter + "103\">";
+  var payment_remarks_field = "<input name = \"remarks\" id = \"paymentREMARKS_" + String(counter) + "\" type=\"text\" class=\"form-control table-cell bg-dark text-white\" style=\"border : 0px\" autocomplete=\"off\" spellcheck=\"false\" onchange=\"set_payment_remarks(" + counter + ")\">";
+  payment_remarks_field += "<input name=\"cheque_date\" id=\"paymentCHEQUEDATE_" + String(counter) + "\" style=\"border: 0px\" class=\"bg-dark text-white\" tabIndex=\"" + counter + "104\" onchange=\"set_payment_cheque_date(" + counter + ")\" />";
+
+  //var total_outstanding_field = "<input readonly id = \"invoiceOUTSTANDING_" + String(counter) + "\" class=\"typeahead form-control table-cell bg-dark text-white\"  value=0.00 style=\"text-align: right\">";
+
+  var payment_remove_button = "<button class=\"btn btn-sm btn-danger\" id=\"remove_payment\"  data-toggle=\"modal\" data-target=\"#deletePaymentModal\" data-whatever=\"\">";
+	payment_remove_button += "<i class=\"fa fa-close\"></i>";
+	payment_remove_button += "</button>";
 
   t.row.add([
     payment_date,
@@ -434,34 +438,85 @@ function add_payment_row(){
     payment_method_field,
     payment_amount_field,
     payment_remarks_field,
-    total_outstanding_field
-    ]).draw(false);
+    payment_remove_button
+    //total_outstanding_field
+  ]).draw(false);
 
   populate_select_field("paymentSelectCLIENT_" + String(counter));
 
   setTimeout(() => {
     $("#paymentSelectCLIENT_" + String(counter)).selectpicker();
     $("#paymentSelectCLIENT_" + String(counter)).selectpicker('val', 0);
-    $('#paymentDATE_'+ String(counter)).datepicker({
-      uiLibrary: 'bootstrap4',
-      format: "yyyy-mm-dd"
-    });
-    $('#paymentCHEQUEDATE_'+ String(counter)).datepicker({
-      uiLibrary: 'bootstrap4',
-      format: "yyyy-mm-dd"
-    });
   }, 100);
 
-  setTimeout(() => {
-    $("#paymentSelectMETHOD_" + String(counter)).selectpicker();
-    $("#paymentSelectMETHOD_" + String(counter)).selectpicker('val', 1);
-  }, 100);
+  var today = new Date();
+  var yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(today);
+  var mm = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(today);
+  var dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(today);
+
+  $('#paymentDATE_' + String(counter)).datepicker({
+    uiLibrary: 'bootstrap4',
+    format: "yyyy-mm-dd",
+    value: yy + "-" + mm + "-" + dd
+  });
+
+  $('#paymentCHEQUEDATE_' + String(counter)).datepicker({
+    uiLibrary: 'bootstrap4',
+    format: "yyyy-mm-dd"
+  });
+  $('#paymentCHEQUEDATE_' + String(counter)).datepicker('destroy');
+  $('#paymentCHEQUEDATE_' + String(counter)).hide();
+
+  // setTimeout(() => {}, 1);
+
+  $("#paymentSelectMETHOD_" + String(counter)).selectpicker();
+  $("#paymentSelectMETHOD_" + String(counter)).selectpicker('val', 1);
+}
+
+function change_remarks_field(counter) {
+  var payment_method_field = document.getElementById("paymentSelectMETHOD_" + String(counter));
+  var payment_remarks_input = document.getElementById("paymentREMARKS_" + String(counter));
+  var payment_cheque_date = $('#paymentCHEQUEDATE_' + String(counter));
+  if (payment_method_field.value == "1" || payment_method_field.value == "2") {
+    payment_remarks_input.style.display = "";
+    payment_cheque_date.datepicker('destroy');
+    payment_cheque_date.hide();
+  } else {
+    payment_remarks_input.style.display = "none";
+    payment_cheque_date.show();
+    payment_cheque_date.datepicker({
+      uiLibrary: 'bootstrap4',
+      format: "yyyy-mm-dd"
+    });
+    document.getElementById('paymentCHEQUEDATE_' + String(counter)).classList.add("bg-dark");
+    document.getElementById('paymentCHEQUEDATE_' + String(counter)).classList.add("text-white");
+  }
 
 
 }
 
+function set_payment_client(counter) {
+  var that = document.activeElement;
+  $('[tabIndex=' + (+that.tabIndex + 2) + ']')[0].focus();
+}
 
+function set_payment_method(counter) {
+  var that = document.activeElement;
+  $('[tabIndex=' + (+that.tabIndex + 1) + ']')[0].focus();
+  change_remarks_field(counter);
+}
 
+function set_payment_amount(counter) {
+  
+}
+
+function set_payment_remarks(counter) {
+
+}
+
+function set_payment_cheque_date(counter) {
+
+}
 
 // Populate a table using ajax
 function Populate_table(str) {
@@ -473,7 +528,7 @@ function Populate_table(str) {
   };
   xmlhttp.open("GET", "functions.php?q=" + str, true);
   xmlhttp.send();
-  if(str!='routes_radio')
+  if (str != 'routes_radio')
     refresh_datatable(str);
 }
 
@@ -489,7 +544,7 @@ function refresh_datatable(str) {
   }
 }
 
-function edit_invoice(id){
+function edit_invoice(id) {
   var i_id = id;
   var c_id = $('#invoiceSelectCLIENT_edit').val();
   var p_id = $('#invoiceSelectPRODUCT_edit').val();
@@ -506,7 +561,7 @@ function edit_invoice(id){
   setTimeout(() => {
     Populate_table('orders_table');
   }, 500);
-  
+
 }
 
 $(document).ready(function () {
@@ -717,7 +772,7 @@ $(document).ready(function () {
       error: function (jqxhr, status, exception) {
         alert('Exception:', exception);
       }
-    });    
+    });
     //});
   });
 
@@ -725,13 +780,13 @@ $(document).ready(function () {
     tries = 50;
     x = document.getElementById('invoiceSelectCLIENT_edit');
     y = document.getElementById('invoiceSelectPRODUCT_edit');
-    while((window.getComputedStyle(x).display == "none" || window.getComputedStyle(y).display == "none" ) && tries>0){
+    while ((window.getComputedStyle(x).display == "none" || window.getComputedStyle(y).display == "none") && tries > 0) {
       $("#invoiceSelectCLIENT_edit").selectpicker();
       $("#invoiceSelectPRODUCT_edit").selectpicker();
       tries--;
     }
-    
-    
+
+
   });
   // --------------- Activating DataTables for Regular Bootstrap tables ---------------//
 
@@ -745,7 +800,7 @@ $(document).ready(function () {
 
   $('#active_clients_table').DataTable({
     "searching": false,
-    "lengthMenu": [ 5, 10, 25, 50, 75, 100 ]
+    "lengthMenu": [5, 10, 25, 50, 75, 100]
   });
 
   // Invoices
@@ -754,16 +809,16 @@ $(document).ready(function () {
   });
 
   $('#orders_table').DataTable({
-    searching : false
+    searching: false
   });
 
   add_row();
 
-  $('input[type=radio][id="routes-radio"]').change(function() {
-    if (this.name != "new"){
-    document.getElementById("basic-addon3").textContent = this.value;
-    document.getElementById("basic-addon3").value = this.name;
-    } 
+  $('input[type=radio][id="routes-radio"]').change(function () {
+    if (this.name != "new") {
+      document.getElementById("basic-addon3").textContent = this.value;
+      document.getElementById("basic-addon3").value = this.name;
+    }
     // else {
     //   // alert("Add New Route Modal");
     //   // $('#addRouteModal').modal('toggle');
@@ -783,22 +838,22 @@ $(document).ready(function () {
 
 });
 
-$(function() {
-  $(document).on('keypress', function(e) {
-      var that = document.activeElement;
-      if( e.which == 13 ) {
-        // e.preventDefault();
-        if(that.name == "quantity"){
-          try{
+$(function () {
+  $(document).on('keypress', function (e) {
+    var that = document.activeElement;
+    if (e.which == 13) {
+      // e.preventDefault();
+      if (that.name == "quantity") {
+        try {
+          $('[tabIndex=' + (+that.tabIndex + 9) + ']')[0].focus();
+        } catch {
+          add_row();
+          setTimeout(() => {
             $('[tabIndex=' + (+that.tabIndex + 9) + ']')[0].focus();
-          } catch {
-            add_row();
-            setTimeout(() => {
-              $('[tabIndex=' + (+that.tabIndex + 9) + ']')[0].focus();
-            }, 100); 
-          }
+          }, 100);
         }
-      }            
+      }
+    }
   });
 });
 
