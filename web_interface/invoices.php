@@ -1,5 +1,5 @@
 <div>
-  <div class="container px-0" id="Products_area">
+  <div class="container px-0">
 
     <div class="starter-template">
       <h1>Invoices</h1>
