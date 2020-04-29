@@ -9,7 +9,7 @@
   <meta name="description" content="Web application for simple accounting operations">
   <meta name="author" content="Romesh Etulgama">
 
-  <link rel="icon" href="https://getbootstrap.com/docs/3.3/favicon.ico">
+  <link rel="icon" href="images/favicon.ico">
 
   <title>Capstone Test Interface</title>
 
