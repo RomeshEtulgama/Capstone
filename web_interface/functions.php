@@ -105,27 +105,27 @@ function view_clients()
 	if ($result) {
 		$table_data .= "<thead><tr>
 						<th class=\"text-center\">ID</th>
-						<th>Name</th>
-						<th>Address</th>
-						<th>Nickname</th>
-						<th style=\"display : none\">CodeNo</th>
-						<th>Contacts</th>
-						<th>DefaultProduct</th>
-						<th>Remarks</th>
-						<th class=\"text-center\">Actions</th>
+						<th class=\"text-center\">Name</th>
+						<th class=\"text-center\">Address</th>
+						<th class=\"text-center\" style=\"width: 120px;\">Nickname</th>
+						<th class=\"text-center\" style=\"display : none\">CodeNo</th>
+						<th class=\"text-center\" style=\"width: 140px;\">Contacts</th>
+						<th class=\"text-center\" style=\"width: 140px;\">DefaultProduct</th>
+						<th class=\"text-center\">Remarks</th>
+						<th class=\"text-center\" style=\"width: 120px;\">Actions</th>
 					</tr></thead>";
 		// output data of each row
 		while ($row = $result->fetch_assoc()) {
 			$table_data .= "<tr>
 						<td class=\"text-center\">" . $row["Index"] . "</td>
-						<td>" . $row["Name"] . "</td>
-						<td>" . $row["Address"] . "</td>
-						<td>" . $row["Nickname"] . "</td>
-						<td style=\"display : none\">" . $row["CodeNo"] . "</td>
-						<td>" . $row["Contact1"] . "\n" . $row["Contact2"] . "</td>
-						<td>" . $row["DefaultProduct"] . "</td>
+						<td class=\"text-left\">" . $row["Name"] . "</td>
+						<td class=\"text-left\">" . $row["Address"] . "</td>
+						<td class=\"text-left\" style=\"width: 120px;\">" . $row["Nickname"] . "</td>
+						<td style=\"display : none\" style=\"width: 140px;\">" . $row["CodeNo"] . "</td>
+						<td style=\"width: 140px;\">" . $row["Contact1"] . "\n" . $row["Contact2"] . "</td>
+						<td style=\"width: 140px;\">" . $row["DefaultProduct"] . "</td>
 						<td>" . $row["Remarks"] . "</td>
-						<td class=\"text-center\" >
+						<td class=\"text-center\" style=\"width: 130px;\">
 							<form method=\"post\">
 								<button type=\"button\" class=\"btn btn-danger btn-sm\" name=\"delete\" data-toggle=\"modal\" data-target=\"#deleteClientModal\" 
 								data-whatever=\"" . $row["id"] . "\">Delete
@@ -268,10 +268,10 @@ function view_products()
 	if ($result) {
 		$table_data .= "<thead><tr>
 						<th class=\"text-center\">ID</th>
-						<th>Name</th>
-						<th>Description</th>
+						<th class=\"text-center\">Name</th>
+						<th class=\"text-center\">Description</th>
 						<th class=\"text-center\">Unit Price (LKR)</th>
-						<th>Remarks</th>
+						<th class=\"text-center\">Remarks</th>
 						<th class=\"text-center\">Actions</th>
 					</tr></thead>";
 		// output data of each row

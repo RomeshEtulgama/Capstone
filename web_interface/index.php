@@ -72,14 +72,12 @@
   <!-- Bootstrap core JavaScript
       ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <!-- <script src="./index_files/jquery.min.js.download"></script> -->
   <script src="./index_files/bootstrap.min.js.download"></script>
 
   <!-- DataTables -->
   <script type="text/javascript" src="./js/dataTables.js"></script>
   <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
   
-
   <!-- Typeahead -->
   <script src="js/typeahead.bundle.js" type="text/javascript"></script>
 

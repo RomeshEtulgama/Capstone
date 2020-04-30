@@ -518,6 +518,32 @@ function set_payment_cheque_date(counter) {
 
 }
 
+
+// ------------------------- Navbar -------------------------- //
+function sidebar_active(str) {
+  $("#Clients_area").hide(200, function(){});
+  $("#Products_area").hide(200, function(){});
+  $("#Invoices_area").hide(200, function(){});
+  $("#Payments_area").hide(200, function(){});
+  
+  if(str == "Clients"){
+    $("#Clients_area").show(200, function(){});
+  }
+  else if(str == "Products"){
+    $("#Products_area").show(200, function(){});
+  }
+  else if(str == "Invoices"){
+    $("#Invoices_area").show(200, function(){});
+  }
+  else if(str == "Payments"){
+    $("#Payments_area").show(200, function(){});
+  }
+  else if(str == "Reports"){}
+  
+}
+
+
+
 // Populate a table using ajax
 function Populate_table(str) {
   var xmlhttp = new XMLHttpRequest();

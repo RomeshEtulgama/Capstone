@@ -521,3 +521,7 @@ tbody > tr > td {
 .tt-suggestion p {
     margin: 0;
 }
+
+.dataTables_wrapper {
+    width: 100%;
+}

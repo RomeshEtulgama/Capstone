@@ -1,0 +1,67 @@
+<div class="starter-template">
+    <h1>Payments Dashboard</h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo placeat cumque dolorum, incidunt reprehenderit earum laborum deleniti laudantium corrupti reiciendis nemo. Quam corrupti nisi eos aliquam incidunt aut voluptatum illum?</p>
+</div>
+
+<!-- Payments -->
+<div class="card bg-dark text-white col-sm-12" >
+    <!-- Default panel contents -->
+    <nav class="navbar navbar-dark bg-dark text-white">
+        <h4>Payments</h4>
+
+        <!-- search the table -->
+        <input class="form-control col-sm-3" type="search" id="payments_filter_input" onkeyup="filter_table('payments_filter_input', 'payments_table', 5)" placeholder="Search for payments">
+    </nav>
+
+    <!-- Payments Table -->
+    <form>
+        <div class="form-row">
+            <table class="table table-hover table-dark table-responsive-sm table-small-text table-bordered table-sm" id="payments_table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Payment<br>Date</th>
+                        <th scope="col" style="text-align: center; width: 300px; vertical-align:middle">Client Name</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Payment<br>Method</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Amount</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle">Remarks</th>
+                        <th scope="col" style="text-align: center; vertical-align:middle; width:30px;">Action</th>
+                        <!-- <th scope="col" style="text-align: center; vertical-align:middle">Total<br>Outstanding</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfooter>
+                    <tr>
+                        <th colspan="7" style="text-align: center" onclick="add_payment_row()">Add Row</th>
+                    </tr>
+                </tfooter>
+            </table>
+        </div>
+    </form>
+
+</div>
+
+<!-- Delete Payment Confirmation Modal -->
+<div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header" style="border-bottom : 1px solid #495057">
+                <h5 class="modal-title" id="deleteProductModalLabel">Delete Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body delete-product-modal-body">
+
+
+            </div>
+
+            <div class="modal-footer delete-product-modal-footer" style="border-top : 1px solid #495057">
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button type="submit" class="btn btn-primary submitBtn" data-toggle="modal" data-target="#deleteClientModal" onclick="deleteClient()">Yes</button> -->
+            </div>
+        </div>
+    </div>
+</div>

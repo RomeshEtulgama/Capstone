@@ -3,15 +3,38 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Web application for simple accounting operations">
+  <meta name="author" content="Romesh Etulgama">
 
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <link rel="icon" href="images/favicon.ico">
+
+  <title>Quentin Interface</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="./index_files/ie-emulation-modes-warning.js.download"></script>
+
+  <script type="text/javascript" src="js/functions.js"></script>
+
+  <?php include('functions.php'); ?>
+
+  <!-- BOOTSTRAP SELECT PLUGIN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+  <!-- Datepicker -->
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
@@ -20,49 +43,57 @@
 
 <body>
 
-  
+
 
   <div>
     <div class="container" id="navbar" style="padding-top: 3.5em">
-     <?php include('navbar.php'); ?>
+      <?php include('navbar.php'); ?>
     </div>
   </div>
+
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
-    <div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="bg-dark border-right" style="border-right-width: 3px !important;" id="sidebar-wrapper">
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Clients</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Products</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Invoices</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Payments</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Reports</a>
+        <a href="#" onclick="alert('Dashboard');" class="list-group-item list-group-item-action bg-dark text-white">
+          <h5><i class="fa fa-tachometer"></i>&nbsp;&nbsp;Dashboard</h5>
+        </a>
+        <a href="#" onclick="sidebar_active('Clients');" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Clients</a>
+        <a href="#" onclick="sidebar_active('Products');" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Products</a>
+        <a href="#" onclick="sidebar_active('Invoices');" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Invoices</a>
+        <a href="#" onclick="sidebar_active('Payments');" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa fa-money"></i>&nbsp;&nbsp;&nbsp;Payments</a>
+        <a href="#" onclick="sidebar_active('Reports');" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;&nbsp;Reports</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <div class="container-fluid">
-        <h1 class="mt-4">Simple Sidebar</h1>
-        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+    <div id="page-content-wrapper sdd">
+      <div class="container-fluid px-0">
+
+        <div class="container" id="Clients_area" style="max-width: 100%">
+          <?php include("public/clients.php"); ?>
+        </div>
+
+        <div class="container" id="Products_area" style="max-width: 100%">
+          <?php include("public/products.php"); ?>
+        </div>
+
+        <div class="container" id="Invoices_area" style="max-width: 200%">
+          <?php include("public/invoices.php"); ?>
+        </div>
+
+        <div class="container" id="Payments_area" style="max-width: 100%">
+          <?php include("public/payments.php"); ?>
+        </div>
+
+
       </div>
     </div>
-    <!-- /#page-content-wrapper -->
 
   </div>
   <!-- /#wrapper -->
-
-  <!-- Bootstrap core JavaScript -->
-  <!-- <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
   <!-- Menu Toggle Script -->
   <script>
@@ -70,7 +101,21 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+    $("#Clients_area").hide();
+    $("#Products_area").hide();
+    $("#Invoices_area").hide();
+    // $("#Payments_area").hide();
   </script>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="./index_files/bootstrap.min.js.download"></script>
+
+  <!-- DataTables -->
+  <script type="text/javascript" src="./js/dataTables.js"></script>
+  <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
+
+  <!-- Typeahead -->
+  <script src="js/typeahead.bundle.js" type="text/javascript"></script>
 
 </body>
 
