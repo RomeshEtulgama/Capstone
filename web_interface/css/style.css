@@ -525,3 +525,7 @@ tbody > tr > td {
 .dataTables_wrapper {
     width: 100%;
 }
+
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: max-content;
+}
